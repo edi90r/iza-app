@@ -13,9 +13,9 @@
             "type": "image/png"
         }
     ],
-    "start_url": "https://iza-app.vercel.app/pwa",
+    "start_url": "./pwa",
     "background_color": "#FFFFFF",
     "display": "standalone",
-    "scope": "/pwa/",
+    "scope": "/pwa",
     "theme_color": "#000000"
 }
