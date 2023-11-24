@@ -1,11 +1,12 @@
-import './App.css';
+import React from 'react';
+import AdminPanel from './admin-panel/AdminPanel';
+import PwaApp from './pwa-app/PwaApp';
 
 function App() {
     return (
         <>
-            <p className='text-crimson text-3xl font-bold underline'>
-                Click on the Vite and React logos to learn more
-            </p>
+            <AdminPanel />
+            <PwaApp />
         </>
     );
 }
