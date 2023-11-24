@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const PwaApp = () => {
+const AdminPanel = () => {
     return (
         <div>
-            <h2 className='font-montserrat'>PWA App </h2>
+            <h2 className='font-montserrat'>Admin Panel </h2>
             <Link to='/'>powrót</Link>
         </div>
     );
 };
 
-export default PwaApp;
+export default AdminPanel;
