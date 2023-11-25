@@ -8,9 +8,8 @@
             "type": "image/png"
         }
     ],
-    "start_url": ".",
+    "start_url": "https://iza-app.vercel.app",
     "background_color": "#FFFFFF",
     "display": "standalone",
-    "scope": "/",
     "theme_color": "#000000"
 }
