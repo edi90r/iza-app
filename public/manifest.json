@@ -16,5 +16,7 @@
     "start_url": "https://iza-app.vercel.app",
     "background_color": "#FFFFFF",
     "theme_color": "#000000",
-    "display": "standalone"
+    "display": "standalone",
+    "orientation": "portrait",
+    "form-factor": "tablet"
 }
