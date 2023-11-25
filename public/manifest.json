@@ -8,9 +8,9 @@
             "type": "image/png"
         }
     ],
-    "start_url": "/pwa",
+    "start_url": ".",
     "background_color": "#FFFFFF",
     "display": "standalone",
-    "scope": "/pwa/",
+    "scope": "/",
     "theme_color": "#000000"
 }
