@@ -10,6 +10,7 @@ module.exports = {
     ignorePatterns: ['dist', '.eslintrc.cjs'],
     parser: '@babel/eslint-parser',
     parserOptions: {
+        requireConfigFile: false,
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
