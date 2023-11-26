@@ -7,6 +7,10 @@ export default defineConfig({
     plugins: [
         react(),
         VitePWA({
+            devOptions: {
+                enabled: true,
+                type: 'module',
+            },
             registerType: 'autoUpdate',
             includeAssets: ['logo192.png', 'logo512.png'],
             manifest: {
