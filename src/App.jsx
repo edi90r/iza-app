@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LandingPage from './ladning-page/LandingPage';
 import AdminPanel from './admin-panel/AdminPanel';
