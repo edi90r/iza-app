@@ -4,12 +4,14 @@ const AdminPanel = () => {
     return (
         <div className='drawer lg:drawer-open'>
             <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
-            <div className='drawer-content space-between flex flex-col border-l-2'>
+
+            <div className='space-between drawer-content flex h-screen flex-col lg:border-l-2'>
+                {/* Breadcrumbs */}
                 <div
-                    className='breadcrumbs border-gray-400 w-100 flex border-b-2 text-sm'
+                    className='border-gray-400 w-100 breadcrumbs hidden border-b-2 text-sm lg:flex'
                     style={{ height: '10vh' }}
                 >
-                    <ul>
+                    <ul className='p-4'>
                         <li>
                             <a>Home</a>
                         </li>
@@ -20,20 +22,28 @@ const AdminPanel = () => {
                     </ul>
                 </div>
 
-                <h2 className='grow bg-crimson'>ADmin Panel</h2>
-
-                <label htmlFor='my-drawer-2' className='btn btn-primary drawer-button lg:hidden'>
+                {/* Admin panel content */}
+                <div className=' flex  grow items-center justify-center bg-crimson p-4'>
+                    <h2 className=''>Admin Panel</h2>
+                </div>
+                <label
+                    htmlFor='my-drawer-2'
+                    className='btn-primary drawer-button btn absolute z-50 lg:hidden'
+                    style={{ top: '5%', right: '5%' }}
+                >
                     Open drawer
                 </label>
             </div>
+
+            {/* Sidebar */}
             <div className='drawer-side'>
                 <label
                     htmlFor='my-drawer-2'
                     aria-label='close sidebar'
                     className='drawer-overlay'
                 ></label>
-                <ul className='menu bg-base-200 text-base-content min-h-full w-80 p-4'>
-                    {/* Sidebar content here */}
+
+                <ul className='menu min-h-full w-80 bg-base-200 p-4 text-base-content'>
                     <li>
                         <Link to={'/'}>Back to main</Link>
                     </li>
