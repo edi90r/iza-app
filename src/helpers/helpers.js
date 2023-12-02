@@ -1,5 +1,8 @@
-// Agregate Users Data from 3 different collection (users, moodsReport, contactRequestsReport) to display them in proper way
-export const aggregateUserData = async (
+/*** - AgregateUsersData from 3 different collection(users, moodsReport, contactRequestsReport) 
+       to display them in proper way. It is used in getUsersExcerpt() 
+***/
+
+export const aggregateUsersData = async (
     users = [],
     moodReports = [],
     contactRequestReports = [],
@@ -17,7 +20,7 @@ export const aggregateUserData = async (
                         source: {
                             userId: item.source.userId,
                         },
-                        timestamp: item.timestamp,
+                        timestamp: item.timestamp.toDate(),
                         mood: item.mood,
                         contactRequests: [],
                     });
@@ -35,9 +38,12 @@ export const aggregateUserData = async (
                             source: {
                                 userId: item.source.userId,
                             },
-                            timestamp: item.timestamp,
+                            timestamp: item.timestamp.toDate(),
                             resolve: item.resolve,
-                            note: item.note,
+                            note: {
+                                text: item.note.text,
+                                timestamp: item.note.timestamp.toDate(),
+                            },
                         });
                     } else {
                         moodReport.contactRequests = [];
@@ -49,7 +55,7 @@ export const aggregateUserData = async (
                 uid: user.uid,
                 name: user.name,
                 lastname: user.lastname,
-                dateOfBirth: user.dateOfbirth,
+                dateOfBirth: user.dateOfbirth.toDate(),
                 personalIdentityNumber: user.personalIndentityNumber,
                 adress: user.adress,
                 describe: user.describe,
@@ -62,4 +68,15 @@ export const aggregateUserData = async (
         console.error('Error fetching users: ', error);
         throw error;
     }
+};
+
+export const computeUserAge = (birthDate) =>
+    Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e10);
+
+export const displayUserAddressCorrectly = (adress) => {
+    const { city, street, houseNumber, apartmentNumber } = adress;
+
+    return `${street ? street : city} ${houseNumber}${
+        apartmentNumber !== 0 ? `/${apartmentNumber}` : ''
+    }`;
 };
