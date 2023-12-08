@@ -1,6 +1,6 @@
 import { collection, getDocs, where, query, Timestamp } from 'firebase/firestore';
 import { db } from '../firebase';
-import { aggregateUsersData } from '../helpers/helpers';
+import { aggregateUsersData } from '../utils/helpers';
 
 /*** getUsersExcertp() - function to fetch users excerpt data from firebase,
      passed params are excerpt (boolean) and days (number) are required 

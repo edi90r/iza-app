@@ -2,6 +2,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import LandingPage from './ladning-page/LandingPage';
 import AdminPanel from './admin-panel/AdminPanel';
 import PwaApp from './pwa-app/PwaApp';
+import Dashboard from './admin-panel/views/Dashboard';
+import UserFormView from './admin-panel/views/UserFormVIew';
+import UserDetails from './admin-panel/views/UserDetails';
 
 const router = createBrowserRouter([
     {
@@ -10,7 +13,19 @@ const router = createBrowserRouter([
     },
     {
         path: '/admin',
-        element: <AdminPanel />,
+        element: <AdminPanel content={<Dashboard />} />,
+    },
+    {
+        path: '/admin/add-user',
+        element: <AdminPanel content={<UserFormView />} />,
+    },
+    {
+        path: '/admin/edit-user',
+        element: <AdminPanel content={<UserFormView />} />,
+    },
+    {
+        path: '/admin/user-details/:id',
+        element: <AdminPanel content={<UserDetails />} />,
     },
     {
         path: '/pwa',
