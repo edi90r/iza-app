@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+// import { useLocation } from 'react-router-dom';
+import { useAppView } from '../utils/hooks';
 
-const AdminPanel = () => {
+const AdminPanel = ({ content }) => {
+    const [appView] = useAppView();
+    // let location = useLocation().pathname;
+
     return (
         <div className='drawer lg:drawer-open'>
             <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
@@ -23,9 +29,9 @@ const AdminPanel = () => {
                 </div>
 
                 {/* Admin panel content */}
-                <div className=' flex  grow items-center justify-center bg-crimson p-4'>
-                    <h2 className=''>Admin Panel</h2>
-                </div>
+                <div className='flex grow bg-crimson p-4'>{content}</div>
+
+                {/* Burger */}
                 <label
                     htmlFor='my-drawer-2'
                     className='btn-primary drawer-button btn absolute z-50 lg:hidden'
@@ -44,16 +50,48 @@ const AdminPanel = () => {
                 ></label>
 
                 <ul className='menu min-h-full w-80 bg-base-200 p-4 text-base-content'>
-                    <li>
-                        <Link to={'/'}>Back to main</Link>
-                    </li>
-                    <li>
-                        <a>Sidebar Item 2</a>
-                    </li>
+                    {(() => {
+                        switch (appView) {
+                            case 'dashboard':
+                                return (
+                                    <>
+                                        <li>
+                                            <Link to={'/admin/add-user'}>Add User</Link>
+                                        </li>
+                                        <li>
+                                            <Link to={'/'}>Wyloguj</Link>
+                                        </li>
+                                    </>
+                                );
+                            case 'addUser':
+                                return (
+                                    <li>
+                                        <Link to={'/admin'}>Dashboard</Link>
+                                        <Link to={'/'}>Wyloguj</Link>
+                                    </li>
+                                );
+                            case 'userDetails':
+                                return (
+                                    <li>
+                                        <Link to={'/admin'}>Dashboard</Link>
+                                        <Link to={'/admin'}>Edytuj użytkownika</Link>
+                                        <Link to={'/admin'}>Usuń użytkownika</Link>
+                                        <Link to={'/'}>Wyloguj</Link>
+                                    </li>
+                                );
+
+                            default:
+                                return null;
+                        }
+                    })()}
                 </ul>
             </div>
         </div>
     );
+};
+
+AdminPanel.propTypes = {
+    content: PropTypes.element.isRequired,
 };
 
 export default AdminPanel;
