@@ -1,9 +1,16 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
+import BurgerButton from './components/Atoms/BurgerButton/BurgerButton';
 import { useAppView } from '../utils/hooks';
 
 const AdminPanel = ({ content }) => {
     const [appView] = useAppView();
+    const [sideBarActive, setsideBarActive] = useState(false);
+
+    const handleChange = () => {
+        setsideBarActive(!sideBarActive);
+    };
 
     return (
         <div className='drawer lg:drawer-open'>
@@ -25,18 +32,10 @@ const AdminPanel = ({ content }) => {
                         <li>Add Document</li>
                     </ul>
                 </div>
-
                 {/* Admin panel content */}
                 <div className='p-x-4 flex  grow'>{content}</div>
-
                 {/* Burger */}
-                <label
-                    htmlFor='my-drawer-2'
-                    className='btn btn-primary drawer-button absolute z-50 lg:hidden'
-                    style={{ top: '5%', right: '5%' }}
-                >
-                    Open drawer
-                </label>
+                <BurgerButton handleChange={handleChange} active={sideBarActive} />
             </div>
 
             {/* Sidebar */}
@@ -45,6 +44,7 @@ const AdminPanel = ({ content }) => {
                     htmlFor='my-drawer-2'
                     aria-label='close sidebar'
                     className='drawer-overlay'
+                    onClick={() => handleChange()}
                 ></label>
 
                 <ul className='menu min-h-full w-80 bg-base-200 p-4 text-base-content'>
