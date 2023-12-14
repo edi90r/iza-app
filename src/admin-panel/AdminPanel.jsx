@@ -68,11 +68,18 @@ const AdminPanel = ({ content }) => {
                                         <Link to={'/'}>Wyloguj</Link>
                                     </li>
                                 );
+                            case 'editUser':
+                                return (
+                                    <li>
+                                        <Link to={'/admin'}>Dashboard</Link>
+                                        <Link to={'/'}>Wyloguj</Link>
+                                    </li>
+                                );
                             case 'userDetails':
                                 return (
                                     <li>
                                         <Link to={'/admin'}>Dashboard</Link>
-                                        <Link to={'/admin'}>Edytuj użytkownika</Link>
+                                        <Link to={'/admin/edit-user'}>Edytuj użytkownika</Link>
                                         <Link to={'/admin'}>Usuń użytkownika</Link>
                                         <Link to={'/'}>Wyloguj</Link>
                                     </li>
