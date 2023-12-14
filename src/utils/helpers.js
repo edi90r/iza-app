@@ -33,6 +33,21 @@ export const aggregateUsersData = async (
                     );
 
                     if (moodReport) {
+                        if (Object.prototype.hasOwnProperty.call(item, 'note')) {
+                            moodReport.contactRequests.push({
+                                contactRequestId: item.contactRequestId,
+                                source: {
+                                    userId: item.source.userId,
+                                },
+                                timestamp: new Date(item.timestamp.toDate()).toISOString(),
+                                resolve: item.resolve,
+                                note: {
+                                    text: item.note.text,
+                                    timestamp: new Date(item.timestamp.toDate()).toISOString(),
+                                },
+                                type: item.type,
+                            });
+                        }
                         moodReport.contactRequests.push({
                             contactRequestId: item.contactRequestId,
                             source: {
@@ -40,10 +55,6 @@ export const aggregateUsersData = async (
                             },
                             timestamp: new Date(item.timestamp.toDate()).toISOString(),
                             resolve: item.resolve,
-                            note: {
-                                text: item.note.text,
-                                timestamp: new Date(item.timestamp.toDate()).toISOString(),
-                            },
                             type: item.type,
                         });
                     }
@@ -114,9 +125,53 @@ export const getUserActions = (data = [], days) => {
 
         return latestContactRequest;
     });
-
     return {
         contactRequests: markedMissingDays(contactRequests.flat(), 'type', days),
         moods: markedMissingDays(data, 'mood', days),
     };
+};
+
+export const getuUserStats = (data = []) => {
+    const computeUsersAmount = (data) => {
+        let userAmount = 0;
+        // eslint-disable-next-line no-unused-vars
+        data.forEach((_user) => {
+            userAmount = ++userAmount;
+        });
+        return userAmount;
+    };
+
+    const computeTypesOfMood = (data, mood) => {
+        let moodAmount = 0;
+        data.forEach((item) => {
+            if (item.calendar.length === 0) return;
+
+            const test = item.calendar.filter((item) => item.mood === mood);
+            moodAmount = moodAmount + test.length;
+        });
+        return moodAmount;
+    };
+
+    const computeContactRequests = (data) => {
+        let contactRequestsAmount = 0;
+        data.forEach((item) => {
+            if (item.calendar.length === 0) return;
+            const { calendar } = item;
+            calendar.forEach((item) => {
+                const { contactRequests } = item;
+                if (contactRequests.length === 0) return;
+                contactRequests.filter((item) => !item.resolve);
+                contactRequestsAmount = contactRequestsAmount + contactRequests.length;
+            });
+        });
+        return contactRequestsAmount;
+    };
+
+    return [
+        { label: 'użytkownicy', record: computeUsersAmount(data) },
+        { label: 'dobry', record: computeTypesOfMood(data, 'good') },
+        { label: 'średni', record: computeTypesOfMood(data, 'average') },
+        { label: 'zły', record: computeTypesOfMood(data, 'bad') },
+        { label: 'prośba o kontakt', record: computeContactRequests(data) },
+    ];
 };

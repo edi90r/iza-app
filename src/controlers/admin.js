@@ -9,7 +9,9 @@ import { aggregateUsersData } from '../utils/helpers';
 export const getUsersExcertp = async (excerpt, days) => {
     try {
         const timePeriod = new Date();
+        timePeriod.setHours(23, 59, 59, 999);
         timePeriod.setDate(timePeriod.getDate() - days);
+
         const timeStampPeriod = Timestamp.fromDate(timePeriod);
 
         const usersQuerySnapshot = await getDocs(collection(db, 'users'));

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import TableHead from '../../Molecules/TableHead/TableHead';
-import TableRow from '../../Molecules/TableRow/TableRow';
+import TableBody from '../../Molecules/TableBody/TableBody';
 
 const UserExcereptTable = ({ users }) => {
     const tableHeadLabels = [
@@ -14,11 +14,13 @@ const UserExcereptTable = ({ users }) => {
     ];
 
     return (
-        <div className='h-full overflow-x-auto'>
-            <table className='table text-left'>
-                <TableHead labels={tableHeadLabels} />
-                <TableRow users={users} />
-            </table>
+        <div className='hidden w-full flex-1 lg:block'>
+            <div className='h-full overflow-x-auto'>
+                <table className='table text-left'>
+                    <TableHead labels={tableHeadLabels} />
+                    <TableBody users={users} />
+                </table>
+            </div>
         </div>
     );
 };

@@ -1,22 +1,27 @@
 import { useState, useEffect } from 'react';
-import UserExcereptTable from '../components/Organism/UserExcerptTable/UserExcerptTable';
 import { getUsersExcertp } from '../../controlers/admin';
+import { useStore } from '../store/useStore';
+import UserExcerptCards from '../components/Organism/UserExcerptCards/UserExcerptCards';
+import UserExcereptTable from '../components/Organism/UserExcerptTable/UserExcerptTable';
+import StatsContainer from '../components/Organism/StatsContainer/StatsContainer';
+import { getuUserStats } from '../../utils/helpers';
 
 const Dashboard = () => {
     const [users, setUsers] = useState([]);
+    const { table } = useStore();
 
+    const days = table.mode === 'oneDay' ? 1 : 5;
+    const stats = getuUserStats(users);
+    console.log(users);
     useEffect(() => {
-        getUsersExcertp(true, 5).then(setUsers);
-    }, []);
+        getUsersExcertp(true, days).then(setUsers);
+    }, [days]);
 
     return (
         <div className=' flex w-full flex-col'>
-            <div className='flex w-full items-center justify-center' style={{ height: '20vh' }}>
-                <h2>Stats Container</h2>
-            </div>
-            <div className='w-full flex-1'>
-                <UserExcereptTable users={users} />
-            </div>
+            <StatsContainer userStats={stats} />
+            <UserExcereptTable users={users} />
+            <UserExcerptCards users={users} />
         </div>
     );
 };

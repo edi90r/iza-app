@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import { useLocation } from 'react-router-dom';
 import { useAppView } from '../utils/hooks';
 
 const AdminPanel = ({ content }) => {
     const [appView] = useAppView();
-    // let location = useLocation().pathname;
 
     return (
         <div className='drawer lg:drawer-open'>
@@ -29,12 +27,12 @@ const AdminPanel = ({ content }) => {
                 </div>
 
                 {/* Admin panel content */}
-                <div className='flex grow bg-crimson p-4'>{content}</div>
+                <div className='p-x-4 flex  grow'>{content}</div>
 
                 {/* Burger */}
                 <label
                     htmlFor='my-drawer-2'
-                    className='btn-primary drawer-button btn absolute z-50 lg:hidden'
+                    className='btn btn-primary drawer-button absolute z-50 lg:hidden'
                     style={{ top: '5%', right: '5%' }}
                 >
                     Open drawer

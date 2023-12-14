@@ -1,19 +1,26 @@
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
-import { computeUserAge, displayUserAddressCorrectly } from '../../../../utils/helpers';
+import {
+    computeUserAge,
+    displayUserAddressCorrectly,
+    getUserActions,
+} from '../../../../utils/helpers';
 import ActionIconWrapper from '../ActionIconWrapper/ActionIconWrapper';
-import { getUserActions } from '../../../../utils/helpers';
+import { useStore } from '../../../store/useStore';
 
-const TableRow = ({ users, ...rest }) => {
+const TableBody = ({ users, ...rest }) => {
     const navigate = useNavigate();
     const goUserDetailsRoute = (id) => navigate(`/admin/user-details/${id}`);
+    const { table } = useStore();
+
+    const days = table.mode === 'oneDay' ? 1 : 5;
 
     return (
         <tbody>
             {users.map((user, index) => {
-                const userActions = getUserActions(user.calendar, 5);
-
+                const userActions = getUserActions(user.calendar, days);
+                // console.log(userActions);
                 return (
                     <tr
                         key={uuidv4()}
@@ -43,8 +50,8 @@ const TableRow = ({ users, ...rest }) => {
     );
 };
 
-TableRow.propTypes = {
+TableBody.propTypes = {
     users: PropTypes.array.isRequired,
 };
 
-export default TableRow;
+export default TableBody;

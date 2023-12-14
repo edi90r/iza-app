@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { AdminPanelStateProvider } from './admin-panel/store/StateProvider';
 import LandingPage from './ladning-page/LandingPage';
 import AdminPanel from './admin-panel/AdminPanel';
 import PwaApp from './pwa-app/PwaApp';
@@ -35,9 +36,9 @@ const router = createBrowserRouter([
 
 function App() {
     return (
-        <>
+        <AdminPanelStateProvider>
             <RouterProvider router={router} />
-        </>
+        </AdminPanelStateProvider>
     );
 }
 
