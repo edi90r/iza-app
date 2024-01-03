@@ -9,7 +9,7 @@ const BurgerButton = ({ handleChange, active }) => {
             onClick={(e) => handleChange(e)}
         >
             {/* this hidden checkbox controls the state */}
-            <input type='checkbox' checked={active} />
+            <input type='checkbox' checked={active} readOnly />
 
             {/* hamburger icon */}
             <svg
