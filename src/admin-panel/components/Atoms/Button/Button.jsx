@@ -14,9 +14,10 @@ export const Button = ({
         success: 'btn-success',
         danger: 'btn-danger',
         warning: 'btn-warning',
+        disabled: 'btn-disabled',
     };
 
-    const classes = `btn ${buttonVariants[variant]} text-pureWhite ${className}`;
+    const classes = `btn ${buttonVariants[variant]} text-pureWhite min-w-40 ${className}`;
 
     return tag === 'button' ? (
         <button className={classes} {...rest}>
@@ -30,8 +31,8 @@ export const Button = ({
 };
 
 Button.propTypes = {
-    variant: propTypes.oneOf(['primary', 'success', 'danger', 'warning']),
-    tag: propTypes.string,
+    variant: propTypes.oneOf(['primary', 'success', 'danger', 'warning', 'disabled']),
+    tag: propTypes.oneOf(['button', 'link']),
     path: propTypes.string,
     children: propTypes.node.isRequired,
     className: propTypes.string,
