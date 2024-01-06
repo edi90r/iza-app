@@ -54,14 +54,19 @@ const AdminPanel = ({ content }) => {
                                 return (
                                     <>
                                         <li>
-                                            <Link to={'/admin/add-user'}>Add User</Link>
+                                            <Link to={'/admin/add-user/personal-data'}>
+                                                Add User
+                                            </Link>
                                         </li>
                                         <li>
                                             <Link to={'/'}>Wyloguj</Link>
                                         </li>
                                     </>
                                 );
-                            case 'addUser':
+                            case 'addUserPersonalData':
+                            case 'addUserContactData':
+                            case 'addUserRegister':
+                            case 'addUserSummary':
                                 return (
                                     <li>
                                         <Link to={'/admin'}>Dashboard</Link>

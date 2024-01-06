@@ -17,7 +17,19 @@ const router = createBrowserRouter([
         element: <AdminPanel content={<Dashboard />} />,
     },
     {
-        path: '/admin/add-user',
+        path: '/admin/add-user/personal-data',
+        element: <AdminPanel content={<UserFormView />} />,
+    },
+    {
+        path: '/admin/add-user/contact-data',
+        element: <AdminPanel content={<UserFormView />} />,
+    },
+    {
+        path: '/admin/add-user/register',
+        element: <AdminPanel content={<UserFormView />} />,
+    },
+    {
+        path: '/admin/add-user/summary',
         element: <AdminPanel content={<UserFormView />} />,
     },
     {
