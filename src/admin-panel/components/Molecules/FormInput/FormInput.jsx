@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 const FormInput = ({ label, name, type, placeholder, register, required, error, ...rest }) => {
     return (
         <label className='form-control w-full'>
-            <div className={`label ${error ? 'text-crimson' : ''}`}>
-                <span className='label-text'>{error ? error.message : label}</span>
+            <div className='label'>
+                <span className={`label-text ${error ? 'text-crimson' : ''}`}>
+                    {error ? error.message : label}
+                </span>
             </div>
             <input
                 name={name}
