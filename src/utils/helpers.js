@@ -218,3 +218,18 @@ export const validatePesel = (pesel, helpers) => {
     }
     return pesel;
 };
+
+export const renderFormCopy = (appView) => {
+    switch (appView) {
+        case 'addUserPersonalData':
+            return 'Dane osobowe';
+        case 'addUserContactData':
+            return 'Dane kontaktowe';
+        case 'addUserRegister':
+            return 'Zarejestruj użytkownika';
+        case 'addUserSummary':
+            return 'Podsumowanie';
+        default:
+            break;
+    }
+};
