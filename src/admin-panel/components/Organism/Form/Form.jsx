@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import FormInput from '../../Molecules/FormInput/FormInput';
-import { Button } from '../../Atoms/Button/Button';
+import Button from '../../Atoms/Button/Button';
 import { useValidation, useAppView } from '../../../../utils/hooks';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { isObjectEmpty } from '../../../../utils/helpers';
