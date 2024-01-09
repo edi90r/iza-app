@@ -1,34 +1,22 @@
 import { useAppView } from '../../utils/hooks';
+import { renderFormCopy } from '../../utils/helpers';
 import Form from '../components/Organism/Form/Form';
+import StepsIndicator from '../components/Molecules/StepsIndicator/StepsIndicator';
 
 const UserFormView = () => {
     const [appView] = useAppView();
-
-    const renderFormCopy = () => {
-        switch (appView) {
-            case 'addUserPersonalData':
-                return <div className='flex items-center justify-center'>Dane osobowe</div>;
-            case 'addUserContactData':
-                return <div className='flex items-center justify-center'>Dane kontaktowe</div>;
-            case 'addUserRegister':
-                return (
-                    <div className='flex items-center justify-center'>Zarejestruj użytkownika</div>
-                );
-            case 'addUserSummary':
-                return <div className='flex items-center justify-center'>Podsumowanie</div>;
-            default:
-                break;
-        }
-    };
-
     return (
-        <div className='w-full'>
-            <div>Form step indicator</div>
+        <>
+            <StepsIndicator appView={appView} />
+
             <div className='grid h-full w-full grid-cols-2 items-center'>
                 <Form />
-                {renderFormCopy(appView)}
+
+                <div className='flex items-center justify-center font-montserrat font-700 text-black'>
+                    {renderFormCopy(appView)}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
