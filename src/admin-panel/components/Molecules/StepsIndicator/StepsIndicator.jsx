@@ -22,13 +22,13 @@ const StepsIndicator = ({ appView }) => {
     ];
 
     const currentIndex = steps.findIndex((step) => step.appView === appView);
+    const clasess = (index) => `step ${index <= currentIndex ? 'step-primary' : ''}`;
 
     return (
         <ul className='steps w-full pt-4'>
             {steps.map((step, index) => {
-                const classes = index <= currentIndex ? 'step step-primary' : 'step';
                 return (
-                    <li key={uuidv4()} className={classes}>
+                    <li key={uuidv4()} className={clasess(index)}>
                         {step.title}
                     </li>
                 );

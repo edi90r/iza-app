@@ -10,6 +10,9 @@ const Form = () => {
     const [appView] = useAppView();
     const [validationSchema] = useValidation(appView);
     const navigate = useNavigate();
+    const classes = `mx-auto w-64 ${
+        appView === 'addUserSummary' || appView === 'editUser' ? 'h-full' : ''
+    } overflow-y-auto p-2`;
 
     const navigateToNextPage = (appView) => {
         switch (appView) {
@@ -26,6 +29,7 @@ const Form = () => {
                 break;
         }
     };
+
     const {
         register,
         handleSubmit,
@@ -48,7 +52,7 @@ const Form = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className='mx-auto' style={{ width: '500px' }}>
+        <form onSubmit={handleSubmit(onSubmit)} className={classes}>
             {(appView === 'addUserPersonalData' ||
                 appView === 'addUserSummary' ||
                 appView === 'editUser') && (
@@ -99,6 +103,7 @@ const Form = () => {
                         register={register}
                         required={true}
                         error={errors.describe}
+                        className={{ input: 'h-32' }}
                     />
                 </>
             )}

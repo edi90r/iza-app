@@ -1,18 +1,33 @@
 import PropTypes from 'prop-types';
 
-const FormInput = ({ label, name, type, placeholder, register, required, error, ...rest }) => {
+const FormInput = ({
+    label,
+    name,
+    type,
+    placeholder,
+    register,
+    required,
+    error,
+    className,
+    ...rest
+}) => {
+    const classes = {
+        container: `form-control w-full pt-4 ${className?.container}`,
+        wrapper: `label ${className?.wrapper}`,
+        label: `label-text ${error ? 'text-crimson' : ''} ${className?.label}`,
+        input: `input input-bordered input-primary w-full ${className?.input}`,
+    };
+
     return (
-        <label className='form-control w-full'>
-            <div className='label'>
-                <span className={`label-text ${error ? 'text-crimson' : ''}`}>
-                    {error ? error.message : label}
-                </span>
+        <label className={`${classes.container}`}>
+            <div className={`${classes.wrapper} `}>
+                <span className={`${classes.label} `}>{error ? error.message : label}</span>
             </div>
             <input
                 name={name}
                 type={type}
                 placeholder={placeholder}
-                className='input input-bordered input-primary w-full'
+                className={`${classes.input} `}
                 {...register(name, { required: required })}
                 {...rest}
             />
@@ -29,6 +44,12 @@ FormInput.propTypes = {
     onChange: PropTypes.func,
     required: PropTypes.bool,
     error: PropTypes.object,
+    className: PropTypes.shape({
+        container: PropTypes.string,
+        wrapper: PropTypes.string,
+        label: PropTypes.string,
+        input: PropTypes.string,
+    }),
 };
 
 export default FormInput;
