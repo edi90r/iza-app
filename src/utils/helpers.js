@@ -229,6 +229,8 @@ export const renderFormCopy = (appView) => {
             return 'Zarejestruj użytkownika';
         case 'addUserSummary':
             return 'Podsumowanie';
+        case 'editUser':
+            return 'Edytuj użytkownika';
         default:
             break;
     }
