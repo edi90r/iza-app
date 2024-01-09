@@ -18,10 +18,7 @@ const AdminPanel = ({ content }) => {
 
             <div className='space-between drawer-content flex h-screen flex-col lg:border-l-2'>
                 {/* Breadcrumbs */}
-                <div
-                    className='border-gray-400 w-100 breadcrumbs hidden border-b-2 text-sm lg:flex'
-                    style={{ height: '10vh' }}
-                >
+                <div className='top-bar-height border-gray-400 w-100 breadcrumbs hidden border-b-2 text-sm lg:flex'>
                     <ul className='p-4'>
                         <li>
                             <a>Home</a>
@@ -33,7 +30,7 @@ const AdminPanel = ({ content }) => {
                     </ul>
                 </div>
                 {/* Admin panel content */}
-                <div className='grow flex-col px-4'>{content}</div>
+                <div className='content-height flex-col px-4'>{content}</div>
                 {/* Burger */}
                 <BurgerButton handleChange={handleChange} active={sideBarActive} />
             </div>
@@ -77,6 +74,7 @@ const AdminPanel = ({ content }) => {
                                 return (
                                     <li>
                                         <Link to={'/admin'}>Dashboard</Link>
+                                        <Link to={'/admin'}>Edytuj Login lub Hasło</Link>
                                         <Link to={'/'}>Wyloguj</Link>
                                     </li>
                                 );

@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --top-bar-height: 10vh;
+        --content-height: 90vh;
+        --content-top-section-height: 80px;
+    }
+}
+
+.top-bar-height {
+    height: var(--top-bar-height);
+}
+.content-height {
+    height: var(--content-height);
+}
+.content-bottom-section-height {
+    height: calc(100% - var(--content-top-section-height));
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: theme(colors[darkBlue]);
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: theme(colors[darkBlue]);
+}

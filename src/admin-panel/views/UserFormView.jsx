@@ -7,9 +7,9 @@ const UserFormView = () => {
     const [appView] = useAppView();
     return (
         <>
-            <StepsIndicator appView={appView} />
+            {appView !== 'editUser' && <StepsIndicator appView={appView} />}
 
-            <div className='grid h-full w-full grid-cols-2 items-center'>
+            <div className='content-bottom-section-height grid w-full grid-cols-2 items-center py-10'>
                 <Form />
 
                 <div className='flex items-center justify-center font-montserrat font-700 text-black'>
