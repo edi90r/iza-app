@@ -16,6 +16,11 @@ export default {
             hind: ['Hind', 'sans-serif'],
         },
         extend: {
+            fontWeight: {
+                300: '300',
+                400: '400',
+                700: '700',
+            },
             minWidth: {
                 0: '0px',
                 1: '.25rem',
