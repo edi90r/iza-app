@@ -4,7 +4,7 @@ import LandingPage from './ladning-page/LandingPage';
 import AdminPanel from './admin-panel/AdminPanel';
 import PwaApp from './pwa-app/PwaApp';
 import Dashboard from './admin-panel/views/Dashboard';
-import UserFormView from './admin-panel/views/UserFormVIew';
+import UserFormView from './admin-panel/views/UserFormView';
 import UserDetails from './admin-panel/views/UserDetails';
 
 const router = createBrowserRouter([
@@ -34,6 +34,10 @@ const router = createBrowserRouter([
     },
     {
         path: '/admin/edit-user',
+        element: <AdminPanel content={<UserFormView />} />,
+    },
+    {
+        path: '/admin/edit-user/credentials',
         element: <AdminPanel content={<UserFormView />} />,
     },
     {

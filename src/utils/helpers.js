@@ -231,6 +231,8 @@ export const renderFormCopy = (appView) => {
             return 'Podsumowanie';
         case 'editUser':
             return 'Edytuj użytkownika';
+        case 'editUserCredentials':
+            return 'Edytuj login lub hasło';
         default:
             break;
     }

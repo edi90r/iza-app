@@ -204,7 +204,9 @@ const Form = () => {
                 </>
             )}
 
-            {appView === 'addUserPersonalData' && (
+            {(appView === 'addUserPersonalData' ||
+                appView === 'addUserContactData' ||
+                appView === 'addUserRegister') && (
                 <Button
                     type='submit'
                     onClick={handleSubmit(onSubmit)}
@@ -214,26 +216,7 @@ const Form = () => {
                     Dalej
                 </Button>
             )}
-            {appView === 'addUserContactData' && (
-                <Button
-                    type='submit'
-                    onClick={handleSubmit(onSubmit)}
-                    variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
-                    className='mt-8'
-                >
-                    Dalej
-                </Button>
-            )}
-            {appView === 'addUserRegister' && (
-                <Button
-                    type='submit'
-                    onClick={handleSubmit(onSubmit)}
-                    variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
-                    className='mt-8'
-                >
-                    Dalej
-                </Button>
-            )}
+
             {appView === 'addUserSummary' && (
                 <Button type='submit' variant='success' className='mt-8'>
                     Dodaj użytkownika

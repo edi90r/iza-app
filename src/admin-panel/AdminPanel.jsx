@@ -64,6 +64,7 @@ const AdminPanel = ({ content }) => {
                             case 'addUserContactData':
                             case 'addUserRegister':
                             case 'addUserSummary':
+                            case 'editUserCredentials':
                                 return (
                                     <li>
                                         <Link to={'/admin'}>Dashboard</Link>
@@ -74,10 +75,13 @@ const AdminPanel = ({ content }) => {
                                 return (
                                     <li>
                                         <Link to={'/admin'}>Dashboard</Link>
-                                        <Link to={'/admin'}>Edytuj Login lub Hasło</Link>
+                                        <Link to={'/admin/edit-user/edit-credentials'}>
+                                            Edytuj Login lub Hasło
+                                        </Link>
                                         <Link to={'/'}>Wyloguj</Link>
                                     </li>
                                 );
+
                             case 'userDetails':
                                 return (
                                     <li>

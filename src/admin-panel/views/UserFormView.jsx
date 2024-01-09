@@ -7,7 +7,8 @@ const UserFormView = () => {
     const [appView] = useAppView();
     return (
         <>
-            {appView !== 'editUser' && <StepsIndicator appView={appView} />}
+            {appView !== 'editUser' ||
+                ('editUserCredentials' && <StepsIndicator appView={appView} />)}
 
             <div className='content-bottom-section-height grid w-full grid-cols-2 items-center py-10'>
                 <Form />

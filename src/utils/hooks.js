@@ -5,6 +5,7 @@ import {
     UserContactDataSchema,
     UserCredentialsSchema,
     UserDataSummarySchema,
+    EditUserSchema,
 } from './formValidation';
 
 export const useAppView = () => {
@@ -42,6 +43,10 @@ export const useAppView = () => {
                 pattern: '/admin/edit-user',
                 view: 'editUser',
             },
+            {
+                pattern: '/admin/edit-user/credentials',
+                view: 'editUserCredentials',
+            },
         ];
 
         routesPattern.map((routePattern) => {
@@ -62,10 +67,14 @@ export const useValidation = (appView) => {
             schemaValidation = UserContactDataSchema;
             break;
         case 'addUserRegister':
+        case 'editUserCredentials':
             schemaValidation = UserCredentialsSchema;
             break;
         case 'addUserSummary':
             schemaValidation = UserDataSummarySchema;
+            break;
+        case 'editUser':
+            schemaValidation = EditUserSchema;
             break;
 
         default:

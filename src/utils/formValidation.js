@@ -163,6 +163,11 @@ export const UserCredentialsSchema = Joi.object(schemaFormObj).fork(
 
     (schema) => schema.allow('').optional(),
 );
+export const EditUserSchema = Joi.object(schemaFormObj).fork(
+    ['login', 'password', 'repeatPassword'],
+
+    (schema) => schema.allow('').optional(),
+);
 
 export const UserDataSummarySchema = Joi.object(schemaFormObj);
 export const ContactRequestNoteSchema = Joi.object(schemaNoteObj);
