@@ -18,11 +18,11 @@ const Dashboard = () => {
     }, [days]);
 
     return (
-        <div className=' flex w-full flex-col'>
+        <>
             <StatsContainer userStats={stats} />
             <UserExcereptTable users={users} />
             <UserExcerptCards users={users} />
-        </div>
+        </>
     );
 };
 

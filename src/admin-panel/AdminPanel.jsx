@@ -33,7 +33,7 @@ const AdminPanel = ({ content }) => {
                     </ul>
                 </div>
                 {/* Admin panel content */}
-                <div className='p-x-4 flex  grow'>{content}</div>
+                <div className='grow flex-col px-4'>{content}</div>
                 {/* Burger */}
                 <BurgerButton handleChange={handleChange} active={sideBarActive} />
             </div>
