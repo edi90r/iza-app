@@ -21,6 +21,9 @@ export default {
                 400: '400',
                 700: '700',
             },
+            width: {
+                64: '32rem',
+            },
             minWidth: {
                 0: '0px',
                 1: '.25rem',
