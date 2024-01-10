@@ -5,6 +5,7 @@ import Button from '../../Atoms/Button/Button';
 import { useValidation, useAppView } from '../../../../utils/hooks';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { isObjectEmpty } from '../../../../utils/helpers';
+import { createUser } from '../../../../controlers/admin';
 
 const Form = () => {
     const [appView] = useAppView();
@@ -47,8 +48,24 @@ const Form = () => {
         ) {
             navigateToNextPage(appView);
             console.log(data);
+        } else {
+            const user = {
+                name: data.name,
+                lastname: data.lastname,
+                address: {
+                    city: data.city,
+                    street: data.street,
+                    houseNumber: data.houseNumber,
+                    apartmentNumber: data.apartmentNumber,
+                    phoneNumber: data.phoneNumber,
+                },
+                dateOfBirth: data.dateOfBirth,
+                personalIdentityNumber: data.personalIdentityNumber,
+                describe: data.describe,
+            };
+            console.log(user);
+            createUser(user);
         }
-        console.log('data:', data);
     };
 
     return (
@@ -59,12 +76,12 @@ const Form = () => {
                 <>
                     <FormInput
                         label='Imię'
-                        name='firstname'
+                        name='name'
                         type='text'
                         placeholder='Podaj imię'
                         register={register}
                         required={true}
-                        error={errors.firstname}
+                        error={errors.name}
                     />
                     <FormInput
                         label='Nazwisko'

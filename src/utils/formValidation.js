@@ -5,7 +5,7 @@ import { validatePesel, validatePhoneNumber } from './helpers';
 const joiPassword = Joi.extend(joiPasswordExtendCore);
 
 const schemaFormObj = {
-    firstname: Joi.string()
+    name: Joi.string()
         .min(3)
         .max(19)
         .regex(/^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźżA-Z '.-]*[^-]$/)
@@ -136,7 +136,7 @@ export const UserPersonalDataSchema = Joi.object(schemaFormObj).fork(
 );
 export const UserContactDataSchema = Joi.object(schemaFormObj).fork(
     [
-        'firstname',
+        'name',
         'lastname',
         'dateOfBirth',
         'personalIdentityNumber',
@@ -149,7 +149,7 @@ export const UserContactDataSchema = Joi.object(schemaFormObj).fork(
 
 export const UserCredentialsSchema = Joi.object(schemaFormObj).fork(
     [
-        'firstname',
+        'name',
         'lastname',
         'dateOfBirth',
         'personalIdentityNumber',

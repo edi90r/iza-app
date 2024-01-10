@@ -24,8 +24,8 @@ const UserCard = ({ user }) => {
         >
             <div className='card-body'>
                 <h2 className='card-title'>{`${user.name} ${user.lastname}`}</h2>
-                <h3>{`${displayUserAddressCorrectly(user.adress)}`}</h3>
-                <h3>{`${user.adress.phoneNumber}`}</h3>
+                <h3>{`${displayUserAddressCorrectly(user.address)}`}</h3>
+                <h3>{`${user.address.phoneNumber}`}</h3>
                 <h3>{`${computeUserAge(user.dateOfBirth)} lat`}</h3>
                 <div className='flex '>
                     <ActionIconWrapper data={userActions.moods} />
@@ -43,7 +43,7 @@ UserCard.propTypes = {
         uid: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         lastname: PropTypes.string.isRequired,
-        adress: PropTypes.shape({
+        address: PropTypes.shape({
             city: PropTypes.string.isRequired,
             street: PropTypes.string.isRequired,
             streetNumber: PropTypes.string.isRequired,

@@ -1,4 +1,4 @@
-import { collection, getDocs, where, query, Timestamp } from 'firebase/firestore';
+import { collection, getDocs, where, query, Timestamp, addDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { aggregateUsersData } from '../utils/helpers';
 
@@ -47,6 +47,17 @@ export const getUsersExcertp = async (excerpt, days) => {
         const aggregatedData = await aggregateUsersData(users, moodsReport, contactRequestsReport);
 
         return aggregatedData;
+    } catch (error) {
+        console.error('Error fetching users: ', error);
+        throw error;
+    }
+};
+
+export const createUser = async (userData) => {
+    try {
+        const userRef = await addDoc(collection(db, 'users'), userData);
+        console.log('Document written with ID: ', userRef.id);
+        return { userId: userRef.id };
     } catch (error) {
         console.error('Error fetching users: ', error);
         throw error;

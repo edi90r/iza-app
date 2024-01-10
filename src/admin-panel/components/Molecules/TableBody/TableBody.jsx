@@ -30,8 +30,8 @@ const TableBody = ({ users, ...rest }) => {
                     >
                         <th>{index + 1}</th>
                         <td>{`${user.name} ${user.lastname}`}</td>
-                        <td>{displayUserAddressCorrectly(user.adress)}</td>
-                        <td>{user.adress.phoneNumber}</td>
+                        <td>{displayUserAddressCorrectly(user.address)}</td>
+                        <td>{user.address.phoneNumber}</td>
                         <td>{computeUserAge(user.dateOfBirth)}</td>
                         <td>
                             <div className='flex '>

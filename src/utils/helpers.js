@@ -68,9 +68,9 @@ export const aggregateUsersData = async (
                 uid: user.uid,
                 name: user.name,
                 lastname: user.lastname,
-                dateOfBirth: new Date(user.dateOfbirth.toDate()).toISOString().split('T')[0],
-                personalIdentityNumber: user.personalIndentityNumber,
-                adress: user.adress,
+                dateOfBirth: new Date(user.dateOfBirth.toDate()).toISOString().split('T')[0],
+                personalIdentityNumber: user.personalIdentityNumber,
+                address: user.address,
                 describe: user.describe,
                 calendar: reports,
             });
@@ -85,8 +85,8 @@ export const aggregateUsersData = async (
 export const computeUserAge = (birthDate) =>
     Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e10);
 
-export const displayUserAddressCorrectly = (adress) => {
-    const { city, street, houseNumber, apartmentNumber } = adress;
+export const displayUserAddressCorrectly = (address) => {
+    const { city, street, houseNumber, apartmentNumber } = address;
 
     return `${street ? street : city} ${houseNumber}${
         apartmentNumber !== 0 ? `/${apartmentNumber}` : ''
