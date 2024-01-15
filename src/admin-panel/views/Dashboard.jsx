@@ -12,7 +12,7 @@ const Dashboard = () => {
 
     const days = table.mode === 'oneDay' ? 1 : 5;
     const stats = getuUserStats(users);
-    console.log(users);
+
     useEffect(() => {
         getUsersExcertp(true, days).then(setUsers);
     }, [days]);

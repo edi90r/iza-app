@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import BurgerButton from './components/Atoms/BurgerButton/BurgerButton';
@@ -7,6 +7,7 @@ import { useAppView } from '../utils/hooks';
 const AdminPanel = ({ content }) => {
     const [appView] = useAppView();
     const [sideBarActive, setsideBarActive] = useState(false);
+    const { id } = useParams();
 
     const handleChange = () => {
         setsideBarActive(!sideBarActive);
@@ -75,7 +76,7 @@ const AdminPanel = ({ content }) => {
                                 return (
                                     <li>
                                         <Link to={'/admin'}>Dashboard</Link>
-                                        <Link to={'/admin/edit-user/edit-credentials'}>
+                                        <Link to={`/admin/user-details/edit/credentials/${id}`}>
                                             Edytuj Login lub Hasło
                                         </Link>
                                         <Link to={'/'}>Wyloguj</Link>
@@ -86,7 +87,9 @@ const AdminPanel = ({ content }) => {
                                 return (
                                     <li>
                                         <Link to={'/admin'}>Dashboard</Link>
-                                        <Link to={'/admin/edit-user'}>Edytuj użytkownika</Link>
+                                        <Link to={`/admin/user-details/edit/${id}`}>
+                                            Edytuj użytkownika
+                                        </Link>
                                         <Link to={'/admin'}>Usuń użytkownika</Link>
                                         <Link to={'/'}>Wyloguj</Link>
                                     </li>

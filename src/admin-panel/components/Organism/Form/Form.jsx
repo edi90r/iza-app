@@ -1,72 +1,91 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FormInput from '../../Molecules/FormInput/FormInput';
 import Button from '../../Atoms/Button/Button';
 import { useValidation, useAppView } from '../../../../utils/hooks';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { isObjectEmpty } from '../../../../utils/helpers';
-import { createUser } from '../../../../controlers/admin';
+import { isObjectEmpty, setSpecificDataShape } from '../../../../utils/helpers';
+import { createUser, getUserById, updateUser } from '../../../../controlers/admin';
 
 const Form = () => {
+    const { id } = useParams();
     const [appView] = useAppView();
     const [validationSchema] = useValidation(appView);
     const navigate = useNavigate();
-    const classes = `mx-auto w-64 ${
-        appView === 'addUserSummary' || appView === 'editUser' ? 'h-full' : ''
-    } overflow-y-auto p-2`;
-
-    const navigateToNextPage = (appView) => {
-        switch (appView) {
-            case 'addUserPersonalData':
-                navigate('/admin/add-user/contact-data');
-                break;
-            case 'addUserContactData':
-                navigate('/admin/add-user/register');
-                break;
-            case 'addUserRegister':
-                navigate('/admin/add-user/summary');
-                break;
-            default:
-                break;
-        }
-    };
-
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        reset,
+        formState: { errors, isSubmitSuccessful },
+        trigger,
+        setValue,
     } = useForm({
         mode: 'onChange',
         resolver: joiResolver(validationSchema),
     });
 
-    const onSubmit = (data) => {
-        if (
-            appView === 'addUserPersonalData' ||
-            appView === 'addUserContactData' ||
-            appView === 'addUserRegister'
-        ) {
-            navigateToNextPage(appView);
-            console.log(data);
-        } else {
-            const user = {
-                name: data.name,
-                lastname: data.lastname,
-                address: {
-                    city: data.city,
-                    street: data.street,
-                    houseNumber: data.houseNumber,
-                    apartmentNumber: data.apartmentNumber,
-                    phoneNumber: data.phoneNumber,
-                },
-                dateOfBirth: data.dateOfBirth,
-                personalIdentityNumber: data.personalIdentityNumber,
-                describe: data.describe,
-            };
-            console.log(user);
-            createUser(user);
+    const classes = `mx-auto w-64 ${
+        appView === 'addUserSummary' || appView === 'editUser' ? 'h-full' : ''
+    } overflow-y-auto p-2`;
+
+    const navigateToNextPage = async (appView) => {
+        const nextStep = {
+            addUserPersonalData: '/admin/add-user/contact-data',
+            addUserContactData: '/admin/add-user/register',
+            addUserRegister: '/admin/add-user/summary',
+        };
+
+        const isValid = await trigger();
+        if (isValid) {
+            navigate(nextStep[appView]);
         }
     };
+
+    const onSubmit = (data) => {
+        if (appView === 'addUserSummary') {
+            const user = setSpecificDataShape(data);
+            createUser(user);
+            navigate('/admin');
+        } else if (appView === 'editUser') {
+            const user = setSpecificDataShape(data);
+            updateUser(id, user);
+            navigate('/admin');
+        }
+    };
+
+    useEffect(() => {
+        if (appView === 'editUser') {
+            getUserById(id).then((user) => {
+                if (!user) return;
+                const userShape = setSpecificDataShape(user, true);
+
+                const fields = [
+                    'name',
+                    'lastname',
+                    'dateOfBirth',
+                    'personalIdentityNumber',
+                    'city',
+                    'street',
+                    'houseNumber',
+                    'apartmentNumber',
+                    'phoneNumber',
+                    'login',
+                    'describe',
+                ];
+
+                for (const field of fields) {
+                    setValue(field, userShape[field]);
+                }
+            });
+        }
+    }, [appView, id, setValue]);
+
+    useEffect(() => {
+        if (isSubmitSuccessful) {
+            reset();
+        }
+    }, [isSubmitSuccessful, reset]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={classes}>
@@ -152,7 +171,7 @@ const Form = () => {
                         <FormInput
                             label='Numer budynku'
                             name='houseNumber'
-                            type='text'
+                            type='number'
                             placeholder='Podaj numer budynku'
                             register={register}
                             required={true}
@@ -164,7 +183,7 @@ const Form = () => {
                         <FormInput
                             label='Nr. mieszkania'
                             name='apartmentNumber'
-                            type='text'
+                            type='number'
                             placeholder='Podaj numer mieszkania'
                             register={register}
                             required={true}
@@ -225,8 +244,8 @@ const Form = () => {
                 appView === 'addUserContactData' ||
                 appView === 'addUserRegister') && (
                 <Button
-                    type='submit'
-                    onClick={handleSubmit(onSubmit)}
+                    type='button'
+                    onClick={() => navigateToNextPage(appView)}
                     variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
                     className='mt-8'
                 >
@@ -235,18 +254,31 @@ const Form = () => {
             )}
 
             {appView === 'addUserSummary' && (
-                <Button type='submit' variant='success' className='mt-8'>
+                <Button
+                    type='submit'
+                    onClick={handleSubmit(onSubmit)}
+                    variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
+                    className='mt-8'
+                >
                     Dodaj użytkownika
                 </Button>
             )}
 
             {appView === 'editUser' && (
-                <Button type='submit' variant='warning' className='mt-8'>
+                <Button
+                    type='submit'
+                    variant={isObjectEmpty(errors) ? 'warning' : 'disabled'}
+                    className='mt-8'
+                >
                     Edytuj Użytkownika
                 </Button>
             )}
             {appView === 'editUserCredentials' && (
-                <Button type='submit' variant='warning' className='mt-8'>
+                <Button
+                    type='submit'
+                    variant={isObjectEmpty(errors) ? 'warning' : 'disabled'}
+                    className='mt-8'
+                >
                     Edytuj Dane
                 </Button>
             )}

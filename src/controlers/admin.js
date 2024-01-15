@@ -1,4 +1,14 @@
-import { collection, getDocs, where, query, Timestamp, addDoc } from 'firebase/firestore';
+import {
+    collection,
+    getDocs,
+    where,
+    query,
+    Timestamp,
+    addDoc,
+    getDoc,
+    doc,
+    updateDoc,
+} from 'firebase/firestore';
 import { db } from '../firebase';
 import { aggregateUsersData } from '../utils/helpers';
 
@@ -60,6 +70,32 @@ export const createUser = async (userData) => {
         return { userId: userRef.id };
     } catch (error) {
         console.error('Error fetching users: ', error);
+        throw error;
+    }
+};
+
+export const getUserById = async (userId) => {
+    try {
+        const userRef = doc(db, 'users', userId);
+        const userQuerySnapshot = await getDoc(userRef);
+
+        const data = userQuerySnapshot.exists() ? userQuerySnapshot.data() : null;
+
+        if (data === null || data === undefined) return null;
+
+        return { userId, ...data };
+    } catch (error) {
+        console.error('Error getting user:', error);
+        throw error;
+    }
+};
+
+export const updateUser = async (userId, userData) => {
+    try {
+        const userRef = doc(db, 'users', userId);
+        await updateDoc(userRef, userData);
+    } catch (error) {
+        console.error('Error updating user:', error);
         throw error;
     }
 };

@@ -40,11 +40,11 @@ export const useAppView = () => {
                 view: 'addUserSummary',
             },
             {
-                pattern: '/admin/edit-user',
+                pattern: '/admin/user-details/edit/:id',
                 view: 'editUser',
             },
             {
-                pattern: '/admin/edit-user/credentials',
+                pattern: '/admin/user-details/edit/credentials/:id',
                 view: 'editUserCredentials',
             },
         ];

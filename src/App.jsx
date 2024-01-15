@@ -33,16 +33,16 @@ const router = createBrowserRouter([
         element: <AdminPanel content={<UserFormView />} />,
     },
     {
-        path: '/admin/edit-user',
-        element: <AdminPanel content={<UserFormView />} />,
-    },
-    {
-        path: '/admin/edit-user/credentials',
-        element: <AdminPanel content={<UserFormView />} />,
-    },
-    {
         path: '/admin/user-details/:id',
         element: <AdminPanel content={<UserDetails />} />,
+    },
+    {
+        path: '/admin/user-details/edit/:id',
+        element: <AdminPanel content={<UserFormView />} />,
+    },
+    {
+        path: '/admin/user-details/edit/credentials/:id',
+        element: <AdminPanel content={<UserFormView />} />,
     },
     {
         path: '/pwa',

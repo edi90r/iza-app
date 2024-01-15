@@ -8,14 +8,18 @@ const FormInput = ({
     register,
     required,
     error,
-    className,
+    className = { container: '', wrapper: '', label: '', input: '' },
     ...rest
 }) => {
     const classes = {
-        container: `form-control w-full pt-4 ${className?.container}`,
-        wrapper: `label ${className?.wrapper}`,
-        label: `label-text ${error ? 'text-crimson' : ''} ${className?.label}`,
-        input: `input input-bordered input-primary w-full ${className?.input}`,
+        container: `form-control w-full pt-4 ${className.container ? className.container : ''}`,
+        wrapper: `label ${className.wrapper ? className.wrapper : ''}`,
+        label: `label-text ${error ? 'text-crimson' : ''} ${
+            className.label ? className.label : ''
+        }`,
+        input: `input input-bordered input-primary w-full ${
+            className.input ? className.input : ''
+        }`,
     };
 
     return (
