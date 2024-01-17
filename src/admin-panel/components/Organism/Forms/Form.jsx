@@ -21,7 +21,7 @@ const Form = () => {
         setValue,
     } = useFormContext();
 
-    const classes = `mx-auto w-64 ${
+    const classes = `mx-auto w-full max-w-64 ${
         appView === 'addUserSummary' || appView === 'editUser' ? 'h-full' : ''
     } overflow-y-auto p-2`;
 
@@ -34,6 +34,7 @@ const Form = () => {
         };
 
         const isValid = await trigger();
+
         if (isValid) {
             navigate(nextStep[appView]);
         }
@@ -51,6 +52,96 @@ const Form = () => {
         } else {
             return;
         }
+    };
+
+    const stepConfig = {
+        addUserPersonalData: {
+            content: <PersonalDataForm />,
+            button: (
+                <Button
+                    type='button'
+                    onClick={() => navigateToNextPage(appView)}
+                    variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
+                    className='mt-8'
+                >
+                    Dalej
+                </Button>
+            ),
+        },
+        addUserContactData: {
+            content: <ContactDataForm />,
+            button: (
+                <Button
+                    type='button'
+                    onClick={() => navigateToNextPage(appView)}
+                    variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
+                    className='mt-8'
+                >
+                    Dalej
+                </Button>
+            ),
+        },
+        addUserRegister: {
+            content: <UserRegisterForm />,
+            button: (
+                <Button
+                    type='button'
+                    onClick={() => navigateToNextPage(appView)}
+                    variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
+                    className='mt-8'
+                >
+                    Dalej
+                </Button>
+            ),
+        },
+        addUserSummary: {
+            content: (
+                <>
+                    <PersonalDataForm />
+                    <ContactDataForm />
+                    <UserRegisterForm />
+                </>
+            ),
+            button: (
+                <Button
+                    type='submit'
+                    variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
+                    className='mt-8'
+                >
+                    Dalej
+                </Button>
+            ),
+        },
+        editUser: {
+            content: (
+                <>
+                    <PersonalDataForm />
+                    <ContactDataForm />
+                </>
+            ),
+            button: (
+                <Button
+                    type='submit'
+                    variant={isObjectEmpty(errors) ? 'warning' : 'disabled'}
+                    className='mt-8'
+                >
+                    Edytuj użytkownika
+                </Button>
+            ),
+        },
+        editUserCredentials: {
+            content: <UserRegisterForm />,
+            button: (
+                <Button
+                    type='button'
+                    onClick={() => navigateToNextPage(appView)}
+                    variant={isObjectEmpty(errors) ? 'warning' : 'disabled'}
+                    className='mt-8'
+                >
+                    Edytuj login i hasło
+                </Button>
+            ),
+        },
     };
 
     useEffect(() => {
@@ -90,101 +181,14 @@ const Form = () => {
         }
     }, [isSubmitSuccessful, reset]);
 
-    const renderForm = (appView) => {
-        switch (appView) {
-            case 'addUserPersonalData':
-                return (
-                    <>
-                        <PersonalDataForm />
-                        <Button
-                            type='button'
-                            onClick={() => navigateToNextPage(appView)}
-                            variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
-                            className='mt-8'
-                        >
-                            Dalej
-                        </Button>
-                    </>
-                );
-            case 'addUserContactData':
-                return (
-                    <>
-                        <ContactDataForm />
-                        <Button
-                            type='button'
-                            onClick={() => navigateToNextPage(appView)}
-                            variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
-                            className='mt-8'
-                        >
-                            Dalej
-                        </Button>
-                    </>
-                );
-            case 'addUserRegister':
-                return (
-                    <>
-                        <UserRegisterForm />
-                        <Button
-                            type='button'
-                            onClick={() => navigateToNextPage(appView)}
-                            variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
-                            className='mt-8'
-                        >
-                            Dalej
-                        </Button>
-                    </>
-                );
-            case 'addUserSummary':
-                return (
-                    <>
-                        <PersonalDataForm />
-                        <ContactDataForm />
-                        <UserRegisterForm />
-                        <Button
-                            type='submit'
-                            variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
-                            className='mt-8'
-                        >
-                            Dodaj użytkownika
-                        </Button>
-                    </>
-                );
-            case 'editUser':
-                return (
-                    <>
-                        <PersonalDataForm />
-                        <ContactDataForm />
-                        <Button
-                            type='submit'
-                            variant={isObjectEmpty(errors) ? 'warning' : 'disabled'}
-                            className='mt-8'
-                        >
-                            Edytuj Użytkownika
-                        </Button>
-                    </>
-                );
-            case 'editUserCredentials':
-                return (
-                    <>
-                        <UserRegisterForm />
-                        <Button
-                            type='submit'
-                            variant={isObjectEmpty(errors) ? 'warning' : 'disabled'}
-                            className='mt-8'
-                        >
-                            Edytuj Dane
-                        </Button>
-                    </>
-                );
-
-            default:
-                break;
-        }
-    };
-
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={classes}>
-            {renderForm(appView)}
+            {appView && stepConfig[appView] && (
+                <>
+                    {stepConfig[appView].content}
+                    {stepConfig[appView].button}
+                </>
+            )}
         </form>
     );
 };
