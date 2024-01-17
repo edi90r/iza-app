@@ -16,7 +16,7 @@ import { aggregateUsersData } from '../utils/helpers';
      passed params are excerpt (boolean) and days (number) are required 
 ***/
 
-export const getUsersExcertp = async (excerpt, days) => {
+export const getUsersExcertp = async (excerpt = false, days) => {
     try {
         const timePeriod = new Date();
         timePeriod.setHours(23, 59, 59, 999);
@@ -63,6 +63,46 @@ export const getUsersExcertp = async (excerpt, days) => {
     }
 };
 
+export const getUserById = async (userId, reports = false) => {
+    try {
+        let agregatedData;
+        const userRef = doc(db, 'users', userId);
+        const userQuerySnapshot = await getDoc(userRef);
+
+        const data = userQuerySnapshot.exists() ? userQuerySnapshot.data() : null;
+
+        if (data === null || data === undefined) return null;
+
+        if (reports) {
+            const moodReportsRef = collection(db, 'moodReports');
+            const moodReportsQuery = query(moodReportsRef, where('source.userId', '==', userId));
+            const moodReportsQuerySnapshot = await getDocs(moodReportsQuery);
+            const moodReports = moodReportsQuerySnapshot.docs.map((doc) => {
+                return { moodId: doc.id, ...doc.data() };
+            });
+
+            const contactRequestReportsRef = collection(db, 'contactRequestReports');
+            const contactRequestReportsQuery = query(
+                contactRequestReportsRef,
+                where('source.userId', '==', userId),
+            );
+            const contactRequestReportsQuerySnapshot = await getDocs(contactRequestReportsQuery);
+            const contactRequestReports = contactRequestReportsQuerySnapshot.docs.map((doc) => {
+                return { contactRequestId: doc.id, ...doc.data() };
+            });
+
+            const userData = [{ uid: userQuerySnapshot.id, ...userQuerySnapshot.data() }];
+
+            agregatedData = await aggregateUsersData(userData, moodReports, contactRequestReports);
+        }
+
+        return !reports ? { uid: userId, ...data } : agregatedData.flat()[0];
+    } catch (error) {
+        console.error('Error getting user:', error);
+        throw error;
+    }
+};
+
 export const createUser = async (userData) => {
     try {
         const userRef = await addDoc(collection(db, 'users'), userData);
@@ -74,26 +114,11 @@ export const createUser = async (userData) => {
     }
 };
 
-export const getUserById = async (userId) => {
-    try {
-        const userRef = doc(db, 'users', userId);
-        const userQuerySnapshot = await getDoc(userRef);
-
-        const data = userQuerySnapshot.exists() ? userQuerySnapshot.data() : null;
-
-        if (data === null || data === undefined) return null;
-
-        return { userId, ...data };
-    } catch (error) {
-        console.error('Error getting user:', error);
-        throw error;
-    }
-};
-
 export const updateUser = async (userId, userData) => {
     try {
         const userRef = doc(db, 'users', userId);
         await updateDoc(userRef, userData);
+        console.log('Document updated with ID: ', userRef.id);
     } catch (error) {
         console.error('Error updating user:', error);
         throw error;
