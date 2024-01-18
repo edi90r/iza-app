@@ -7,6 +7,7 @@
         --top-bar-height: 10vh;
         --content-height: 90vh;
         --content-top-section-height: 80px;
+        --card-heading-height: 90px;
     }
 }
 
@@ -19,7 +20,12 @@
 .content-bottom-section-height {
     height: calc(100% - var(--content-top-section-height));
 }
-
+.card-heading-height {
+    max-height: var(--card-heading-height);
+}
+.card-content-height {
+    height: calc(100% - var(--card-heading-height));
+}
 /* width */
 ::-webkit-scrollbar {
     width: 8px;

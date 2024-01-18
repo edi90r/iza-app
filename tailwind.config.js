@@ -16,12 +16,26 @@ export default {
             hind: ['Hind', 'sans-serif'],
         },
         extend: {
+            colors: {
+                gray: {
+                    100: '#B8B8B8',
+                    200: '#ADADAD',
+                    300: '#A3A3A3',
+                    400: '#949494',
+                    500: '#8F8F8F',
+                    600: '#858585',
+                    700: '#7A7A7A',
+                    800: '#707070',
+                    900: '#666666',
+                },
+            },
             fontWeight: {
                 300: '300',
                 400: '400',
                 700: '700',
             },
-            width: {
+            maxWidth: {
+                40: '10rem',
                 64: '32rem',
             },
             minWidth: {
