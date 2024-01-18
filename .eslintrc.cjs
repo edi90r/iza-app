@@ -10,8 +10,10 @@ module.exports = {
     ignorePatterns: ['dist', '.eslintrc.cjs'],
     parser: '@babel/eslint-parser',
     parserOptions: {
-        ecmaVersion: 'latest',
         sourceType: 'module',
+        ecmaVersion: 'latest',
+        requireConfigFile: false,
+        ecmaFeatures: { jsx: true },
     },
     settings: { react: { version: '18.2' } },
     plugins: ['react-refresh'],
