@@ -14,7 +14,12 @@ const Dashboard = () => {
     const stats = getuUserStats(users);
 
     useEffect(() => {
-        getUsersExcertp(true, days).then(setUsers);
+        const fetchUsers = async () => {
+            const users = await getUsersExcertp(true, days);
+            setUsers(users);
+        };
+
+        fetchUsers();
     }, [days]);
 
     return (
