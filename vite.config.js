@@ -12,19 +12,19 @@ export default defineConfig({
                 type: 'module',
             },
             registerType: 'autoUpdate',
-            includeAssets: ['logo192.png', 'logo512.png'],
+            includeAssets: ['logo192.svg', 'logo512.svg'],
             manifest: {
                 name: 'IZA-Internetowy Zdalny Asystent',
                 short_name: 'IZA',
                 icons: [
                     {
-                        src: 'logo192.png',
-                        type: 'image/png',
+                        src: 'logo192.svg',
+                        type: 'image/svg',
                         sizes: '192x192',
                     },
                     {
-                        src: 'logo512.png',
-                        type: 'image/png',
+                        src: 'logo512.svg',
+                        type: 'image/svg',
                         sizes: '512x512',
                     },
                 ],
