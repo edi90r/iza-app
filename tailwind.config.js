@@ -64,6 +64,11 @@ export default {
         },
     },
     plugins: [require('daisyui')],
+    corePlugins: {
+        before: true,
+        after: true,
+        content: true,
+    },
     daisyui: {
         themes: [
             {

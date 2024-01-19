@@ -1,5 +1,6 @@
 import propTypes from 'prop-types';
-import { Calendar } from 'react-multi-date-picker';
+import { Calendar, DateObject } from 'react-multi-date-picker';
+import { setUserMoodStylesClass } from '../../../../utils/helpers';
 
 const weekDays = ['ndz', 'pon', 'wt', 'śr', 'czw', 'pt', 'sob'];
 const months = [
@@ -19,6 +20,10 @@ const months = [
 
 const UserCalendar = ({ calendar }) => {
     console.log(calendar);
+    const userDates = calendar.map((day) => {
+        const dateFormat = day.timestamp.split('T')[0];
+        return new DateObject(dateFormat);
+    });
     return (
         <Calendar
             numberOfMonths={3}
@@ -27,12 +32,41 @@ const UserCalendar = ({ calendar }) => {
             hideYear={false}
             weekDays={weekDays}
             months={months}
+            mapDays={({ date, isSameDate }) => {
+                let props = {};
+                userDates.forEach((element) => {
+                    if (isSameDate(date, element)) {
+                        props = setUserMoodStylesClass(date, calendar);
+                    }
+                });
+                return props;
+            }}
         />
     );
 };
 
 UserCalendar.propTypes = {
-    calendar: propTypes.array.isRequired,
+    calendar: propTypes.arrayOf(
+        propTypes.shape({
+            contactRequests: propTypes.arrayOf(
+                propTypes.shape({
+                    contactRequestId: propTypes.string.isRequired,
+                    resolve: propTypes.bool.isRequired,
+                    source: propTypes.shape({ userId: propTypes.string.isRequired }).isRequired,
+                    timestamp: propTypes.string.isRequired,
+                    type: propTypes.string.isRequired,
+                    note: propTypes.shape({
+                        text: propTypes.string.isRequired,
+                        timestamp: propTypes.string.isRequired,
+                    }),
+                }),
+            ),
+            moodId: propTypes.string.isRequired,
+            timestamp: propTypes.string.isRequired,
+            mood: propTypes.string.isRequired,
+            source: propTypes.shape({ userId: propTypes.string.isRequired }).isRequired,
+        }),
+    ),
 };
 
 export default UserCalendar;

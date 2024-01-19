@@ -43,8 +43,31 @@
     @apply rounded;
 }
 
+.rmdp-calendar .rmdp-day-picker .rmdp-day span.sd::after,
+.rmdp-calendar .rmdp-day-picker .rmdp-day span.sd::before {
+    @apply absolute bottom-0 right-0 h-1 w-full content-[''];
+}
+.rmdp-calendar .rmdp-day-picker .rmdp-day span.sd.mood-good {
+    @apply after:bg-success;
+}
+.rmdp-calendar .rmdp-day-picker .rmdp-day span.sd.mood-average {
+    @apply after:bg-warning;
+}
+.rmdp-calendar .rmdp-day-picker .rmdp-day span.sd.mood-bad {
+    @apply after:bg-error;
+}
+.rmdp-calendar .rmdp-day-picker .rmdp-day span.sd.cr {
+    @apply before:z-10 before:w-1/2 before:bg-primary;
+}
+
 .rmdp-calendar .rmdp-day-picker .rmdp-day.rmdp-today {
-    @apply relative after:absolute after:bottom-1 after:right-1 after:h-1 after:w-1 after:rounded-full after:bg-black;
+    @apply relative;
+}
+.rmdp-calendar .rmdp-day-picker .rmdp-day.rmdp-today::after {
+    @apply absolute bottom-1 right-1 h-1 w-1 rounded-full bg-darkBlue content-[''];
+}
+.rmdp-calendar .rmdp-day-picker .rmdp-day.rmdp-today.rmdp-selected::after {
+    @apply bg-pureWhite;
 }
 
 .rmdp-calendar .rmdp-day-picker .rmdp-day.rmdp-today span {
