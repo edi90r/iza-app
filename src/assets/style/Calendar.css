@@ -1,0 +1,52 @@
+.rmdp-wrapper.rmdp-border {
+    @apply w-full border-none font-hind;
+}
+
+.rmdp-top-class .rmdp-calendar {
+    @apply w-full p-0;
+}
+
+.rmdp-calendar .rmdp-header {
+    @apply m-0 text-xl font-700;
+}
+
+.rmdp-calendar .rmdp-header > div .rmdp-arrow-container {
+    @apply absolute transition-transform;
+}
+
+.rmdp-calendar .rmdp-header > div .rmdp-arrow-container:hover {
+    @apply scale-110 bg-transparent shadow-none;
+}
+
+.rmdp-calendar .rmdp-header > div .rmdp-arrow-container .rmdp-arrow {
+    @apply h-4 w-4 border-b-2 border-r-2 border-darkBlue;
+}
+
+.rmdp-calendar .rmdp-day-picker {
+    @apply justify-around;
+}
+
+.rmdp-calendar .rmdp-day-picker > div {
+    width: 25%;
+}
+
+.rmdp-calendar .rmdp-day-picker > div .rmdp-week .rmdp-selected span.sd,
+.rmdp-calendar .rmdp-month-picker > div .rmdp-ym .rmdp-selected span {
+    @apply bg-darkBlue text-pureWhite;
+}
+
+.rmdp-calendar .rmdp-day-picker .rmdp-week .rmdp-week-day {
+    @apply font-700 text-darkBlue;
+}
+
+.rmdp-calendar .rmdp-day-picker .rmdp-day span {
+    @apply rounded;
+}
+
+.rmdp-calendar .rmdp-day-picker .rmdp-day.rmdp-today {
+    @apply relative after:absolute after:bottom-1 after:right-1 after:h-1 after:w-1 after:rounded-full after:bg-black;
+}
+
+.rmdp-calendar .rmdp-day-picker .rmdp-day.rmdp-today span {
+    @apply bg-transparent text-black;
+}

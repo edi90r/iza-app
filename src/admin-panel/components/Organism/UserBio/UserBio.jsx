@@ -4,7 +4,6 @@ import UserBioRecord from '../../Molecules/UserBioRecord/UserBioRecord';
 import { computeUserAge } from '../../../../utils/helpers';
 
 const UserBio = ({ user }) => {
-    console.log(user);
     return (
         <div className='max-h-80 w-full'>
             <CardHeader

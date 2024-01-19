@@ -4,6 +4,7 @@ import { getUserById } from '../../controlers/admin';
 import CardWrapper from '../components/Atoms/CardWrapper/CardWrapper';
 import UserBio from '../components/Organism/UserBio/UserBio';
 import DayDetails from '../components/Organism/DayDetails/DayDetails';
+import UserCalendar from '../components/Organism/Calendar/Calendar';
 
 const initialUser = {
     name: '',
@@ -30,6 +31,7 @@ const UserDetails = () => {
         dateOfBirth,
         address: { city, street, houseNumber, apartmentNumber, phoneNumber } = {},
         describe,
+        calendar,
     } = user;
 
     const userBio = {
@@ -65,7 +67,9 @@ const UserDetails = () => {
                     <DayDetails />
                 </CardWrapper>
             </div>
-            <div className='card my-8 h-full w-full bg-base-100 p-4 shadow-md'>Kalendarz:</div>
+            <CardWrapper className='my-8 flex h-full items-center justify-center p-4'>
+                <UserCalendar calendar={calendar} />
+            </CardWrapper>
         </>
     );
 };
