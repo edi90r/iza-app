@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 
-const CardWrapper = ({ children }) => {
-    return <div className='card h-auto w-full bg-base-100 shadow-md'>{children}</div>;
+const CardWrapper = ({ children, className }) => {
+    const classes = `card h-auto w-full bg-base-100 shadow-md ${className}`;
+    return <div className={classes}>{children}</div>;
 };
 
 CardWrapper.propTypes = {
+    className: PropTypes.string,
     children: PropTypes.node.isRequired,
 };
 export default CardWrapper;

@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import './assets/style/Calendar.css';
+@import 'tailwindcss/utilities';
 
 @layer base {
     :root {
@@ -26,6 +27,13 @@
 .card-content-height {
     height: calc(100% - var(--card-heading-height));
 }
+
+/* Calendar global
+
+.rmdp-wrapper.rmdp-border {
+    @apply w-full border-none;
+} */
+
 /* width */
 ::-webkit-scrollbar {
     width: 8px;

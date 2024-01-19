@@ -271,3 +271,40 @@ export const setSpecificDataShape = (data, reverse = false) => {
               describe: data.describe,
           };
 };
+
+export const setUserMoodStylesClass = (rmdpDate, userCalendar) => {
+    let props = {};
+    userCalendar.forEach((day) => {
+        const rmdpDay = rmdpDate.format('YYYY-MM-DD');
+        const userDay = day.timestamp.split('T')[0];
+
+        if (rmdpDay === userDay) {
+            switch (day.mood) {
+                case 'good':
+                    props.className = 'mood-good';
+                    break;
+                case 'average':
+                    props.className = 'mood-average';
+                    break;
+                case 'bad':
+                    props.className = 'mood-bad';
+
+                    break;
+                default:
+                    break;
+            }
+
+            if (day.contactRequests.length) {
+                if (
+                    !(
+                        Object.prototype.hasOwnProperty.call(props, 'className') &&
+                        props.className.includes('cr')
+                    )
+                ) {
+                    props.className = `${props.className} cr`;
+                }
+            }
+        }
+    });
+    return props;
+};
