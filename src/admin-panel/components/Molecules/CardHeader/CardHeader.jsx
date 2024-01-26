@@ -2,7 +2,7 @@ import propTypes from 'prop-types';
 
 const CardHeader = ({ title, describe, className = { wrapper: '', title: '', describe: '' } }) => {
     const classes = {
-        wrapper: `card-heading-height border-primary border-b-2 p-4 ${
+        wrapper: `card-heading-height border-primary border-b p-4 ${
             className.wrapper ? className.wrapper : ''
         }`,
         title: `font-montserrat font-700 ${className.title ? className.title : ''}`,

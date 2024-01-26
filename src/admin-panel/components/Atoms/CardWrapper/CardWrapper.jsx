@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const CardWrapper = ({ children, className }) => {
-    const classes = `card h-auto w-full bg-base-100 shadow-md ${className}`;
+    const classes = `card h-auto w-full shadow-md ${className}`;
     return <div className={classes}>{children}</div>;
 };
 

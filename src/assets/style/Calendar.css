@@ -1,5 +1,5 @@
 .rmdp-wrapper.rmdp-border {
-    @apply w-full border-none font-hind;
+    @apply w-full border-none pt-0 font-hind;
 }
 
 .rmdp-top-class .rmdp-calendar {
@@ -7,7 +7,7 @@
 }
 
 .rmdp-calendar .rmdp-header {
-    @apply m-0 text-xl font-700;
+    @apply m-0 p-4 text-xl font-700;
 }
 
 .rmdp-calendar .rmdp-header > div .rmdp-arrow-container {

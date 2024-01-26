@@ -28,11 +28,19 @@
     height: calc(100% - var(--card-heading-height));
 }
 
-/* Calendar global
+input[class^='collapse-radio']:not(:checked):hover ~ li {
+    background: rgba(128, 128, 128, 0.5);
+}
 
-.rmdp-wrapper.rmdp-border {
-    @apply w-full border-none;
-} */
+.collapse:not(.collapse-close) > :where(input[type='radio']:checked ~ .collapse-content) {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.collapse.collapse-arrow > div {
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+}
 
 /* width */
 ::-webkit-scrollbar {

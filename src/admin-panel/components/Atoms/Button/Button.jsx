@@ -1,3 +1,4 @@
+import { twMerge } from 'tailwind-merge';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +18,7 @@ const Button = ({
         disabled: 'btn-disabled',
     };
 
-    const classes = `btn ${buttonVariants[variant]} text-pureWhite min-w-40 ${className}`;
+    const classes = twMerge(`btn ${buttonVariants[variant]} text-pureWhite min-w-40 ${className}`);
 
     return tag === 'button' ? (
         <button className={classes} {...rest}>

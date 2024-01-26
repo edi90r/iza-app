@@ -6,6 +6,7 @@ import {
     UserCredentialsSchema,
     UserDataSummarySchema,
     EditUserSchema,
+    ContactRequestNoteSchema,
 } from './formValidation';
 
 export const useAppView = () => {
@@ -75,6 +76,9 @@ export const useValidation = (appView) => {
             break;
         case 'editUser':
             schemaValidation = EditUserSchema;
+            break;
+        case 'userDetails':
+            schemaValidation = ContactRequestNoteSchema;
             break;
 
         default:

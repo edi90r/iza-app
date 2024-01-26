@@ -1,6 +1,8 @@
 import propTypes from 'prop-types';
+import { useStore } from '../../../store/useStore';
 import { Calendar, DateObject } from 'react-multi-date-picker';
-import { setUserMoodStylesClass } from '../../../../utils/helpers';
+import CardHeader from '../../Molecules/CardHeader/CardHeader';
+import { setUserMoodStylesClass, convertFirebaseTimestamp } from '../../../../utils/helpers';
 
 const weekDays = ['ndz', 'pon', 'wt', 'śr', 'czw', 'pt', 'sob'];
 const months = [
@@ -19,29 +21,37 @@ const months = [
 ];
 
 const UserCalendar = ({ calendar }) => {
-    console.log(calendar);
+    const { setPickedDate } = useStore();
     const userDates = calendar.map((day) => {
-        const dateFormat = day.timestamp.split('T')[0];
+        const dateFormat = convertFirebaseTimestamp(day.timestamp, 'date');
         return new DateObject(dateFormat);
     });
+
     return (
-        <Calendar
-            numberOfMonths={3}
-            weekStartDayIndex={1}
-            shadow={false}
-            hideYear={false}
-            weekDays={weekDays}
-            months={months}
-            mapDays={({ date, isSameDate }) => {
-                let props = {};
-                userDates.forEach((element) => {
-                    if (isSameDate(date, element)) {
-                        props = setUserMoodStylesClass(date, calendar);
-                    }
-                });
-                return props;
-            }}
-        />
+        <>
+            <CardHeader title='Kalendarz' describe='Wybierz dzień aby zobaczyć szczegóły' />
+            <Calendar
+                className='pt-4'
+                numberOfMonths={3}
+                weekStartDayIndex={1}
+                shadow={false}
+                hideYear={false}
+                weekDays={weekDays}
+                months={months}
+                mapDays={({ date, isSameDate }) => {
+                    let props = {};
+                    userDates.forEach((element) => {
+                        if (isSameDate(date, element)) {
+                            props = setUserMoodStylesClass(date, calendar);
+                        }
+                    });
+                    return props;
+                }}
+                onFocusedDateChange={(dateClicked) => {
+                    setPickedDate(dateClicked.format('YYYY-MM-DD'));
+                }}
+            />
+        </>
     );
 };
 
@@ -55,10 +65,7 @@ UserCalendar.propTypes = {
                     source: propTypes.shape({ userId: propTypes.string.isRequired }).isRequired,
                     timestamp: propTypes.string.isRequired,
                     type: propTypes.string.isRequired,
-                    note: propTypes.shape({
-                        text: propTypes.string.isRequired,
-                        timestamp: propTypes.string.isRequired,
-                    }),
+                    note: propTypes.string,
                 }),
             ),
             moodId: propTypes.string.isRequired,

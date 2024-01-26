@@ -5,6 +5,8 @@ const initialState = {
     setTable: () => {},
     currentDay: '',
     setCurrentDay: () => {},
+    pickedDate: '',
+    setPickedDate: () => {},
 };
 
 export const Context = createContext(initialState);

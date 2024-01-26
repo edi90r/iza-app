@@ -115,9 +115,10 @@ const schemaFormObj = {
 };
 
 const schemaNoteObj = {
-    contactRequestNote: Joi.string().min(15).max(300).allow('').messages({
+    note: Joi.string().min(15).max(300).required().messages({
         'string.min': 'Notatka nie może być krótsza niż 15 znaków',
         'string.max': 'Notatka nie może być dłuższa  niż 300 znaków',
+        'string.empty': 'Nie możesz wysłać pustej notatki',
     }),
 };
 

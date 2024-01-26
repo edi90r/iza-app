@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useStore } from '../store/useStore';
 import { getUserById } from '../../controlers/admin';
 import CardWrapper from '../components/Atoms/CardWrapper/CardWrapper';
 import UserBio from '../components/Organism/UserBio/UserBio';
 import DayDetails from '../components/Organism/DayDetails/DayDetails';
 import UserCalendar from '../components/Organism/Calendar/Calendar';
+import { convertFirebaseTimestamp } from '../../utils/helpers';
 
 const initialUser = {
     name: '',
@@ -23,6 +25,8 @@ const initialUser = {
 };
 const UserDetails = () => {
     const [user, setUser] = useState(initialUser);
+    const [dayDetails, setDayDetails] = useState({});
+    const { pickedDate } = useStore();
 
     const {
         name,
@@ -50,10 +54,20 @@ const UserDetails = () => {
     const { id } = useParams();
 
     useEffect(() => {
+        const dayDetails = calendar.find((day) => {
+            const userDay = convertFirebaseTimestamp(day.timestamp, 'date');
+
+            return userDay === pickedDate;
+        });
+        setDayDetails(dayDetails);
+    }, [pickedDate, calendar]);
+
+    useEffect(() => {
         const fetchUser = async () => {
             const user = await getUserById(id, true);
             setUser(user);
         };
+        console.log('fetch user');
         fetchUser();
     }, [id]);
 
@@ -64,10 +78,10 @@ const UserDetails = () => {
                     <UserBio user={userBio} />
                 </CardWrapper>
                 <CardWrapper>
-                    <DayDetails />
+                    <DayDetails dayDetails={dayDetails} />
                 </CardWrapper>
             </div>
-            <CardWrapper className='my-8 flex h-full items-center justify-center p-4'>
+            <CardWrapper className='mb-8'>
                 <UserCalendar calendar={calendar} />
             </CardWrapper>
         </>
