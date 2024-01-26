@@ -18,6 +18,7 @@ export default {
         extend: {
             colors: {
                 gray: {
+                    50: '#808080',
                     100: '#B8B8B8',
                     200: '#ADADAD',
                     300: '#A3A3A3',
@@ -35,6 +36,7 @@ export default {
                 700: '700',
             },
             maxWidth: {
+                8: '2rem',
                 40: '10rem',
                 64: '32rem',
             },
@@ -60,6 +62,9 @@ export default {
                 32: '8rem',
                 36: '9rem',
                 40: '10rem',
+            },
+            minHeight: {
+                7: '1.75rem',
             },
         },
     },

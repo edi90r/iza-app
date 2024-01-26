@@ -44,22 +44,20 @@ export const aggregateUsersData = async (
                                 },
                                 timestamp: new Date(item.timestamp.toDate()).toISOString(),
                                 resolve: item.resolve,
-                                note: {
-                                    text: item.note.text,
-                                    timestamp: new Date(item.timestamp.toDate()).toISOString(),
+                                note: item.note,
+                                type: item.type,
+                            });
+                        } else {
+                            moodReport.contactRequests.push({
+                                contactRequestId: item.contactRequestId,
+                                source: {
+                                    userId: item.source.userId,
                                 },
+                                timestamp: new Date(item.timestamp.toDate()).toISOString(),
+                                resolve: item.resolve,
                                 type: item.type,
                             });
                         }
-                        moodReport.contactRequests.push({
-                            contactRequestId: item.contactRequestId,
-                            source: {
-                                userId: item.source.userId,
-                            },
-                            timestamp: new Date(item.timestamp.toDate()).toISOString(),
-                            resolve: item.resolve,
-                            type: item.type,
-                        });
                     }
                 }
             }
@@ -307,4 +305,21 @@ export const setUserMoodStylesClass = (rmdpDate, userCalendar) => {
         }
     });
     return props;
+};
+
+export const convertFirebaseTimestamp = (timestamp, type) => {
+    if (timestamp) {
+        if (type === 'time') {
+            return new Date(timestamp).toLocaleTimeString('en', {
+                timeStyle: 'short',
+                hour12: false,
+                timeZone: 'UTC',
+            });
+        }
+        if (type === 'date') {
+            return new Date(timestamp).toISOString().substring(0, 10);
+        }
+        throw new Error('type parameter has to be string "date" or "time"');
+    }
+    return undefined;
 };

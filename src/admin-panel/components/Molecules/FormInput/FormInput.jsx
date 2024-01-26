@@ -1,7 +1,8 @@
+import { twMerge } from 'tailwind-merge';
 import PropTypes from 'prop-types';
 
 const FormInput = ({
-    label,
+    label = '',
     name,
     type,
     placeholder,
@@ -12,7 +13,9 @@ const FormInput = ({
     ...rest
 }) => {
     const classes = {
-        container: `form-control w-full pt-4 ${className.container ? className.container : ''}`,
+        container: twMerge(
+            `form-control w-full pt-4 ${className.container ? className.container : ''}`,
+        ),
         wrapper: `label ${className.wrapper ? className.wrapper : ''}`,
         label: `label-text ${error ? 'text-crimson' : ''} ${
             className.label ? className.label : ''
@@ -24,9 +27,11 @@ const FormInput = ({
 
     return (
         <label className={`${classes.container}`}>
-            <div className={`${classes.wrapper} `}>
-                <span className={`${classes.label} `}>{error ? error.message : label}</span>
-            </div>
+            {label && (
+                <div className={`${classes.wrapper} `}>
+                    <span className={`${classes.label} `}>{error ? error.message : label}</span>
+                </div>
+            )}
             <input
                 name={name}
                 type={type}
@@ -40,7 +45,7 @@ const FormInput = ({
 };
 
 FormInput.propTypes = {
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,

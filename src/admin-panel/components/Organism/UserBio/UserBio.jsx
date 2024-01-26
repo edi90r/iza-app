@@ -1,25 +1,25 @@
 import propTypes from 'prop-types';
 import CardHeader from '../../Molecules/CardHeader/CardHeader';
-import UserBioRecord from '../../Molecules/UserBioRecord/UserBioRecord';
+import CardRecord from '../../Molecules/CardRecord/CardRecord';
 import { computeUserAge } from '../../../../utils/helpers';
 
 const UserBio = ({ user }) => {
     return (
-        <div className='max-h-80 w-full'>
+        <div className='max-h-96 w-full'>
             <CardHeader
                 title='Profil Użytkownika'
                 describe='Tu znajdziesz podstawowe informacje o użytkowniku'
             />
             <ul className='card-content-height grid w-full grid-cols-2 overflow-hidden p-4 font-hind text-base font-400 text-black'>
-                <UserBioRecord label='imię' content={user.name} />
-                <UserBioRecord label='nazwisko' content={user.lastname} />
-                <UserBioRecord label='wiek' content={computeUserAge(user.age)} />
-                <UserBioRecord label='miasto' content={user.city} />
-                <UserBioRecord label='ulica' content={user.street} />
-                <UserBioRecord label='nr. domu' content={user.houseNumber} />
-                <UserBioRecord label='nr. mieszkania' content={user.apartmentNumber} />
-                <UserBioRecord label='nr. telefonu' content={user.phoneNumber} />
-                <UserBioRecord
+                <CardRecord label='imię' content={user.name} />
+                <CardRecord label='nazwisko' content={user.lastname} />
+                <CardRecord label='wiek' content={computeUserAge(user.age)} />
+                <CardRecord label='miasto' content={user.city} />
+                <CardRecord label='ulica' content={user.street} />
+                <CardRecord label='nr. domu' content={user.houseNumber} />
+                <CardRecord label='nr. mieszkania' content={user.apartmentNumber} />
+                <CardRecord label='nr. telefonu' content={user.phoneNumber} />
+                <CardRecord
                     label='opis'
                     content={user.describe}
                     last
