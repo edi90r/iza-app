@@ -27,7 +27,7 @@ const FormInput = ({
 
     return (
         <label className={`${classes.container}`}>
-            {label && (
+            {(label || error) && (
                 <div className={`${classes.wrapper} `}>
                     <span className={`${classes.label} `}>{error ? error.message : label}</span>
                 </div>
