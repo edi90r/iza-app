@@ -1,14 +1,14 @@
+// import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { Outlet } from 'react-router-dom';
 import BurgerButton from './components/Atoms/BurgerButton/BurgerButton';
 import { useAppView } from '../utils/hooks';
 
-const AdminPanel = ({ content }) => {
+const AdminPanel = () => {
     const [appView] = useAppView();
     const [sideBarActive, setsideBarActive] = useState(false);
     const { id } = useParams();
-
     const handleChange = () => {
         setsideBarActive(!sideBarActive);
     };
@@ -16,7 +16,6 @@ const AdminPanel = ({ content }) => {
     return (
         <div className='drawer lg:drawer-open'>
             <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
-
             <div className='space-between drawer-content flex h-screen flex-col lg:border-l-2'>
                 {/* Breadcrumbs */}
                 <div className='top-bar-height w-100 breadcrumbs hidden border-b-2 border-gray-400 text-sm lg:flex'>
@@ -31,11 +30,12 @@ const AdminPanel = ({ content }) => {
                     </ul>
                 </div>
                 {/* Admin panel content */}
-                <div className='content-height flex flex-col justify-between px-4'>{content}</div>
+                <div className='content-height flex flex-col justify-between px-4'>
+                    <Outlet />
+                </div>
                 {/* Burger */}
                 <BurgerButton handleChange={handleChange} active={sideBarActive} />
             </div>
-
             {/* Sidebar */}
             <div className='drawer-side'>
                 <label
@@ -103,10 +103,6 @@ const AdminPanel = ({ content }) => {
             </div>
         </div>
     );
-};
-
-AdminPanel.propTypes = {
-    content: PropTypes.element.isRequired,
 };
 
 export default AdminPanel;

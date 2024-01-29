@@ -1,25 +1,65 @@
-import { useNavigate } from 'react-router-dom';
 import { useFormContext } from 'react-hook-form';
 import { isObjectEmpty } from '../../../../utils/helpers';
-import Button from '../../Atoms/Button/Button';
 import FormInput from '../../Molecules/FormInput/FormInput';
+import Button from '../../Atoms/Button/Button';
 
-const ContactDataForm = () => {
-    const navigate = useNavigate();
+const EditUserForm = () => {
     const {
         register,
         formState: { errors },
-        trigger,
     } = useFormContext();
 
-    const handleClick = async () => {
-        const isValid = await trigger();
-        if (isValid) {
-            navigate('/admin/add-user/register');
-        }
-    };
     return (
         <>
+            <FormInput
+                label='Imię'
+                name='name'
+                type='text'
+                placeholder='Podaj imię'
+                register={register}
+                required={true}
+                error={errors.name}
+            />
+            <FormInput
+                label='Nazwisko'
+                name='lastname'
+                type='text'
+                placeholder='Podaj nazwisko'
+                register={register}
+                required={true}
+                error={errors.lastname}
+            />
+            <FormInput
+                label={'Data urodzenia'}
+                name='dateOfBirth'
+                type='date'
+                placeholder='Podaj datę urodzenia'
+                register={register}
+                required={true}
+                error={errors.dateOfBirth}
+            />
+
+            <FormInput
+                label='Pesel'
+                name='personalIdentityNumber'
+                type='number'
+                placeholder='Podaj pesel'
+                register={register}
+                required={true}
+                error={errors.personalIdentityNumber}
+            />
+
+            <FormInput
+                label='Opis'
+                name='describe'
+                type='textarea'
+                placeholder='Dodaj opis'
+                register={register}
+                required={true}
+                error={errors.describe}
+                className={{ input: 'h-32' }}
+            />
+
             <FormInput
                 label='Miasto'
                 name='city'
@@ -72,16 +112,16 @@ const ContactDataForm = () => {
                     error={errors.phoneNumber}
                 />
             </div>
+
             <Button
-                type='button'
-                onClick={() => handleClick()}
-                variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
+                type='submit'
+                variant={isObjectEmpty(errors) ? 'warning' : 'disabled'}
                 className='mt-8'
             >
-                Dalej
+                Edytuj
             </Button>
         </>
     );
 };
 
-export default ContactDataForm;
+export default EditUserForm;

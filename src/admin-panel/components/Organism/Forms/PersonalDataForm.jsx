@@ -1,11 +1,24 @@
 import { useFormContext } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { isObjectEmpty } from '../../../../utils/helpers';
 import FormInput from '../../Molecules/FormInput/FormInput';
+import Button from '../../Atoms/Button/Button';
 
 const PersonalDataForm = () => {
+    const navigate = useNavigate();
     const {
         register,
         formState: { errors },
+        trigger,
     } = useFormContext();
+
+    const handleClick = async () => {
+        const isValid = await trigger();
+        if (isValid) {
+            navigate('/admin/add-user/contact-data');
+        }
+    };
+
     return (
         <>
             <FormInput
@@ -56,6 +69,14 @@ const PersonalDataForm = () => {
                 error={errors.describe}
                 className={{ input: 'h-32' }}
             />
+            <Button
+                type='button'
+                onClick={() => handleClick()}
+                variant={isObjectEmpty(errors) ? 'success' : 'disabled'}
+                className='mt-8'
+            >
+                Dalej
+            </Button>
         </>
     );
 };
