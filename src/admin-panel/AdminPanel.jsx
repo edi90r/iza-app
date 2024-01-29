@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import BurgerButton from './components/Atoms/BurgerButton/BurgerButton';
+import Breadcrumbs from './components/Molecules/Breadcrumbs/Breadcrumbs';
 import { useAppView } from '../utils/hooks';
 
 const AdminPanel = () => {
@@ -18,17 +19,7 @@ const AdminPanel = () => {
             <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
             <div className='space-between drawer-content flex h-screen flex-col lg:border-l-2'>
                 {/* Breadcrumbs */}
-                <div className='top-bar-height w-100 breadcrumbs hidden border-b-2 border-gray-400 text-sm lg:flex'>
-                    <ul className='p-4'>
-                        <li>
-                            <a>Home</a>
-                        </li>
-                        <li>
-                            <a>Documents</a>
-                        </li>
-                        <li>Add Document</li>
-                    </ul>
-                </div>
+                <Breadcrumbs />
                 {/* Admin panel content */}
                 <div className='content-height flex flex-col justify-between px-4'>
                     <Outlet />
@@ -76,7 +67,7 @@ const AdminPanel = () => {
                                 return (
                                     <li>
                                         <Link to={'/admin'}>Dashboard</Link>
-                                        <Link to={`/admin/user-details/edit/credentials/${id}`}>
+                                        <Link to={`/admin/user-details/${id}/edit-credentials`}>
                                             Edytuj Login lub Hasło
                                         </Link>
                                         <Link to={'/'}>Wyloguj</Link>
@@ -87,7 +78,7 @@ const AdminPanel = () => {
                                 return (
                                     <li>
                                         <Link to={'/admin'}>Dashboard</Link>
-                                        <Link to={`/admin/user-details/edit/${id}`}>
+                                        <Link to={`/admin/user-details/${id}/edit`}>
                                             Edytuj użytkownika
                                         </Link>
                                         <Link to={'/admin'}>Usuń użytkownika</Link>
