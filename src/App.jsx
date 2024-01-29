@@ -31,10 +31,10 @@ const router = createBrowserRouter(
                 </Route>
 
                 <Route path='user-details'>
-                    <Route path=':id' element={<UserDetails />} />
-                    <Route path='edit' element={<UserFormView />}>
-                        <Route path=':id' element={<EditUserForm />} />
-                        <Route path='credentials/:id' element={<UserRegisterForm edit />} />
+                    <Route path=':id' element={<UserDetails />} index />
+                    <Route path=':id' element={<UserFormView />}>
+                        <Route path='edit' element={<EditUserForm />} />
+                        <Route path='edit-credentials' element={<UserRegisterForm edit />} />
                     </Route>
                 </Route>
             </Route>
