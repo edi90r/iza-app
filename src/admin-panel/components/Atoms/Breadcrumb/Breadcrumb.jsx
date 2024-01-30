@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { twMerge } from 'tailwind-merge';
 
 const Breadcrumb = ({ path, className = '', children, ...rest }) => {
-    const classes = twMerge(`font-700 ${className ? className : null} `);
+    const classes = twMerge(`font-700 text-primary ${className ? className : null} `);
 
     return (
         <Link to={path} className={classes} {...rest}>

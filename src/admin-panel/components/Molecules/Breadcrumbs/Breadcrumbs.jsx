@@ -9,11 +9,10 @@ const Breadcrumbs = () => {
     });
 
     return (
-        <div className='top-bar-height w-100 breadcrumbs hidden border-b-2 border-gray-400 text-sm lg:flex'>
+        <div className='top-bar-height w-100 breadcrumbs hidden border-b border-primary text-sm lg:flex'>
             <ul className='p-4'>
                 {breadcrumbs.map(({ breadcrumb, match }, index) => (
                     <li key={uuidv4()}>
-                        {console.log(breadcrumb)}
                         <Breadcrumb
                             path={match.pathname}
                             last={index === breadcrumbs.length - 1 ? true : null}
