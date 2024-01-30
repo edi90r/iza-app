@@ -1,5 +1,6 @@
 .rmdp-wrapper.rmdp-border {
     @apply w-full border-none pt-0 font-hind;
+    z-index: 0 !important;
 }
 
 .rmdp-top-class .rmdp-calendar {
