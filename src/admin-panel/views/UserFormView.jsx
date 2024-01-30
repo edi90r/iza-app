@@ -4,7 +4,6 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { renderFormCopy } from '../../utils/helpers';
 import Form from '../components/Organism/Forms/Form';
 import StepsIndicator from '../components/Molecules/StepsIndicator/StepsIndicator';
-// import { useMatches } from 'react-router-dom';
 
 const UserFormView = () => {
     const [appView] = useAppView();

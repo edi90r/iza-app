@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// import { useMatches } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import UserExcerptCards from '../components/Organism/UserExcerptCards/UserExcerptCards';
 import UserExcereptTable from '../components/Organism/UserExcerptTable/UserExcerptTable';
@@ -12,8 +11,6 @@ const Dashboard = () => {
     const { table } = useStore();
     const days = table.mode === 'oneDay' ? 1 : 5;
     const stats = getuUserStats(users);
-    // const matches = useMatches();
-    // console.log(matches);
 
     useEffect(() => {
         const fetchUsers = async () => {
