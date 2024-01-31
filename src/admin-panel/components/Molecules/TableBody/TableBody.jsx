@@ -20,7 +20,7 @@ const TableBody = ({ users, ...rest }) => {
         <tbody>
             {users.map((user, index) => {
                 const userActions = getUserActions(user.calendar, days);
-                // console.log(userActions);
+
                 return (
                     <tr
                         key={uuidv4()}

@@ -78,7 +78,7 @@ const SidebarButtons = ({ id = '' }) => {
 };
 
 SidebarButtons.propTypes = {
-    id: propType.string.isRequired,
+    id: propType.string,
 };
 
 export default SidebarButtons;

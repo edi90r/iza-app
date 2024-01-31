@@ -132,7 +132,7 @@ export const getUserActions = (data = [], days) => {
     };
 };
 
-export const getuUserStats = (data = []) => {
+export const getUserStats = (data = []) => {
     const computeUsersAmount = (data) => {
         let userAmount = 0;
         // eslint-disable-next-line no-unused-vars
@@ -169,11 +169,11 @@ export const getuUserStats = (data = []) => {
     };
 
     return [
-        { label: 'użytkownicy', record: computeUsersAmount(data) },
-        { label: 'dobry', record: computeTypesOfMood(data, 'good') },
-        { label: 'średni', record: computeTypesOfMood(data, 'average') },
-        { label: 'zły', record: computeTypesOfMood(data, 'bad') },
-        { label: 'prośba o kontakt', record: computeContactRequests(data) },
+        { type: 'users', label: 'użytkownicy', record: computeUsersAmount(data) },
+        { type: 'good', label: 'dobry', record: computeTypesOfMood(data, 'good') },
+        { type: 'average', label: 'średni', record: computeTypesOfMood(data, 'average') },
+        { type: 'bad', label: 'zły', record: computeTypesOfMood(data, 'bad') },
+        { type: 'contactRequest', label: 'prośba o kontakt', record: computeContactRequests(data) },
     ];
 };
 
