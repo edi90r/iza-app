@@ -38,13 +38,27 @@ const ActionIcon = ({ action }) => {
                     <h2>C</h2>
                 </div>
             );
-
-        default:
+        case 'users':
+            return (
+                <div className='h-4'>
+                    <h2>C</h2>
+                </div>
+            );
+        case 'contactRequest':
+            return (
+                <div className='h-4'>
+                    <h2>Cr</h2>
+                </div>
+            );
+        case 'missing':
             return (
                 <div className='h-4'>
                     <h2>-</h2>
                 </div>
             );
+
+        default:
+            return null;
     }
 };
 
@@ -57,6 +71,8 @@ ActionIcon.propTypes = {
         'doctor',
         'careGiver',
         'missing',
+        'users',
+        'contactRequest',
     ]),
 };
 

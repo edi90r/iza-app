@@ -46,8 +46,8 @@ UserCard.propTypes = {
         address: PropTypes.shape({
             city: PropTypes.string.isRequired,
             street: PropTypes.string.isRequired,
-            streetNumber: PropTypes.string.isRequired,
-            phoneNumber: PropTypes.string.isRequired,
+            streetNumber: PropTypes.string,
+            phoneNumber: PropTypes.number.isRequired,
         }),
         dateOfBirth: PropTypes.string.isRequired,
         calendar: PropTypes.array,

@@ -34,7 +34,12 @@ const StatsContainer = ({ userStats }) => {
                     />
                 </div>
                 {userStats.map((stat) => (
-                    <StatRecord key={uuidv4()} label={stat.label} value={stat.record} />
+                    <StatRecord
+                        key={uuidv4()}
+                        label={stat.label}
+                        value={stat.record}
+                        type={stat.type}
+                    />
                 ))}
                 <div className='stat'>
                     <div className='stat-title'>Data</div>
