@@ -1,6 +1,6 @@
 import propTypes from 'prop-types';
-// import { useStore } from '../../../store/useStore';
 import { Calendar, DateObject } from 'react-multi-date-picker';
+import { useViewport } from '../../../../utils/hooks';
 import CardHeader from '../../Molecules/CardHeader/CardHeader';
 import { setUserMoodStylesClass, convertFirebaseTimestamp } from '../../../../utils/helpers';
 
@@ -21,18 +21,20 @@ const months = [
 ];
 
 const UserCalendar = ({ calendar, setPickedDate }) => {
-    // const { setPickedDate } = useStore();
+    const width = useViewport();
     const userDates = calendar.map((day) => {
         const dateFormat = convertFirebaseTimestamp(day.timestamp, 'date');
         return new DateObject(dateFormat);
     });
+
+    const amountOfMonths = width < 600 ? 1 : width < 1140 ? 2 : 3;
 
     return (
         <>
             <CardHeader title='Kalendarz' describe='Wybierz dzień aby zobaczyć szczegóły' />
             <Calendar
                 className='pt-4'
-                numberOfMonths={3}
+                numberOfMonths={amountOfMonths}
                 weekStartDayIndex={1}
                 shadow={false}
                 hideYear={false}
