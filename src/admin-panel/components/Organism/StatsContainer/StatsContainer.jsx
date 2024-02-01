@@ -35,6 +35,7 @@ const StatsContainer = ({ userStats }) => {
                             extraLabel: 'text-sm',
                             input: 'toggle-custom toggle mx-2',
                         }}
+                        name='toggle-view'
                         title='Widok'
                         label='1 dzień'
                         extraLabel='5 dni'
