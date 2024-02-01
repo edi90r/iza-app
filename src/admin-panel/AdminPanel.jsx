@@ -22,7 +22,7 @@ const AdminPanel = () => {
                 </div>
 
                 {/* ===Admin panel content=== */}
-                <div className='content-height flex flex-col gap-y-16 px-4'>
+                <div className='content-height flex flex-col justify-evenly px-4'>
                     <Outlet />
                 </div>
 

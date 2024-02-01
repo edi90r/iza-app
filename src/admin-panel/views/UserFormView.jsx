@@ -16,7 +16,7 @@ const UserFormView = () => {
                 <StepsIndicator appView={appView} />
             )}
 
-            <div className='content-bottom-section-height grid w-full grid-cols-2 items-center py-10'>
+            <div className='content-bottom-section-height grid w-full grid-cols-2 items-center'>
                 <FormProvider {...methods}>
                     <Form />
                 </FormProvider>

@@ -74,7 +74,7 @@ const UserDetails = () => {
 
     return (
         <>
-            <div className='mt-8 grid w-full grid-cols-2 gap-x-8'>
+            <div className='grid w-full grid-cols-2 gap-x-8'>
                 <CardWrapper>
                     <UserBio user={userBio} />
                 </CardWrapper>
@@ -82,7 +82,7 @@ const UserDetails = () => {
                     <DayDetails dayDetails={dayDetails} pickedDate={pickedDate} />
                 </CardWrapper>
             </div>
-            <CardWrapper className='mb-8'>
+            <CardWrapper className=''>
                 <UserCalendar calendar={calendar} setPickedDate={setPickedDate} />
             </CardWrapper>
         </>
