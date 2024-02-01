@@ -12,6 +12,8 @@
     }
 }
 
+/* ===Custom Classes=== */
+
 .top-bar-height {
     height: var(--top-bar-height);
 }
@@ -27,7 +29,13 @@
 .card-content-height {
     height: calc(100% - var(--card-heading-height));
 }
+/* ===Custom toggle element=== */
+.toggle-custom {
+    height: 1.25rem;
+    --handleoffset: 1.7rem;
+}
 
+/* ===Custom collapse element=== */
 input[class^='collapse-radio']:not(:checked):hover ~ li {
     background: rgba(128, 128, 128, 0.5);
 }
@@ -41,6 +49,8 @@ input[class^='collapse-radio']:not(:checked):hover ~ li {
     border-bottom-left-radius: inherit;
     border-bottom-right-radius: inherit;
 }
+
+/* ===Custom Scrollbar=== */
 
 /* width */
 ::-webkit-scrollbar {

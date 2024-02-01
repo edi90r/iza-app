@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import StatRecord from '../../Molecules/StatRecord/StatRecord';
 import CardHeader from '../../Molecules/CardHeader/CardHeader';
 import CardWrapper from '../../Atoms/CardWrapper/CardWrapper';
+import SelectionControl from '../../Molecules/SelectionControl/SelectionControl';
 import { useStore } from '../../../store/useStore';
 
 const StatsContainer = ({ userStats }) => {
@@ -23,8 +24,26 @@ const StatsContainer = ({ userStats }) => {
         <CardWrapper className='mt-8'>
             <CardHeader
                 title='Statystyki'
-                describe='Bieżące statystkki użytkowników kolejno z jednego lub pięciu dni'
-            ></CardHeader>
+                describe='Bieżące statystki użytkowników kolejno z jednego lub pięciu dni'
+                className={{ wrapper: 'flex items-center justify-between' }}
+            >
+                <div className='max-w-44 flex flex-col'>
+                    <SelectionControl
+                        className={{
+                            wrapper: 'flex',
+                            label: 'me-0 text-sm',
+                            extraLabel: 'text-sm',
+                            input: 'toggle-custom toggle mx-2',
+                        }}
+                        title='Widok'
+                        label='1 dzień'
+                        extraLabel='5 dni'
+                        type='checkbox'
+                        checked={checked}
+                        onChange={(e) => handleChange(e)}
+                    />
+                </div>
+            </CardHeader>
 
             <div className='flex flex-wrap gap-4 px-4 py-8'>
                 {userStats.map((stat) => (
@@ -35,7 +54,7 @@ const StatsContainer = ({ userStats }) => {
                         type={stat.type}
                         className={{
                             container: 'lg:basis-1/12',
-                            actionIcon: 'flex h-8 w-8 items-center justify-center',
+                            actionIcon: 'h-8 w-8',
                         }}
                     />
                 ))}
