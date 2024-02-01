@@ -77,7 +77,7 @@ const ContactRequestsItem = ({ details, index }) => {
                 checked={collapseContactRequest}
                 onChange={(e) => handleCollapseRequests(e)}
             />
-            <li className='bg-gray-50 collapse-title grid min-h-7 grid-cols-[16px_160px_160px] gap-x-2 bg-opacity-25 py-2 font-hind'>
+            <li className='collapse-title grid min-h-7 grid-cols-[16px_160px_160px] gap-x-2 bg-gray-50 bg-opacity-25 py-2 font-hind'>
                 <CollapseTitleRecord title={`${index + 1}.`} />
                 <CollapseTitleRecord title='typ:' content={typeOfRequest[updatedDetails.type]} />
                 <CollapseTitleRecord
@@ -97,7 +97,7 @@ const ContactRequestsItem = ({ details, index }) => {
                     checked={updatedDetails.resolve}
                     className={{
                         wrapper: 'col-start-2 justify-start',
-                        input: 'toggle toggle-success',
+                        input: 'toggle-custom toggle toggle-success',
                     }}
                 />
                 <SelectionControl

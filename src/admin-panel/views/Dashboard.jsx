@@ -11,7 +11,7 @@ const Dashboard = () => {
     const { table } = useStore();
     const days = table.mode === 'oneDay' ? 1 : 5;
     const stats = getUserStats(users);
-    
+
     useEffect(() => {
         const fetchUsers = async () => {
             const users = await getUsersExcertp(true, days);

@@ -1,5 +1,5 @@
 import propTypes from 'prop-types';
-import { useStore } from '../../../store/useStore';
+// import { useStore } from '../../../store/useStore';
 import { Calendar, DateObject } from 'react-multi-date-picker';
 import CardHeader from '../../Molecules/CardHeader/CardHeader';
 import { setUserMoodStylesClass, convertFirebaseTimestamp } from '../../../../utils/helpers';
@@ -20,8 +20,8 @@ const months = [
     'Grudzień',
 ];
 
-const UserCalendar = ({ calendar }) => {
-    const { setPickedDate } = useStore();
+const UserCalendar = ({ calendar, setPickedDate }) => {
+    // const { setPickedDate } = useStore();
     const userDates = calendar.map((day) => {
         const dateFormat = convertFirebaseTimestamp(day.timestamp, 'date');
         return new DateObject(dateFormat);
@@ -74,6 +74,7 @@ UserCalendar.propTypes = {
             source: propTypes.shape({ userId: propTypes.string.isRequired }).isRequired,
         }),
     ),
+    setPickedDate: propTypes.func.isRequired,
 };
 
 export default UserCalendar;

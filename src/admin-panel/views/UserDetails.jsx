@@ -24,9 +24,10 @@ const initialUser = {
     calendar: [],
 };
 const UserDetails = () => {
+    const { currentDay } = useStore();
     const [user, setUser] = useState(initialUser);
     const [dayDetails, setDayDetails] = useState({});
-    const { pickedDate } = useStore();
+    const [pickedDate, setPickedDate] = useState(currentDay);
 
     const {
         name,
@@ -78,11 +79,11 @@ const UserDetails = () => {
                     <UserBio user={userBio} />
                 </CardWrapper>
                 <CardWrapper>
-                    <DayDetails dayDetails={dayDetails} />
+                    <DayDetails dayDetails={dayDetails} pickedDate={pickedDate} />
                 </CardWrapper>
             </div>
             <CardWrapper className='mb-8'>
-                <UserCalendar calendar={calendar} />
+                <UserCalendar calendar={calendar} setPickedDate={setPickedDate} />
             </CardWrapper>
         </>
     );
