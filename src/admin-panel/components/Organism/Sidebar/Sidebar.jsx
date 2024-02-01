@@ -16,7 +16,7 @@ const Sidebar = ({ handleChange }) => {
                 onClick={() => handleChange()}
             ></label>
 
-            <div className='menu flex min-h-full w-80 flex-col items-center justify-start bg-pureWhite py-5 text-base-content'>
+            <div className='menu flex min-h-full w-80 flex-col items-center justify-start bg-pureWhite py-8 text-base-content'>
                 <Logo />
                 <div className='flex items-center' style={{ height: '20vh' }}>
                     <AdminCard title='John Doe' facility='Rzeszowski ośrodek opieki dziennej' />
