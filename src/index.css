@@ -23,9 +23,6 @@
 .content-bottom-section-height {
     height: calc(100% - var(--content-top-section-height));
 }
-.card-heading-height {
-    max-height: var(--card-heading-height);
-}
 .card-content-height {
     height: calc(100% - var(--card-heading-height));
 }
@@ -62,6 +59,7 @@ input[class^='collapse-radio']:not(:checked):hover ~ li {
 /* width */
 ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
 }
 
 /* Track */
