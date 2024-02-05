@@ -29,6 +29,13 @@
 .card-content-height {
     height: calc(100% - var(--card-heading-height));
 }
+
+@media (min-width: 1024px) {
+    .lg\:content-height {
+        height: var(--content-height);
+    }
+}
+
 /* ===Custom toggle element=== */
 .toggle-custom {
     height: 1.25rem;
