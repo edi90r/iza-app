@@ -23,6 +23,7 @@ const initialUser = {
     describe: '',
     calendar: [],
 };
+
 const UserDetails = () => {
     const { currentDay } = useStore();
     const [user, setUser] = useState(initialUser);
@@ -68,21 +69,20 @@ const UserDetails = () => {
             const user = await getUserById(id, true);
             setUser(user);
         };
-        console.log('fetch user');
         fetchUser();
     }, [id]);
 
     return (
         <>
-            <div className='grid w-full grid-cols-2 gap-x-8'>
-                <CardWrapper>
+            <div className='flex w-full flex-col gap-x-8 lg:flex-row'>
+                <CardWrapper className='pt-8 lg:pt-0'>
                     <UserBio user={userBio} />
                 </CardWrapper>
-                <CardWrapper>
+                <CardWrapper className='pt-8 lg:pt-0'>
                     <DayDetails dayDetails={dayDetails} pickedDate={pickedDate} />
                 </CardWrapper>
             </div>
-            <CardWrapper className=''>
+            <CardWrapper className='pt-8 lg:pt-0'>
                 <UserCalendar calendar={calendar} setPickedDate={setPickedDate} />
             </CardWrapper>
         </>

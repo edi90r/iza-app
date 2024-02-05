@@ -15,14 +15,14 @@ const AdminPanel = () => {
         <div className='drawer lg:drawer-open'>
             <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
 
-            <div className='space-between drawer-content flex h-screen flex-col border-primary lg:border-l'>
+            <div className='drawer-content flex min-h-screen flex-col justify-center border-primary lg:h-screen lg:justify-between lg:border-l'>
                 <div className='top-bar-height hidden items-center justify-between border-b border-primary text-sm lg:flex'>
                     <Breadcrumbs />
                     <DateBadge />
                 </div>
 
                 {/* ===Admin panel content=== */}
-                <div className='content-height flex flex-col justify-evenly px-4'>
+                <div className='lg:content-height flex flex-col justify-evenly px-4 py-8 lg:py-0'>
                     <Outlet />
                 </div>
 

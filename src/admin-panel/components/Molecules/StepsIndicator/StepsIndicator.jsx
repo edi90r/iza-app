@@ -25,7 +25,7 @@ const StepsIndicator = ({ appView }) => {
     const clasess = (index) => `step ${index <= currentIndex ? 'step-primary' : ''}`;
 
     return (
-        <ul className='steps w-full pt-4'>
+        <ul className='steps col-span-2 col-start-1 row-start-1 mx-auto w-full place-content-end overflow-visible lg:col-span-1 lg:max-w-64'>
             {steps.map((step, index) => {
                 return (
                     <li key={uuidv4()} className={clasess(index)}>

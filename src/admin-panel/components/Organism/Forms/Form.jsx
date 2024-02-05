@@ -18,7 +18,7 @@ const Form = () => {
 
     const classes = `mx-auto w-full max-w-64 ${
         appView === 'addUserSummary' || appView === 'editUser' ? 'h-full' : ''
-    } overflow-y-auto p-2`;
+    } overflow-y-auto p-2 lg:pb-12 col-start-1`;
 
     const onSubmit = (data) => {
         if (appView === 'addUserSummary') {

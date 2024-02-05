@@ -12,16 +12,15 @@ const UserFormView = () => {
 
     return (
         <>
-            {appView !== 'editUser' && appView !== 'editUserCredentials' && (
-                <StepsIndicator appView={appView} />
-            )}
-
-            <div className='content-bottom-section-height grid w-full grid-cols-2 items-center'>
+            <div className='grid h-full w-full grid-cols-2 grid-rows-[120px_1fr]'>
+                {appView !== 'editUser' && appView !== 'editUserCredentials' && (
+                    <StepsIndicator appView={appView} />
+                )}
                 <FormProvider {...methods}>
                     <Form />
                 </FormProvider>
 
-                <div className='flex items-center justify-center font-montserrat font-700 text-black'>
+                <div className='flex items-center justify-center font-montserrat font-700 text-black lg:col-start-2 lg:row-span-2 lg:row-start-1'>
                     {renderFormCopy(appView)}
                 </div>
             </div>
