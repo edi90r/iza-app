@@ -16,8 +16,8 @@ const UserExcereptTable = ({ users }) => {
     ];
 
     return (
-        <div className='mb-8 hidden w-full lg:block'>
-            <CardWrapper className='max-h-112 h-auto overflow-y-auto'>
+        <div className='mb-8 hidden w-full xs:block lg:mb-0'>
+            <CardWrapper className='h-auto max-h-112 overflow-x-auto'>
                 <CardHeader
                     title='Użytkownicy'
                     describe='lista użytkowników, zmień liczbę wyświetlanych dni aby zobaczyć kondycje użytkowników kolejno z jedno lub pięciu dni'

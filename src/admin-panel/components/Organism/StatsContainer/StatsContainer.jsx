@@ -21,13 +21,13 @@ const StatsContainer = ({ userStats }) => {
     }, [checked, setTable]);
 
     return (
-        <CardWrapper className='mt-8'>
+        <CardWrapper className='my-8 lg:my-0'>
             <CardHeader
                 title='Statystyki'
                 describe='Bieżące statystki użytkowników kolejno z jednego lub pięciu dni'
                 className={{ wrapper: 'flex items-center justify-between' }}
             >
-                <div className='max-w-44 flex flex-col'>
+                <div className='flex max-w-44 flex-col'>
                     <SelectionControl
                         className={{
                             wrapper: 'flex',

@@ -2,12 +2,12 @@ import propTypes from 'prop-types';
 
 const CardHeader = ({
     title,
-    describe,
+    describe = '',
     className = { wrapper: '', title: '', describe: '' },
     children,
 }) => {
     const classes = {
-        wrapper: `card-heading-height border-gray border-b p-4 hover:cursor-default ${
+        wrapper: `h-auto border-gray border-b p-4 hover:cursor-default ${
             className.wrapper ? className.wrapper : ''
         }`,
         title: `font-montserrat font-700 ${className.title ? className.title : ''}`,
@@ -37,7 +37,7 @@ const CardHeader = ({
 
 CardHeader.propTypes = {
     title: propTypes.string.isRequired,
-    describe: propTypes.string.isRequired,
+    describe: propTypes.string,
     className: propTypes.shape({
         wrapper: propTypes.string,
         title: propTypes.string,
