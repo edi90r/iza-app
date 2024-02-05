@@ -18,8 +18,8 @@ const Form = () => {
     } = useFormContext();
 
     const classes = twMerge(
-        `mx-auto w-full max-w-64 overflow-y-auto p-2 col-start-1 row-start-2 place-self-center ${
-            appView === 'addUserSummary' || appView === 'editUser' ? 'h-full mb-24' : ''
+        `mx-auto w-full h-full max-w-64 overflow-y-auto p-2 col-start-1 row-start-2 place-self-center  ${
+            appView === 'addUserSummary' || appView === 'editUser' ? 'mb-24' : ''
         }`,
     );
 
