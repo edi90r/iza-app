@@ -4,7 +4,7 @@ import SidebarButtons from '../../Molecules/SidebarButtons/SidebarButtons';
 import Logo from '../../Atoms/Logo/Logo';
 import AdminCard from '../../Molecules/AdminCard/AdminCard';
 
-const Sidebar = ({ handleChange }) => {
+const Sidebar = ({ handleChange, handleMenuClick }) => {
     const { id } = useParams();
 
     return (
@@ -22,7 +22,7 @@ const Sidebar = ({ handleChange }) => {
                     <AdminCard title='John Doe' facility='Rzeszowski ośrodek opieki dziennej' />
                 </div>
                 <div className='mt-auto flex w-full basis-60 flex-col items-center justify-end'>
-                    <SidebarButtons id={id} />
+                    <SidebarButtons id={id} handleMenuClick={() => handleMenuClick()} />
                 </div>
             </div>
         </div>
@@ -31,6 +31,7 @@ const Sidebar = ({ handleChange }) => {
 
 Sidebar.propTypes = {
     handleChange: propTypes.func.isRequired,
+    handleMenuClick: propTypes.func.isRequired,
 };
 
 export default Sidebar;

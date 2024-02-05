@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Outlet } from 'react-router-dom';
 import BurgerButton from './components/Atoms/BurgerButton/BurgerButton';
 import Breadcrumbs from './components/Molecules/Breadcrumbs/Breadcrumbs';
@@ -11,9 +11,17 @@ const AdminPanel = () => {
         setsideBarActive(!sideBarActive);
     };
 
+    const drawerRef = useRef(null);
+
+    const handleMenuClick = () => {
+        if (typeof drawerRef.current === 'undefined') return;
+        setsideBarActive(!sideBarActive);
+        drawerRef.current.click();
+    };
+
     return (
-        <div className='drawer lg:drawer-open'>
-            <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
+        <div className='drawer block lg:drawer-open md:grid'>
+            <input id='my-drawer-2' type='checkbox' className='drawer-toggle' ref={drawerRef} />
 
             <div className='drawer-content flex min-h-screen flex-col justify-center border-primary lg:h-screen lg:justify-between lg:border-l'>
                 <div className='top-bar-height hidden items-center justify-between border-b border-primary text-sm lg:flex'>
@@ -29,7 +37,10 @@ const AdminPanel = () => {
                 <BurgerButton handleChange={handleChange} active={sideBarActive} />
             </div>
 
-            <Sidebar handleChange={() => handleChange()} />
+            <Sidebar
+                handleChange={() => handleChange()}
+                handleMenuClick={() => handleMenuClick()}
+            />
         </div>
     );
 };
