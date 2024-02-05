@@ -4,6 +4,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useAppView } from '../../../../utils/hooks';
 import { setSpecificDataShape } from '../../../../utils/helpers';
 import { createUser, getUserById, updateUser } from '../../../../controlers/admin';
+import { twMerge } from 'tailwind-merge';
 
 const Form = () => {
     const { id } = useParams();
@@ -16,9 +17,11 @@ const Form = () => {
         setValue,
     } = useFormContext();
 
-    const classes = `mx-auto w-full max-w-64 ${
-        appView === 'addUserSummary' || appView === 'editUser' ? 'h-full' : ''
-    } overflow-y-auto p-2 lg:pb-12 col-start-1`;
+    const classes = twMerge(
+        `mx-auto w-full max-w-64 overflow-y-auto p-2 col-start-1 row-start-2 place-self-center ${
+            appView === 'addUserSummary' || appView === 'editUser' ? 'h-full mb-24' : ''
+        }`,
+    );
 
     const onSubmit = (data) => {
         if (appView === 'addUserSummary') {
