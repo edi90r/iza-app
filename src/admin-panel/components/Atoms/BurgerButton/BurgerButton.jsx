@@ -3,9 +3,8 @@ import propTypes from 'prop-types';
 const BurgerButton = ({ handleChange, active }) => {
     return (
         <label
-            className='btn btn-circle swap swap-rotate absolute lg:hidden'
+            className='btn btn-circle swap swap-rotate fixed right-4 top-4 z-20 lg:hidden'
             htmlFor='my-drawer-2'
-            style={{ top: '5%', right: '5%' }}
             onClick={(e) => handleChange(e)}
         >
             {/* this hidden checkbox controls the state */}

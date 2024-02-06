@@ -1,7 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 export default {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
+        screens: {
+            xs: '475px',
+            ...defaultTheme.screens,
+        },
         colors: {
             pureWhite: '#FFFFFF',
             gray: '#949494',
@@ -38,7 +44,12 @@ export default {
             maxWidth: {
                 8: '2rem',
                 40: '10rem',
+                44: '11rem',
                 64: '32rem',
+                180: '45rem',
+            },
+            maxHeight: {
+                112: '28rem',
             },
             minWidth: {
                 0: '0px',
@@ -62,6 +73,7 @@ export default {
                 32: '8rem',
                 36: '9rem',
                 40: '10rem',
+                44: '11rem',
             },
             minHeight: {
                 7: '1.75rem',

@@ -3,15 +3,13 @@ import { v4 as uuidv4 } from 'uuid';
 import CardHeader from '../../Molecules/CardHeader/CardHeader';
 import CardRecord from '../../Molecules/CardRecord/CardRecord';
 import ContactRequestsItem from '../ContactRequestItem/ContactRequestItem';
-import { useStore } from '../../../store/useStore';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getDailyContactRequests } from '../../../../controlers/admin';
 
-const DayDetails = ({ dayDetails }) => {
+const DayDetails = ({ dayDetails, pickedDate }) => {
     const { mood, contactRequests } = dayDetails || {};
     const [contactRequestsRemote, setContactRequestsRemote] = useState(contactRequests);
-    const { pickedDate } = useStore();
     const { id } = useParams();
     const userMood = {
         good: 'dobry',
@@ -71,6 +69,7 @@ DayDetails.propTypes = {
             }),
         ),
     }),
+    pickedDate: propTypes.string.isRequired,
 };
 
 export default DayDetails;

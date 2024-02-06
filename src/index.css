@@ -12,6 +12,8 @@
     }
 }
 
+/* ===Custom Classes=== */
+
 .top-bar-height {
     height: var(--top-bar-height);
 }
@@ -21,13 +23,23 @@
 .content-bottom-section-height {
     height: calc(100% - var(--content-top-section-height));
 }
-.card-heading-height {
-    max-height: var(--card-heading-height);
-}
 .card-content-height {
     height: calc(100% - var(--card-heading-height));
 }
 
+@media (min-width: 1024px) {
+    .lg\:content-height {
+        height: var(--content-height);
+    }
+}
+
+/* ===Custom toggle element=== */
+.toggle-custom {
+    height: 1.25rem;
+    --handleoffset: 1.7rem;
+}
+
+/* ===Custom collapse element=== */
 input[class^='collapse-radio']:not(:checked):hover ~ li {
     background: rgba(128, 128, 128, 0.5);
 }
@@ -42,9 +54,11 @@ input[class^='collapse-radio']:not(:checked):hover ~ li {
     border-bottom-right-radius: inherit;
 }
 
+/* ===Custom Scrollbar=== */
+
 /* width */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 5px;
 }
 
 /* Track */
@@ -54,7 +68,7 @@ input[class^='collapse-radio']:not(:checked):hover ~ li {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: theme(colors[darkBlue]);
+    background: theme(colors[neutral-400]);
     border-radius: 5px;
 }
 

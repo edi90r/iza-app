@@ -9,7 +9,7 @@ const Breadcrumbs = () => {
     });
 
     return (
-        <div className='top-bar-height w-100 breadcrumbs hidden border-b border-primary text-sm lg:flex'>
+        <div className='breadcrumbs p-0'>
             <ul className='p-4'>
                 {breadcrumbs.map(({ breadcrumb, match }) => (
                     <li key={uuidv4()}>

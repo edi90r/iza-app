@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import StatRecord from '../../Molecules/StatRecord/StatRecord';
+import CardHeader from '../../Molecules/CardHeader/CardHeader';
+import CardWrapper from '../../Atoms/CardWrapper/CardWrapper';
+import SelectionControl from '../../Molecules/SelectionControl/SelectionControl';
 import { useStore } from '../../../store/useStore';
 
 const StatsContainer = ({ userStats }) => {
     const [checked, setChecked] = useState(false);
-    const { currentDay, setTable } = useStore();
+    const { setTable } = useStore();
 
     const handleChange = (e) => {
         setChecked(e.target.checked);
@@ -18,35 +21,46 @@ const StatsContainer = ({ userStats }) => {
     }, [checked, setTable]);
 
     return (
-        <div
-            className='flex w-full flex-col items-center justify-center lg:flex-row'
-            style={{ height: '20vh' }}
-        >
-            <h2>Statystyki</h2>
-            <div className='stats stats-vertical shadow lg:stats-horizontal'>
-                <div className='stat'>
-                    <div className='stat-title w-16'>{checked ? '5 dni' : '1 dzień'}</div>
-                    <input
+        <CardWrapper className='my-8 lg:my-0'>
+            <CardHeader
+                title='Statystyki'
+                describe='Bieżące statystki użytkowników kolejno z jednego lub pięciu dni'
+                className={{ wrapper: 'flex items-center justify-between' }}
+            >
+                <div className='flex max-w-44 flex-col'>
+                    <SelectionControl
+                        className={{
+                            wrapper: 'flex',
+                            label: 'me-0 text-sm',
+                            extraLabel: 'text-sm',
+                            input: 'toggle-custom toggle mx-2',
+                        }}
+                        name='toggle-view'
+                        title='Widok'
+                        label='1 dzień'
+                        extraLabel='5 dni'
                         type='checkbox'
-                        className='toggle'
-                        onChange={(e) => handleChange(e)}
                         checked={checked}
+                        onChange={(e) => handleChange(e)}
                     />
                 </div>
+            </CardHeader>
+
+            <div className='flex flex-wrap gap-4 px-4 py-8'>
                 {userStats.map((stat) => (
                     <StatRecord
                         key={uuidv4()}
                         label={stat.label}
                         value={stat.record}
                         type={stat.type}
+                        className={{
+                            container: 'lg:basis-1/12',
+                            actionIcon: 'h-8 w-8',
+                        }}
                     />
                 ))}
-                <div className='stat'>
-                    <div className='stat-title'>Data</div>
-                    <div className='stat-value'>{currentDay}</div>
-                </div>
             </div>
-        </div>
+        </CardWrapper>
     );
 };
 

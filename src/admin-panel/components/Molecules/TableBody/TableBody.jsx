@@ -26,7 +26,7 @@ const TableBody = ({ users, ...rest }) => {
                         key={uuidv4()}
                         onClick={() => goUserDetailsRoute(user.uid)}
                         {...rest}
-                        className='hover cursor-pointer hover:bg-gray-100'
+                        className='hover:cursor-pointer hover:bg-gray-100'
                     >
                         <th>{index + 1}</th>
                         <td>{`${user.name} ${user.lastname}`}</td>
@@ -34,12 +34,12 @@ const TableBody = ({ users, ...rest }) => {
                         <td>{user.address.phoneNumber}</td>
                         <td>{computeUserAge(user.dateOfBirth)}</td>
                         <td>
-                            <div className='flex'>
+                            <div className='flex justify-between'>
                                 <ActionIconWrapper data={userActions.moods} />
                             </div>
                         </td>
                         <td>
-                            <div className='flex'>
+                            <div className='flex justify-between'>
                                 <ActionIconWrapper data={userActions.contactRequests} />
                             </div>
                         </td>

@@ -1,3 +1,10 @@
+import personalDataIlustration from '../assets/illustrations/personalData-illustration.svg';
+import contactDataIlustration from '../assets/illustrations/contactData-illustration.svg';
+import registerUserIlustration from '../assets/illustrations/registerUser-illustration.svg';
+import summaryIlustration from '../assets/illustrations/summaryUserForm-illustration.svg';
+import editCredentialsIlustration from '../assets/illustrations/editCredentials-illustration.svg';
+import editUserIlustration from '../assets/illustrations/editUser-illustration.svg';
+
 export const isObjectEmpty = (objectName) => {
     return objectName && Object.keys(objectName).length === 0 && objectName.constructor === Object;
 };
@@ -220,17 +227,57 @@ export const validatePesel = (pesel, helpers) => {
 export const renderFormCopy = (appView) => {
     switch (appView) {
         case 'addUserPersonalData':
-            return 'Dane osobowe';
+            return {
+                title: 'Dane personale',
+                illustration: personalDataIlustration,
+                description:
+                    'Wypełnij formularz, o potrzebne dane osobowe. Wszystkie pola są wymagane.',
+                altText: 'Ilustracja przedstawiająca formularz danych osobowych do wypełnienia.',
+            };
+
         case 'addUserContactData':
-            return 'Dane kontaktowe';
+            return {
+                title: 'Dane kontaktowe',
+                illustration: contactDataIlustration,
+                description:
+                    'Wypełnij formularz, o potrzebne dane kontaktowe, tak by w razie potrzeby móc skontaktować się z użytkownikiem.',
+                altText: 'Ilustracja przedstawiająca formularz danych kontaktowych do wypełnienia.',
+            };
         case 'addUserRegister':
-            return 'Zarejestruj użytkownika';
+            return {
+                title: 'Zarejestruj użytkownika',
+                illustration: registerUserIlustration,
+                description:
+                    'Utwórz login i hasło dla nowego użytkownika. Dzięki temu będziesz mógł zalogować użytkownika w aplikacji mobilnej.',
+                altText: 'Ilustracja przedstawiająca formularz rejestrujący użytkownika.',
+            };
         case 'addUserSummary':
-            return 'Podsumowanie';
+            return {
+                title: 'Podsumowanie',
+                illustration: summaryIlustration,
+                description:
+                    'Sprawdź czy wszystkie dane zostały poprawnie wprowadzone. Po zatwierdzeniu, użytkownik zostanie dodany do bazy danych.',
+                altText:
+                    'Ilustracja przedstawiająca formularz podsumuwujący proces rejestracji użytkownika.',
+            };
         case 'editUser':
-            return 'Edytuj użytkownika';
+            return {
+                title: 'Edytuj użytkownika',
+                illustration: editUserIlustration,
+                description:
+                    'Edytuj dane użytkownika i zatwierdź zmiany. Po zatwierdzeniu, zmiany zostaną zaktualizowane w bazie danych.',
+                altText:
+                    'Ilustracja przedstawiająca formularz podsumuwujący proces rejestracji użytkownika.',
+            };
         case 'editUserCredentials':
-            return 'Edytuj login lub hasło';
+            return {
+                title: 'Edytuj login lub hasło',
+                illustration: editCredentialsIlustration,
+                description:
+                    'Możesz zmienić login lub hasło użytkownika. Wprowadź nowe dane i zatwierdź zmiany.',
+                altText:
+                    'Ilustracja przedstawiająca formularz edytujący dane użytkownika rejestracji użytkownika.',
+            };
         default:
             break;
     }

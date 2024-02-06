@@ -4,26 +4,26 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { renderFormCopy } from '../../utils/helpers';
 import Form from '../components/Organism/Forms/Form';
 import StepsIndicator from '../components/Molecules/StepsIndicator/StepsIndicator';
+import CopySection from '../components/Molecules/CopySection/CopySection';
 
 const UserFormView = () => {
     const [appView] = useAppView();
     const [validationSchema] = useValidation(appView);
     const methods = useForm({ mode: 'onChange', resolver: joiResolver(validationSchema) });
+    const copy = renderFormCopy(appView) || {};
 
     return (
         <>
-            {appView !== 'editUser' && appView !== 'editUserCredentials' && (
-                <StepsIndicator appView={appView} />
-            )}
+            <div className='grid h-full w-full grid-cols-2 grid-rows-[140px_1fr] gap-x-0 lg:gap-x-8'>
+                {appView !== 'editUser' && appView !== 'editUserCredentials' && (
+                    <StepsIndicator appView={appView} />
+                )}
 
-            <div className='content-bottom-section-height grid w-full grid-cols-2 items-center py-10'>
                 <FormProvider {...methods}>
                     <Form />
                 </FormProvider>
 
-                <div className='flex items-center justify-center font-montserrat font-700 text-black'>
-                    {renderFormCopy(appView)}
-                </div>
+                <CopySection copy={copy} />
             </div>
         </>
     );
