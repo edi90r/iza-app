@@ -58,8 +58,7 @@ input[class^='collapse-radio']:not(:checked):hover ~ li {
 
 /* width */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 5px;
 }
 
 /* Track */
@@ -69,7 +68,7 @@ input[class^='collapse-radio']:not(:checked):hover ~ li {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: theme(colors[darkBlue]);
+    background: theme(colors[neutral-400]);
     border-radius: 5px;
 }
 

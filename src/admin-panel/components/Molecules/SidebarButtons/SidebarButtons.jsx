@@ -14,12 +14,17 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                             tag='link'
                             path={'/admin/add-user/personal-data'}
                             variant='primary'
-                            className='mb-4 w-full'
+                            className='mt-4 w-full first:mt-0'
                             onClick={handleMenuClick}
                         >
                             dodaj użytkownika
                         </Button>
-                        <Button tag='link' path={'/'} variant='primary' className='w-full'>
+                        <Button
+                            tag='link'
+                            path={'/'}
+                            variant='primary'
+                            className='mt-4 w-full first:mt-0'
+                        >
                             wyloguj
                         </Button>
                     </>
@@ -33,7 +38,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                     <Button
                         tag='link'
                         path={'/admin'}
-                        className='mb-4 w-full'
+                        className='mt-4 w-full first:mt-0'
                         onClick={handleMenuClick}
                     >
                         dashboard
@@ -45,7 +50,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                         <Button
                             tag='link'
                             path={'/admin'}
-                            className='mb-4 w-full'
+                            className='mt-4 w-full first:mt-0'
                             onClick={handleMenuClick}
                         >
                             dashboard
@@ -54,7 +59,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                             tag='link'
                             path={`/admin/user-details/${id}/edit-credentials`}
                             variant='primary'
-                            className=' mb-4 w-full'
+                            className='mt-4 w-full first:mt-0'
                             onClick={handleMenuClick}
                         >
                             edytuj login lub hasło
@@ -68,7 +73,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                         <Button
                             tag='link'
                             path={'/admin'}
-                            className='mb-4 w-full'
+                            className='mt-4 w-full first:mt-0'
                             onClick={handleMenuClick}
                         >
                             dashboard
@@ -76,7 +81,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                         <Button
                             tag='link'
                             path={`/admin/user-details/${id}/edit`}
-                            className='mb-4 w-full'
+                            className='mt-4 w-full first:mt-0'
                             onClick={handleMenuClick}
                         >
                             edytuj użytkownika
@@ -84,7 +89,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                         <Button
                             tag='link'
                             path={`/admin`}
-                            className='mb-4 w-full'
+                            className='mt-4 w-full first:mt-0'
                             onClick={handleMenuClick}
                         >
                             usuń użytkownika
