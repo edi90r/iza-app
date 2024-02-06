@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import { getUserById } from '../../controlers/admin';
 import CardWrapper from '../components/Atoms/CardWrapper/CardWrapper';
+import Loader from '../components/Atoms/Loader/Loader';
 import UserBio from '../components/Organism/UserBio/UserBio';
 import DayDetails from '../components/Organism/DayDetails/DayDetails';
 import UserCalendar from '../components/Organism/Calendar/Calendar';
@@ -26,6 +27,7 @@ const initialUser = {
 
 const UserDetails = () => {
     const { currentDay } = useStore();
+    const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState(initialUser);
     const [dayDetails, setDayDetails] = useState({});
     const [pickedDate, setPickedDate] = useState(currentDay);
@@ -67,24 +69,34 @@ const UserDetails = () => {
     useEffect(() => {
         const fetchUser = async () => {
             const user = await getUserById(id, true);
+            if (!user) {
+                setIsLoading(true);
+            }
             setUser(user);
+            setIsLoading(false);
         };
         fetchUser();
     }, [id]);
 
     return (
         <>
-            <div className='flex w-full flex-col gap-x-8 lg:flex-row'>
-                <CardWrapper className='pt-8 lg:pt-0'>
-                    <UserBio user={userBio} />
-                </CardWrapper>
-                <CardWrapper className='pt-8 lg:pt-0'>
-                    <DayDetails dayDetails={dayDetails} pickedDate={pickedDate} />
-                </CardWrapper>
-            </div>
-            <CardWrapper className='pt-8 lg:pt-0'>
-                <UserCalendar calendar={calendar} setPickedDate={setPickedDate} />
-            </CardWrapper>
+            {isLoading ? (
+                <Loader />
+            ) : (
+                <>
+                    <div className='flex w-full flex-col gap-x-8 lg:flex-row'>
+                        <CardWrapper className='pt-8 lg:pt-0'>
+                            <UserBio user={userBio} />
+                        </CardWrapper>
+                        <CardWrapper className='pt-8 lg:pt-0'>
+                            <DayDetails dayDetails={dayDetails} pickedDate={pickedDate} />
+                        </CardWrapper>
+                    </div>
+                    <CardWrapper className='pt-8 lg:pt-0'>
+                        <UserCalendar calendar={calendar} setPickedDate={setPickedDate} />
+                    </CardWrapper>
+                </>
+            )}
         </>
     );
 };
