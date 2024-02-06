@@ -18,7 +18,7 @@ const Form = () => {
     } = useFormContext();
 
     const classes = twMerge(
-        'w-full h-full max-w-64 overflow-y-auto px-2 col-start-1 row-start-2 place-self-center [&>label]:pt-0',
+        'w-full h-full max-w-64 overflow-y-auto px-2 col-start-1 col-span-2 md:col-span-1 row-start-2 place-self-center [&>label]:pt-0',
     );
 
     const onSubmit = (data) => {
