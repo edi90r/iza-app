@@ -62,7 +62,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                             className='mt-4 w-full first:mt-0'
                             onClick={handleMenuClick}
                         >
-                            edytuj login lub hasło
+                            Zmień hasło
                         </Button>
                     </>
                 );

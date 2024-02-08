@@ -248,7 +248,7 @@ export const renderFormCopy = (appView) => {
                 title: 'Zarejestruj użytkownika',
                 illustration: registerUserIlustration,
                 description:
-                    'Utwórz login i hasło dla nowego użytkownika. Dzięki temu będziesz mógł zalogować użytkownika w aplikacji mobilnej.',
+                    'Utwórz konto dla nowego użytkownika. Dzięki temu będziesz mógł zalogować użytkownika w aplikacji mobilnej.',
                 altText: 'Ilustracja przedstawiająca formularz rejestrujący użytkownika.',
             };
         case 'addUserSummary':
@@ -271,10 +271,10 @@ export const renderFormCopy = (appView) => {
             };
         case 'editUserCredentials':
             return {
-                title: 'Edytuj login lub hasło',
+                title: 'Przywróć hasło',
                 illustration: editCredentialsIlustration,
                 description:
-                    'Możesz zmienić login lub hasło użytkownika. Wprowadź nowe dane i zatwierdź zmiany.',
+                    'Możesz zmienić hasło użytkownika. Wprowadź nowe dane i zatwierdź zmiany.',
                 altText:
                     'Ilustracja przedstawiająca formularz edytujący dane użytkownika rejestracji użytkownika.',
             };

@@ -112,13 +112,13 @@ const SummaryForm = () => {
                 />
             </div>
             <FormInput
-                label='Login'
-                name='login'
+                label='Email'
+                name='email'
                 type='text'
-                placeholder='Podaj login'
+                placeholder='Podaj email'
                 register={register}
                 required={true}
-                error={errors.login}
+                error={errors.email}
             />
 
             <div className='flex justify-between gap-x-8'>

@@ -7,5 +7,5 @@ export const routes = [
     { path: '/admin/add-user/summary', breadcrumb: 'podsumowanie' },
     { path: '/admin/user-details/:id', breadcrumb: 'użytkownik' },
     { path: '/admin/user-details/:id/edit', breadcrumb: 'edytuj użytkownika' },
-    { path: '/admin/user-details/:id/edit-credentials', breadcrumb: 'edytuj login lub hasło' },
+    { path: '/admin/user-details/:id/edit-credentials', breadcrumb: 'przywróć hasło' },
 ];

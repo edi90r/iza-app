@@ -31,7 +31,7 @@ const Form = () => {
             updateUser(id, user);
             navigate('/admin');
         } else if (appView === 'editUserCredentials') {
-            console.log('edit login&password');
+            console.log('edit email&password');
             navigate('/admin');
         } else {
             return;
@@ -49,7 +49,7 @@ const Form = () => {
             'houseNumber',
             'apartmentNumber',
             'phoneNumber',
-            'login',
+            'email',
             'describe',
         ];
 

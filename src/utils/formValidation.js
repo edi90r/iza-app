@@ -31,17 +31,13 @@ const schemaFormObj = {
             'string.empty': 'Nazwisko użytkownika nie może być puste',
             'any.required': 'Nazwisko użytkownika jest wymagane',
         }),
-    login: Joi.string()
-        .min(3)
-        .max(16)
-        .regex(/^[A-ZĄĆĘŁŃÓŚŹŻ][a-ząćęłńóśźżA-Z0-9 '.-]*[^-]$/)
+    email: Joi.string()
+        .email({ tlds: { value: ['com', 'pl', 'com.pl'] } })
         .required()
         .messages({
-            'string.base': 'Login musi być stringiem',
-            'string.min': 'Login musi się składać z conajmniej 3 znaków',
-            'string.max': 'Login musi się składać z conajmniej 16 znaków',
-            'string.pattern.base': 'Login musi zaczynać się dużą literą',
-            'string.empty': 'Login jest wymagany',
+            'string.base': 'Email musi być stringiem',
+            'string.email': 'Podany email jest nie prawidłowy',
+            'string.empty': 'Email jest wymagany',
         }),
     password: joiPassword
         .string()
@@ -129,7 +125,7 @@ export const UserPersonalDataSchema = Joi.object(schemaFormObj).fork(
         'houseNumber',
         'apartmentNumber',
         'phoneNumber',
-        'login',
+        'email',
         'password',
         'repeatPassword',
     ],
@@ -141,7 +137,7 @@ export const UserContactDataSchema = Joi.object(schemaFormObj).fork(
         'lastname',
         'dateOfBirth',
         'personalIdentityNumber',
-        'login',
+        'email',
         'password',
         'repeatPassword',
     ],
@@ -165,7 +161,7 @@ export const UserCredentialsSchema = Joi.object(schemaFormObj).fork(
     (schema) => schema.allow('').optional(),
 );
 export const EditUserSchema = Joi.object(schemaFormObj).fork(
-    ['login', 'password', 'repeatPassword'],
+    ['email', 'password', 'repeatPassword'],
 
     (schema) => schema.allow('').optional(),
 );

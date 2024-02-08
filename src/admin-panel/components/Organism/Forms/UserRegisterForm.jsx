@@ -25,13 +25,13 @@ const UserRegisterForm = ({ edit }) => {
     return (
         <>
             <FormInput
-                label='Login'
-                name='login'
-                type='text'
-                placeholder='Podaj login'
+                label='Email'
+                name='email'
+                type='email'
+                placeholder='Podaj email'
                 register={register}
                 required={true}
-                error={errors.login}
+                error={errors.email}
             />
 
             <div className='flex justify-between gap-x-8'>
