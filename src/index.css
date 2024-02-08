@@ -76,3 +76,7 @@ input[class^='collapse-radio']:not(:checked):hover ~ li {
 ::-webkit-scrollbar-thumb:hover {
     background: theme(colors[darkBlue]);
 }
+
+.pwa::-webkit-scrollbar {
+    display: none;
+}

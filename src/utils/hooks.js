@@ -102,3 +102,33 @@ export const useViewport = () => {
 
     return width;
 };
+
+export const useScrollPosition = (ref) => {
+    const [scrollPosition, setScrollPosition] = useState(0);
+    const [isScrolling, setIsScrolling] = useState(false);
+
+    useEffect(() => {
+        let scrollTimeout = null;
+
+        const handleScroll = () => {
+            const currentIndex = Math.round(ref.current.scrollLeft / ref.current.offsetWidth);
+            setScrollPosition(currentIndex);
+
+            setIsScrolling(true);
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                setIsScrolling(false);
+            }, 100);
+        };
+
+        const currentRef = ref.current;
+
+        currentRef.addEventListener('scroll', handleScroll);
+
+        return () => {
+            currentRef.removeEventListener('scroll', handleScroll);
+        };
+    }, [ref]);
+
+    return [scrollPosition, isScrolling];
+};
