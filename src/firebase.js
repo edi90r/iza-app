@@ -4,15 +4,34 @@ import { getFirestore } from 'firebase/firestore';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-    apiKey: 'AIzaSyBCtVKY8kPBNIkqL6jy2yQU_8PqreE8soU',
-    authDomain: 'quickstart-1550568083201.firebaseapp.com',
-    projectId: 'quickstart-1550568083201',
-    storageBucket: 'quickstart-1550568083201.appspot.com',
-    messagingSenderId: '267970678541',
-    appId: '1:267970678541:web:7bd49b495d9a6875266a44',
-};
+const apiKey = process.env.API_KEY;
+const authDomain = process.env.AUTH_DOMAIN;
+const projectId = process.env.PROJECT_ID;
+const storageBucket = process.env.STORAGE_BUCKET;
+const messagingSenderId = process.env.MESSAGINNG_SENDER_ID;
+const appId = process.env.APP_ID;
+
+let firebaseConfig;
+
+if (import.meta.env.VITE_APP_ENV === 'development') {
+    firebaseConfig = {
+        apiKey: apiKey,
+        authDomain: authDomain,
+        projectId: projectId,
+        storageBucket: storageBucket,
+        messagingSenderId: messagingSenderId,
+        appId: appId,
+    };
+} else {
+    firebaseConfig = {
+        apiKey: process.env.API_KEY,
+        authDomain: process.env.AUTH_DOMAIN,
+        projectId: process.env.PROJECT_ID,
+        storageBucket: process.env.STORAGE_BUCKET,
+        messagingSenderId: process.env.MESSAGINNG_SENDER_ID,
+        appId: process.env.APP_ID,
+    };
+}
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
