@@ -55,7 +55,6 @@ const StatsContainer = ({ userStats }) => {
                         type={stat.type}
                         className={{
                             container: 'lg:basis-1/12',
-                            actionIcon: 'h-8 w-8',
                         }}
                     />
                 ))}

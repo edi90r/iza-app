@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import ActionIcon from '../../Atoms/ActionIcon/ActionIcon';
+import ActionIcon from '../../../../common-components/ActionIcon/ActionIcon';
 import { twMerge } from 'tailwind-merge';
 twMerge;
 

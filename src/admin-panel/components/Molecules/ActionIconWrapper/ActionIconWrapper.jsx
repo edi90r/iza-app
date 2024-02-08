@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
-import ActionIcon from '../../Atoms/ActionIcon/ActionIcon';
+import ActionIcon from '../../../../common-components/ActionIcon/ActionIcon';
 
 const ActionIconWrapper = ({ data }) => {
     return (
