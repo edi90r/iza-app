@@ -1,14 +1,21 @@
+import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import logo from '../../../../assets/logo.svg';
+import { twMerge } from 'tailwind-merge';
 
-const Logo = () => {
+const Logo = ({ className }) => {
+    const classes = twMerge(`w-16 ${className ? className : ''}`);
     return (
-        <div className='flex w-16 -translate-x-1/2 items-start justify-center'>
+        <div className={classes}>
             <Link to={'/'} className='w-full'>
                 <img src={logo} alt='logo' className='w-full' />
             </Link>
         </div>
     );
+};
+
+Logo.propTypes = {
+    className: propTypes.string,
 };
 
 export default Logo;
