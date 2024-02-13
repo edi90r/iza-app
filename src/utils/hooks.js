@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, matchPath } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import {
     UserPersonalDataSchema,
     UserContactDataSchema,
@@ -8,6 +9,63 @@ import {
     EditUserSchema,
     ContactRequestNoteSchema,
 } from './formValidation';
+
+export const useProvideAuth = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userRole, setUserRole] = useState(null);
+    const auth = getAuth();
+    console.log(userRole);
+    const signIn = (email, password) => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
+    };
+    const handleSignOut = () => {
+        signOut(auth)
+            .then(() => {
+                setIsAuthenticated(false);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                try {
+                    const idTokenResult = await user.getIdTokenResult();
+                    const { role } = idTokenResult.claims;
+                    if (role) {
+                        setIsAuthenticated(true);
+                        setUserRole(role);
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            } else {
+                setIsAuthenticated(false);
+                setUserRole(null);
+            }
+        });
+
+        return () => unsubscribe();
+    }, [auth]);
+
+    return {
+        isAuthenticated,
+        userRole,
+        signIn,
+        handleSignOut,
+    };
+};
 
 export const useAppView = () => {
     const [appView, setAppView] = useState('');
