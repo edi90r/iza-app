@@ -283,38 +283,77 @@ export const renderFormCopy = (appView) => {
     }
 };
 
-export const setSpecificDataShape = (data, reverse = false) => {
-    const date = !reverse
-        ? data.dateOfBirth
-        : new Date(data.dateOfBirth.toDate()).toISOString().split('T')[0];
+export const setSpecificDataShape = (data, dataShape) => {
+    const date =
+        dataShape !== 'reverse'
+            ? data.dateOfBirth
+            : new Date(data.dateOfBirth.toDate()).toISOString().split('T')[0];
 
-    return !reverse
-        ? {
-              name: data.name,
-              lastname: data.lastname,
-              dateOfBirth: date,
-              personalIdentityNumber: data.personalIdentityNumber,
-              address: {
-                  city: data.city,
-                  street: data.street,
-                  houseNumber: data.houseNumber,
-                  apartmentNumber: `${data.apartmentNumber === '' ? 0 : data.apartmentNumber}` * 1,
-                  phoneNumber: data.phoneNumber,
-              },
-              describe: data.describe,
-          }
-        : {
-              name: data.name,
-              lastname: data.lastname,
-              dateOfBirth: date,
-              personalIdentityNumber: data.personalIdentityNumber,
-              city: data.address.city,
-              street: data.address.street,
-              houseNumber: data.address.houseNumber,
-              apartmentNumber: data.address.apartmentNumber,
-              phoneNumber: data.address.phoneNumber,
-              describe: data.describe,
-          };
+    let validDataShapes;
+    switch (dataShape) {
+        case 'newUser':
+            validDataShapes = {
+                credentials: {
+                    email: data.email,
+                    password: data.password,
+                },
+                user: {
+                    name: data.name,
+                    lastname: data.lastname,
+                    dateOfBirth: date,
+                    personalIdentityNumber: data.personalIdentityNumber,
+                    address: {
+                        city: data.city,
+                        street: data.street,
+                        houseNumber: data.houseNumber,
+                        apartmentNumber:
+                            `${data.apartmentNumber === '' ? 0 : data.apartmentNumber}` * 1,
+                        phoneNumber: data.phoneNumber,
+                    },
+                    describe: data.describe,
+                },
+            };
+            break;
+        case 'editUser':
+            validDataShapes = {
+                name: data.name,
+                lastname: data.lastname,
+                dateOfBirth: date,
+                personalIdentityNumber: data.personalIdentityNumber,
+                address: {
+                    city: data.city,
+                    street: data.street,
+                    houseNumber: data.houseNumber,
+                    apartmentNumber:
+                        `${data.apartmentNumber === '' ? 0 : data.apartmentNumber}` * 1,
+                    phoneNumber: data.phoneNumber,
+                },
+                describe: data.describe,
+            };
+            break;
+        case 'reverse':
+            validDataShapes = {
+                name: data.name,
+                lastname: data.lastname,
+                dateOfBirth: date,
+                personalIdentityNumber: data.personalIdentityNumber,
+                city: data.address.city,
+                street: data.address.street,
+                houseNumber: data.address.houseNumber,
+                apartmentNumber: data.address.apartmentNumber,
+                phoneNumber: data.address.phoneNumber,
+                describe: data.describe,
+            };
+            break;
+        default:
+            throw new Error(
+                `Invalid dataShape: ${dataShape}. Must be one of ${Object.keys(
+                    validDataShapes,
+                ).join(', ')}`,
+            );
+    }
+
+    return validDataShapes;
 };
 
 export const setUserMoodStylesClass = (rmdpDate, userCalendar) => {
