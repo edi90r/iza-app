@@ -223,9 +223,9 @@ export const deleteUser = async (userId) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            console.log(response);
+
             const data = await response.json();
-            console.log(data);
+            return data;
         }
     } catch (error) {
         console.error('Error deleting user', error);

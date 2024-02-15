@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLocation, matchPath } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../firebase';
 import {
     UserPersonalDataSchema,
     UserContactDataSchema,
@@ -13,28 +15,25 @@ import {
 export const useProvideAuth = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userRole, setUserRole] = useState(null);
+    const [error, setError] = useState(null);
+
     const auth = getAuth();
-    console.log(userRole);
-    const signIn = (email, password) => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorCode, errorMessage);
-            });
+
+    const signIn = async (email, password) => {
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+        } catch (error) {
+            setError({ message: 'Podany email lub hasło jest nieprawidłowy' });
+        }
     };
-    const handleSignOut = () => {
-        signOut(auth)
-            .then(() => {
-                setIsAuthenticated(false);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+
+    const handleSignOut = async () => {
+        try {
+            await signOut(auth);
+            setIsAuthenticated(false);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {
@@ -64,6 +63,8 @@ export const useProvideAuth = () => {
         userRole,
         signIn,
         handleSignOut,
+        error,
+        setError,
     };
 };
 
@@ -189,4 +190,57 @@ export const useScrollPosition = (ref) => {
     }, [ref]);
 
     return [scrollPosition, isScrolling];
+};
+
+export const useReportSubmitted = () => {
+    const [moodSubmitted, setMoodSubmitted] = useState(false);
+    const [isPossible, setIsPossible] = useState(true);
+    const auth = getAuth();
+    const uid = auth.currentUser?.uid;
+
+    useEffect(() => {
+        if (!uid) return;
+        const start = new Date();
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date();
+        end.setHours(23, 59, 59, 999);
+
+        let isMounted = true;
+
+        if (isMounted) {
+            const checkMoodIsSubmitted = async () => {
+                const moodReportsRef = collection(db, 'moodReports');
+                const moodReportsQuery = query(
+                    moodReportsRef,
+                    where('source.userId', '==', uid),
+                    where('timestamp', '>=', start),
+                    where('timestamp', '<=', end),
+                );
+                const docSnap = await getDocs(moodReportsQuery);
+
+                setMoodSubmitted(!docSnap.empty);
+            };
+
+            const checkUnresolvedRequests = async () => {
+                const contactRequestsRef = collection(db, 'contactRequests');
+                const contactRequestsQuery = query(
+                    contactRequestsRef,
+                    where('target.userId', '==', uid),
+                    where('resolve', '==', 'false'),
+                );
+                const docSnap = await getDocs(contactRequestsQuery);
+                setIsPossible(docSnap.empty);
+            };
+
+            checkMoodIsSubmitted();
+            checkUnresolvedRequests();
+        }
+
+        return () => {
+            isMounted = false;
+        };
+    }, [uid]);
+
+    return [moodSubmitted, setMoodSubmitted, isPossible, setIsPossible];
 };

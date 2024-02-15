@@ -1,18 +1,44 @@
 import { useRef } from 'react';
 import { useScrollPosition } from '../utils/hooks';
 import ActionIcon from '../common-components/ActionIcon/ActionIcon';
+import ActionButton from './components/Molecules/ActionButton/ActionButton';
+import { sendReport, sendContactRequestReport } from './controlers/user';
+import { useReportSubmitted } from '../utils/hooks';
 
 const PwaApp = () => {
     const containerRef = useRef(null);
     const moodsRef = useRef(null);
     const contactsRef = useRef(null);
-
+    const [moodSubmitted, setMoodSubmitted, isPossible, setIsPossible] = useReportSubmitted();
     const [scrollPosition, isScrolling] = useScrollPosition(containerRef);
 
     const handleClick = (ref) => {
         ref.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
+    const handleReport = async (action) => {
+        if (moodSubmitted) {
+            console.log('Wysłałeś już raport dzisiaj');
+            return;
+        }
+        const reported = await sendReport(action);
+        reported.status === 200 && setMoodSubmitted(true);
+    };
+
+    const handleContactRequest = async (action) => {
+        if (!moodSubmitted) {
+            console.log('Żeby wysłać prośbę kontaktu, musisz najpierw wysłać raport na dzisiaj');
+            return;
+        }
+        if (!isPossible) {
+            console.log(
+                'Nie możesz wysłać prośby kontaktu,dopóki poprzednia nie zostanie zakończona',
+            );
+            return;
+        }
+        const reported = await sendContactRequestReport(action);
+        reported.status === 200 && setIsPossible(false);
+    };
     return (
         <div
             className='pwa relative flex h-screen w-auto snap-x snap-mandatory overflow-x-scroll'
@@ -38,18 +64,36 @@ const PwaApp = () => {
                 className='m-0 flex h-full min-w-full shrink-0 snap-center items-center justify-around'
                 ref={moodsRef}
             >
-                <ActionIcon action='good' className='h-80 w-80' />
-                <ActionIcon action='average' className='h-80 w-80' />
-                <ActionIcon action='bad' className='h-80 w-80' />
+                <ActionButton className='h-80 w-80' onClick={() => handleReport('good')}>
+                    <ActionIcon action='good' className='h-full w-full' />
+                </ActionButton>
+                <ActionButton className='h-80 w-80' onClick={() => handleReport('average')}>
+                    <ActionIcon action='average' className='h-full w-full' />
+                </ActionButton>
+                <ActionButton className='h-80 w-80' onClick={() => handleReport('bad')}>
+                    <ActionIcon action='bad' className='h-full w-full' />
+                </ActionButton>
             </div>
 
             <div
                 className='bg-blue flex h-full min-w-full shrink-0 snap-center items-center justify-around'
                 ref={contactsRef}
             >
-                <ActionIcon action='careGiver' className='h-80 w-80' />
-                <ActionIcon action='doctor' className='h-80 w-80' />
-                <ActionIcon action='dietician' className='h-80 w-80' />
+                <ActionButton
+                    className='h-80 w-80'
+                    onClick={() => handleContactRequest('careGiver')}
+                >
+                    <ActionIcon action='careGiver' className='h-full w-full' />
+                </ActionButton>
+                <ActionButton className='h-80 w-80' onClick={() => handleContactRequest('doctor')}>
+                    <ActionIcon action='doctor' className='h-full w-full' />
+                </ActionButton>
+                <ActionButton
+                    className='h-80 w-80'
+                    onClick={() => handleContactRequest('dietician')}
+                >
+                    <ActionIcon action='dietician' className='h-full w-full' />
+                </ActionButton>
             </div>
 
             <div className='join fixed bottom-4 left-1/2 -translate-x-1/2'>
