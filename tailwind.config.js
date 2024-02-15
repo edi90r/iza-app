@@ -16,6 +16,10 @@ export default {
             crimson: '#D62620',
             amber: '#F5A700',
             jade: '#2E9F40',
+            slate: {
+                700: '#334155',
+                900: '#0f172a',
+            },
         },
         fontFamily: {
             montserrat: ['Montserrat', 'sans-serif'],
@@ -74,6 +78,7 @@ export default {
                 36: '9rem',
                 40: '10rem',
                 44: '11rem',
+                160: '40rem',
             },
             minHeight: {
                 7: '1.75rem',

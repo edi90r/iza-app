@@ -67,15 +67,21 @@ const UserDetails = () => {
     }, [pickedDate, calendar]);
 
     useEffect(() => {
-        const fetchUser = async () => {
-            const user = await getUserById(id, true);
-            if (!user) {
-                setIsLoading(true);
-            }
-            setUser(user);
-            setIsLoading(false);
+        let isMounted = true;
+        if (isMounted) {
+            const fetchUser = async () => {
+                const user = await getUserById(id, true);
+                if (!user) {
+                    setIsLoading(true);
+                }
+                setUser(user);
+                setIsLoading(false);
+            };
+            fetchUser();
+        }
+        return () => {
+            isMounted = false;
         };
-        fetchUser();
     }, [id]);
 
     return (

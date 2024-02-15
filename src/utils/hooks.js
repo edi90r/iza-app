@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useLocation, matchPath } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import { db } from '../firebase';
 import {
     UserPersonalDataSchema,
     UserContactDataSchema,
@@ -8,6 +11,62 @@ import {
     EditUserSchema,
     ContactRequestNoteSchema,
 } from './formValidation';
+
+export const useProvideAuth = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userRole, setUserRole] = useState(null);
+    const [error, setError] = useState(null);
+
+    const auth = getAuth();
+
+    const signIn = async (email, password) => {
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+        } catch (error) {
+            setError({ message: 'Podany email lub hasło jest nieprawidłowy' });
+        }
+    };
+
+    const handleSignOut = async () => {
+        try {
+            await signOut(auth);
+            setIsAuthenticated(false);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                try {
+                    const idTokenResult = await user.getIdTokenResult();
+                    const { role } = idTokenResult.claims;
+                    if (role) {
+                        setIsAuthenticated(true);
+                        setUserRole(role);
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            } else {
+                setIsAuthenticated(false);
+                setUserRole(null);
+            }
+        });
+
+        return () => unsubscribe();
+    }, [auth]);
+
+    return {
+        isAuthenticated,
+        userRole,
+        signIn,
+        handleSignOut,
+        error,
+        setError,
+    };
+};
 
 export const useAppView = () => {
     const [appView, setAppView] = useState('');
@@ -131,4 +190,57 @@ export const useScrollPosition = (ref) => {
     }, [ref]);
 
     return [scrollPosition, isScrolling];
+};
+
+export const useReportSubmitted = () => {
+    const [moodSubmitted, setMoodSubmitted] = useState(false);
+    const [isPossible, setIsPossible] = useState(true);
+    const auth = getAuth();
+    const uid = auth.currentUser?.uid;
+
+    useEffect(() => {
+        if (!uid) return;
+        const start = new Date();
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date();
+        end.setHours(23, 59, 59, 999);
+
+        let isMounted = true;
+
+        if (isMounted) {
+            const checkMoodIsSubmitted = async () => {
+                const moodReportsRef = collection(db, 'moodReports');
+                const moodReportsQuery = query(
+                    moodReportsRef,
+                    where('source.userId', '==', uid),
+                    where('timestamp', '>=', start),
+                    where('timestamp', '<=', end),
+                );
+                const docSnap = await getDocs(moodReportsQuery);
+
+                setMoodSubmitted(!docSnap.empty);
+            };
+
+            const checkUnresolvedRequests = async () => {
+                const contactRequestsRef = collection(db, 'contactRequests');
+                const contactRequestsQuery = query(
+                    contactRequestsRef,
+                    where('target.userId', '==', uid),
+                    where('resolve', '==', 'false'),
+                );
+                const docSnap = await getDocs(contactRequestsQuery);
+                setIsPossible(docSnap.empty);
+            };
+
+            checkMoodIsSubmitted();
+            checkUnresolvedRequests();
+        }
+
+        return () => {
+            isMounted = false;
+        };
+    }, [uid]);
+
+    return [moodSubmitted, setMoodSubmitted, isPossible, setIsPossible];
 };

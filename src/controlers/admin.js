@@ -4,20 +4,24 @@ import {
     where,
     query,
     Timestamp,
-    addDoc,
     getDoc,
     doc,
     updateDoc,
 } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 import { db } from '../firebase';
 import { aggregateUsersData } from '../utils/helpers';
+
+const devURL = (nameFunc) =>
+    `http://localhost:5001/quickstart-1550568083201/us-central1/${nameFunc}`;
+// const functionsURL = (nameFunc) =>
+//     `https://us-central1-quickstart-1550568083201.cloudfunctions.net/${nameFunc}`;
 
 /*** getUsersExcertp() - function to fetch users excerpt data from firebase,
      passed params are excerpt (boolean) and days (number) are required 
 ***/
 
 /***===GET=== ***/
-
 export const getUsersExcertp = async (excerpt = false, days) => {
     try {
         const timePeriod = new Date();
@@ -133,20 +137,34 @@ export const getDailyContactRequests = async (userId, date) => {
 };
 
 /***===POST=== ***/
-
-export const createUser = async (userData) => {
+export const createUser = async (newUser) => {
+    const auth = getAuth();
+    const admin = auth.currentUser;
     try {
-        const userRef = await addDoc(collection(db, 'users'), userData);
-        console.log('Document written with ID: ', userRef.id);
-        return { userId: userRef.id };
+        if (admin) {
+            const idToken = await admin.getIdToken(true);
+            const response = await fetch(devURL('createUser'), {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + idToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ newUser }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            return data;
+        }
     } catch (error) {
-        console.error('Error fetching users: ', error);
-        throw error;
+        console.error('Error creating user', error);
     }
 };
 
 /***===PUT=== ***/
-
 export const updateUser = async (userId, userData) => {
     try {
         const userRef = doc(db, 'users', userId);
@@ -183,5 +201,33 @@ export const updateStatus = async (contactRequestId, status) => {
     } catch (error) {
         console.error('Error updating contact request:', error);
         throw error;
+    }
+};
+
+/***===DELETE===***/
+export const deleteUser = async (userId) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    try {
+        if (user) {
+            const idToken = await user.getIdToken(true);
+            const response = await fetch(devURL('deleteUser'), {
+                method: 'DELETE',
+                headers: {
+                    Authorization: 'Bearer ' + idToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ uid: userId }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            return data;
+        }
+    } catch (error) {
+        console.error('Error deleting user', error);
     }
 };
