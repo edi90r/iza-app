@@ -1,9 +1,16 @@
 import propType from 'prop-types';
 import Button from '../../Atoms/Button/Button';
 import { useAppView } from '../../../../utils/hooks';
+import { useAuth } from '../../../../auth/useAuth';
+import { deleteUser } from '../../../../controlers/admin';
 
 const SidebarButtons = ({ id = '', handleMenuClick }) => {
     const [appView] = useAppView();
+    const { handleSignOut } = useAuth();
+
+    const singOut = () => {
+        handleSignOut();
+    };
 
     const renderButtons = () => {
         switch (appView) {
@@ -20,10 +27,10 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                             dodaj użytkownika
                         </Button>
                         <Button
-                            tag='link'
-                            path={'/'}
+                            type='submit'
                             variant='primary'
                             className='mt-4 w-full first:mt-0'
+                            onClick={singOut}
                         >
                             wyloguj
                         </Button>
@@ -86,12 +93,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                         >
                             edytuj użytkownika
                         </Button>
-                        <Button
-                            tag='link'
-                            path={`/admin`}
-                            className='mt-4 w-full first:mt-0'
-                            onClick={handleMenuClick}
-                        >
+                        <Button className='mt-4 w-full first:mt-0' onClick={() => deleteUser(id)}>
                             usuń użytkownika
                         </Button>
                     </>
