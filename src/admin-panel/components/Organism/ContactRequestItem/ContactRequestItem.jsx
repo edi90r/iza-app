@@ -56,16 +56,24 @@ const ContactRequestsItem = ({ details, index }) => {
     };
 
     useEffect(() => {
-        if (isSubmitSuccessful) {
+        let isMounted = true;
+        if (isSubmitSuccessful && isMounted) {
             reset();
             setRadioChecked(false);
         }
+        return () => {
+            isMounted = false;
+        };
     }, [isSubmitSuccessful, reset]);
 
     useEffect(() => {
-        if (radioChecked && updatedDetails.note) {
+        let isMounted = true;
+        if (radioChecked && updatedDetails.note && isMounted) {
             setValue('note', updatedDetails.note);
         }
+        return () => {
+            isMounted = false;
+        };
     }, [updatedDetails.note, setValue, radioChecked]);
 
     return (

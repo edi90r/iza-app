@@ -15,16 +15,22 @@ const Dashboard = () => {
     const stats = getUserStats(users);
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            const users = await getUsersExcertp(true, days);
-            if (!users) {
-                setIsLoading(true);
-            }
-            setUsers(users);
-            setIsLoading(false);
-        };
+        let isMounted = true;
+        if (isMounted) {
+            const fetchUsers = async () => {
+                const users = await getUsersExcertp(true, days);
+                if (!users) {
+                    setIsLoading(true);
+                }
+                setUsers(users);
+                setIsLoading(false);
+            };
 
-        fetchUsers();
+            fetchUsers();
+        }
+        return () => {
+            isMounted = false;
+        };
     }, [days]);
 
     return (

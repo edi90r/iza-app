@@ -17,11 +17,17 @@ const DayDetails = ({ dayDetails, pickedDate }) => {
         bad: 'zły',
     };
     useEffect(() => {
-        const fetchContactRequests = async () => {
-            const response = await getDailyContactRequests(id, pickedDate);
-            setContactRequestsRemote(response);
+        let isMounted = true;
+        if (isMounted) {
+            const fetchContactRequests = async () => {
+                const response = await getDailyContactRequests(id, pickedDate);
+                setContactRequestsRemote(response);
+            };
+            fetchContactRequests();
+        }
+        return () => {
+            isMounted = false;
         };
-        fetchContactRequests();
     }, [pickedDate, id]);
 
     return (

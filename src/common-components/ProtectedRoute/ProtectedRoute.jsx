@@ -8,10 +8,15 @@ export const ProtectedRoute = ({ role }) => {
     const { isAuthenticated, userRole } = useAuth();
 
     useEffect(() => {
-        if (!isAuthenticated || userRole !== role) {
+        let isMounted = true;
+
+        if ((!isAuthenticated || userRole !== role) && isMounted) {
             navigate('/login');
             return;
         }
+        return () => {
+            isMounted = false;
+        };
     }, [isAuthenticated, navigate, userRole, role]);
 
     return <Outlet />;

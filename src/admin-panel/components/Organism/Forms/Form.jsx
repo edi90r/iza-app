@@ -21,13 +21,13 @@ const Form = () => {
         'w-full h-full max-w-64 overflow-y-auto px-2 col-start-1 col-span-2 md:col-span-1 row-start-2 place-self-center [&>label]:pt-0',
     );
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         if (appView === 'addUserSummary') {
-            const user = setSpecificDataShape(data);
-            createUser(user);
-            navigate('/admin');
+            const user = setSpecificDataShape(data, 'newUser');
+            const newUser = await createUser(user);
+            newUser && navigate('/admin');
         } else if (appView === 'editUser') {
-            const user = setSpecificDataShape(data);
+            const user = setSpecificDataShape(data, 'editUser');
             updateUser(id, user);
             navigate('/admin');
         } else if (appView === 'editUserCredentials') {
@@ -39,6 +39,7 @@ const Form = () => {
     };
 
     useEffect(() => {
+        let isMounted = true;
         const fields = [
             'name',
             'lastname',
@@ -52,27 +53,34 @@ const Form = () => {
             'email',
             'describe',
         ];
-
-        const populateUserFields = async () => {
-            if (appView === 'editUser') {
-                const user = await getUserById(id);
-                if (!user) return;
-
-                const userShape = setSpecificDataShape(user, true);
-
-                for (const field of fields) {
-                    setValue(field, userShape[field]);
+        if (isMounted) {
+            const populateUserFields = async () => {
+                if (appView === 'editUser') {
+                    const user = await getUserById(id);
+                    if (!user) return;
+                    const userShape = setSpecificDataShape(user, 'reverse');
+                    for (const field of fields) {
+                        setValue(field, userShape[field]);
+                    }
                 }
-            }
-        };
+            };
 
-        populateUserFields();
+            populateUserFields();
+        }
+        return () => {
+            isMounted = false;
+        };
     }, [appView, id, setValue]);
 
     useEffect(() => {
-        if (isSubmitSuccessful) {
+        let isMounted = true;
+
+        if (isSubmitSuccessful && isMounted) {
             reset();
         }
+        return () => {
+            isMounted = false;
+        };
     }, [isSubmitSuccessful, reset]);
 
     return (

@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
     const [userType, seUserType] = useState(null);
     const navigate = useNavigate();
-    const { signIn, isAuthenticated, userRole } = useAuth();
+    const { signIn, isAuthenticated, userRole, error, setError } = useAuth();
     const [user, setUser] = useState({
         name: '',
         email: '',
@@ -29,14 +29,30 @@ const Login = () => {
     };
 
     useEffect(() => {
-        if (isAuthenticated && userRole === 'admin' && userType === 'admin') {
-            navigate('/admin');
-            return;
-        } else if (isAuthenticated && userRole === 'user' && userType === 'user') {
-            navigate('/pwa');
-            return;
+        let isMounted = true;
+        if (isMounted) {
+            if (isAuthenticated && userRole === 'admin') {
+                if (userRole !== userType) {
+                    setError({
+                        message: 'Nie możesz zalogować się do aplikacji jako administrator',
+                    });
+                    return;
+                }
+                navigate('/admin');
+                return;
+            } else if (isAuthenticated && userRole === 'user') {
+                if (userRole !== userType) {
+                    setError({ message: 'Nie masz uprawnień do panelu administratora' });
+                    return;
+                }
+                navigate('/pwa');
+                return;
+            }
         }
-    }, [isAuthenticated, navigate, userType, userRole]);
+        return () => {
+            isMounted = false;
+        };
+    }, [isAuthenticated, navigate, userType, userRole, setError]);
 
     return (
         <div className=' flex h-screen w-full items-center justify-center bg-gradient-to-r from-slate-900 to-slate-700'>
@@ -78,6 +94,7 @@ const Login = () => {
                                 required
                                 className={{ container: 'w-full' }}
                                 onChange={(e) => handleUserChange(e)}
+                                error={error}
                             />
                             <FormInput
                                 label='Hasło'
