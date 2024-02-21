@@ -1,15 +1,27 @@
 import propType from 'prop-types';
 import Button from '../../Atoms/Button/Button';
 import { useAppView } from '../../../../utils/hooks';
+import { useStore } from '../../../store/useStore';
 import { useAuth } from '../../../../auth/useAuth';
-import { deleteUser } from '../../../../controlers/admin';
 
-const SidebarButtons = ({ id = '', handleMenuClick }) => {
-    const [appView] = useAppView();
+const SidebarButtons = ({ id = '', handleClickMenu }) => {
     const { handleSignOut } = useAuth();
+    const [appView] = useAppView();
+    const { handleOpenModal } = useStore();
 
     const singOut = () => {
         handleSignOut();
+    };
+
+    const handleDeleteUser = () => {
+        handleOpenModal(
+            'delete',
+            {
+                title: 'Usuwanie użytkownika',
+                message: 'Czy na pewno chcesz usunąć użytkownika?',
+            },
+            true,
+        );
     };
 
     const renderButtons = () => {
@@ -22,7 +34,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                             path={'/admin/add-user/personal-data'}
                             variant='primary'
                             className='mt-4 w-full first:mt-0'
-                            onClick={handleMenuClick}
+                            onClick={handleClickMenu}
                         >
                             dodaj użytkownika
                         </Button>
@@ -46,7 +58,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                         tag='link'
                         path={'/admin'}
                         className='mt-4 w-full first:mt-0'
-                        onClick={handleMenuClick}
+                        onClick={handleClickMenu}
                     >
                         dashboard
                     </Button>
@@ -58,7 +70,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                             tag='link'
                             path={'/admin'}
                             className='mt-4 w-full first:mt-0'
-                            onClick={handleMenuClick}
+                            onClick={handleClickMenu}
                         >
                             dashboard
                         </Button>
@@ -67,7 +79,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                             path={`/admin/user-details/${id}/edit-credentials`}
                             variant='primary'
                             className='mt-4 w-full first:mt-0'
-                            onClick={handleMenuClick}
+                            onClick={handleClickMenu}
                         >
                             Zmień hasło
                         </Button>
@@ -81,7 +93,7 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                             tag='link'
                             path={'/admin'}
                             className='mt-4 w-full first:mt-0'
-                            onClick={handleMenuClick}
+                            onClick={handleClickMenu}
                         >
                             dashboard
                         </Button>
@@ -89,11 +101,14 @@ const SidebarButtons = ({ id = '', handleMenuClick }) => {
                             tag='link'
                             path={`/admin/user-details/${id}/edit`}
                             className='mt-4 w-full first:mt-0'
-                            onClick={handleMenuClick}
+                            onClick={handleClickMenu}
                         >
                             edytuj użytkownika
                         </Button>
-                        <Button className='mt-4 w-full first:mt-0' onClick={() => deleteUser(id)}>
+                        <Button
+                            className='mt-4 w-full first:mt-0'
+                            onClick={() => handleDeleteUser(id)}
+                        >
                             usuń użytkownika
                         </Button>
                     </>

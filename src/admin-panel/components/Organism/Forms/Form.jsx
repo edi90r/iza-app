@@ -1,21 +1,22 @@
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { useAppView } from '../../../../utils/hooks';
-import { setSpecificDataShape } from '../../../../utils/helpers';
-import { createUser, getUserById, updateUser } from '../../../../controlers/admin';
+import { setSpecificDataShape, isObjectEmpty } from '../../../../utils/helpers';
+import { getUserById } from '../../../../controlers/admin';
+import { useStore } from '../../../store/useStore';
 import { twMerge } from 'tailwind-merge';
 
 const Form = () => {
     const { id } = useParams();
     const [appView] = useAppView();
-    const navigate = useNavigate();
     const {
         handleSubmit,
         reset,
         formState: { isSubmitSuccessful },
         setValue,
     } = useFormContext();
+    const { handleOpenModal, setNewUser, newUser } = useStore();
 
     const classes = twMerge(
         'w-full h-full max-w-64 overflow-y-auto px-2 col-start-1 col-span-2 md:col-span-1 row-start-2 place-self-center [&>label]:pt-0',
@@ -23,18 +24,25 @@ const Form = () => {
 
     const onSubmit = async (data) => {
         if (appView === 'addUserSummary') {
-            const user = setSpecificDataShape(data, 'newUser');
-            const newUser = await createUser(user);
-            newUser && navigate('/admin');
+            setNewUser(data);
+            handleOpenModal(
+                'addUser',
+                {
+                    title: 'Dodawanie użytkownika',
+                    message: 'Czy na pewno chcesz dodać użytkownika?',
+                },
+                true,
+            );
         } else if (appView === 'editUser') {
-            const user = setSpecificDataShape(data, 'editUser');
-            updateUser(id, user);
-            navigate('/admin');
-        } else if (appView === 'editUserCredentials') {
-            console.log('edit email&password');
-            navigate('/admin');
-        } else {
-            return;
+            setNewUser(data);
+            handleOpenModal(
+                'editUser',
+                {
+                    title: 'Edytowanie użytkownika',
+                    message: 'Czy na pewno chcesz edytować użytkownika?',
+                },
+                true,
+            );
         }
     };
 
@@ -75,13 +83,13 @@ const Form = () => {
     useEffect(() => {
         let isMounted = true;
 
-        if (isSubmitSuccessful && isMounted) {
+        if (isSubmitSuccessful && isObjectEmpty(newUser) && isMounted) {
             reset();
         }
         return () => {
             isMounted = false;
         };
-    }, [isSubmitSuccessful, reset]);
+    }, [isSubmitSuccessful, reset, newUser]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={classes}>

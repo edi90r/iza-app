@@ -47,12 +47,14 @@ const Login = () => {
                 }
                 navigate('/pwa');
                 return;
+            } else {
+                setError(null);
             }
         }
         return () => {
             isMounted = false;
         };
-    }, [isAuthenticated, navigate, userType, userRole, setError]);
+    }, [isAuthenticated, navigate, userType, userRole, setError, user]);
 
     return (
         <div className=' flex h-screen w-full items-center justify-center bg-gradient-to-r from-slate-900 to-slate-700'>
@@ -62,7 +64,7 @@ const Login = () => {
                     <h2 className='font-hind font-700'>Wybierz jako kto chcesz się zalogować</h2>
                     <div className='my-8 flex w-full flex-col lg:flex-row'>
                         <div
-                            className={`card grid h-32 flex-1 flex-grow place-items-center rounded-box border hover:cursor-pointer  hover:bg-base-300 hover:shadow-lg ${
+                            className={`card grid h-32 flex-1 flex-grow place-items-center rounded-box border font-700 hover:cursor-pointer  hover:bg-base-300 hover:shadow-lg ${
                                 userType === 'admin' ? 'bg-base-300' : 'bg-pureWhite'
                             }`}
                             data-type='admin'
@@ -72,7 +74,7 @@ const Login = () => {
                         </div>
                         <div className='divider lg:divider-horizontal'>lub</div>
                         <div
-                            className={`card grid h-32 flex-1 flex-grow place-items-center rounded-box border hover:cursor-pointer hover:bg-base-300 hover:shadow-lg ${
+                            className={`card grid h-32 flex-1 flex-grow place-items-center rounded-box border font-700 hover:cursor-pointer hover:bg-base-300 hover:shadow-lg ${
                                 userType === 'user' ? 'bg-base-300' : 'bg-pureWhite'
                             }`}
                             data-type='user'
@@ -105,7 +107,7 @@ const Login = () => {
                                 required
                                 onChange={(e) => handleUserChange(e)}
                             />
-                            <Link to={'/admin'} className='self-end pt-2'>
+                            <Link to={'/forgot-password'} className='self-end pt-2'>
                                 Nie pamiętam hasła
                             </Link>
 

@@ -1,19 +1,23 @@
 import { useState, useRef } from 'react';
+import { useStore } from './store/useStore';
 import { Outlet } from 'react-router-dom';
 import BurgerButton from './components/Atoms/BurgerButton/BurgerButton';
 import Breadcrumbs from './components/Molecules/Breadcrumbs/Breadcrumbs';
 import Sidebar from './components/Organism/Sidebar/Sidebar';
 import DateBadge from './components/Molecules/DateBadge/DateBadge.';
+import Modal from '../common-components/Modal/Modal';
 
 const AdminPanel = () => {
     const [sideBarActive, setsideBarActive] = useState(false);
+    const { modalState } = useStore();
+
     const handleChange = () => {
         setsideBarActive(!sideBarActive);
     };
 
     const drawerRef = useRef(null);
 
-    const handleMenuClick = () => {
+    const handleClickMenu = () => {
         if (typeof drawerRef.current === 'undefined') return;
         setsideBarActive(!sideBarActive);
         drawerRef.current.click();
@@ -39,8 +43,9 @@ const AdminPanel = () => {
 
             <Sidebar
                 handleChange={() => handleChange()}
-                handleMenuClick={() => handleMenuClick()}
+                handleClickMenu={() => handleClickMenu()}
             />
+            {modalState.showModal && <Modal />}
         </div>
     );
 };
