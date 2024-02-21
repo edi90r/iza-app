@@ -14,8 +14,9 @@ import { aggregateUsersData } from '../utils/helpers';
 
 const devURL = (nameFunc) =>
     `http://localhost:5001/quickstart-1550568083201/us-central1/${nameFunc}`;
-// const functionsURL = (nameFunc) =>
-//     `https://us-central1-quickstart-1550568083201.cloudfunctions.net/${nameFunc}`;
+
+const functionsURL = (nameFunc) =>
+    `https://us-central1-quickstart-1550568083201.cloudfunctions.net/${nameFunc}`;
 
 /*** getUsersExcertp() - function to fetch users excerpt data from firebase,
      passed params are excerpt (boolean) and days (number) are required 
@@ -153,7 +154,8 @@ export const createUser = async (newUser) => {
             });
 
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                new Error(`Error: ${response.status} ${response.statusText}`);
+                return response;
             }
 
             const data = await response.json();
@@ -169,7 +171,17 @@ export const updateUser = async (userId, userData) => {
     try {
         const userRef = doc(db, 'users', userId);
         await updateDoc(userRef, userData);
-        console.log('Document updated with ID: ', userRef.id);
+
+        const updatedDoc = await getDoc(userRef);
+        if (updatedDoc.exists()) {
+            const response = {
+                status: 200,
+                statusText: 'User updated',
+            };
+
+            console.log(response.statusText);
+            return response;
+        }
     } catch (error) {
         console.error('Error updating user:', error);
         throw error;
@@ -211,7 +223,7 @@ export const deleteUser = async (userId) => {
     try {
         if (user) {
             const idToken = await user.getIdToken(true);
-            const response = await fetch(devURL('deleteUser'), {
+            const response = await fetch(functionsURL('deleteUser'), {
                 method: 'DELETE',
                 headers: {
                     Authorization: 'Bearer ' + idToken,
@@ -225,6 +237,7 @@ export const deleteUser = async (userId) => {
             }
 
             const data = await response.json();
+            console.log(data);
             return data;
         }
     } catch (error) {

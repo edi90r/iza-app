@@ -8,17 +8,22 @@ const Button = ({
     path,
     children,
     className = '',
+    outline = false,
     ...rest
 }) => {
     const buttonVariants = {
         primary: 'btn-primary',
         success: 'btn-success',
-        danger: 'btn-danger',
+        error: 'btn-error',
         warning: 'btn-warning',
         disabled: 'btn-disabled',
     };
 
-    const classes = twMerge(`btn ${buttonVariants[variant]} text-pureWhite min-w-40 ${className}`);
+    const classes = twMerge(
+        `btn ${outline && 'btn-outline'} ${
+            buttonVariants[variant]
+        } text-pureWhite min-w-40 ${className}`,
+    );
 
     return tag === 'button' ? (
         <button className={classes} {...rest}>
@@ -32,7 +37,8 @@ const Button = ({
 };
 
 Button.propTypes = {
-    variant: propTypes.oneOf(['primary', 'success', 'danger', 'warning', 'disabled']),
+    variant: propTypes.oneOf(['primary', 'success', 'danger', 'error', 'disabled']),
+    outline: propTypes.bool,
     tag: propTypes.oneOf(['button', 'link']),
     path: propTypes.string,
     children: propTypes.node.isRequired,

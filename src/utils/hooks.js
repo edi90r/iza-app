@@ -31,6 +31,8 @@ export const useProvideAuth = () => {
         try {
             await signOut(auth);
             setIsAuthenticated(false);
+            setUserRole(null);
+            setError(null);
         } catch (error) {
             console.log(error);
         }

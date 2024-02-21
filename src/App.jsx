@@ -25,6 +25,14 @@ const router = createBrowserRouter(
         <>
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<Login />} />
+            <Route
+                path='/forgot-password'
+                element={
+                    <div>
+                        Reset hasła: <a href='/'>Powrót do strony głównej</a>
+                    </div>
+                }
+            />
             <Route element={<ProtectedRoute role='admin' />}>
                 <Route path='admin' element={<AdminPanel />}>
                     <Route element={<Dashboard />} index />
