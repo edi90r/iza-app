@@ -7,7 +7,7 @@ import { useAuth } from '../../auth/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-    const [userType, seUserType] = useState(null);
+    const [userType, setUserType] = useState(null);
     const navigate = useNavigate();
     const { signIn, isAuthenticated, userRole, error, setError } = useAuth();
     const [user, setUser] = useState({
@@ -16,7 +16,7 @@ const Login = () => {
     });
 
     const handleSetTypeOfUser = (e) => {
-        seUserType(e.currentTarget.dataset.type);
+        setUserType(e.currentTarget.dataset.type);
     };
     const handleUserChange = (event) => {
         const { name, value } = event.currentTarget;
@@ -25,6 +25,9 @@ const Login = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        if (!user.email || !user.password) {
+            return setError({ message: 'Email i hasło są wymagane aby się zalogować' });
+        }
         signIn(user.email, user.password);
     };
 
