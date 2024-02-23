@@ -1,6 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useLocation, matchPath } from 'react-router-dom';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    signOut,
+    sendPasswordResetEmail,
+    confirmPasswordReset,
+} from 'firebase/auth';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import {
@@ -38,6 +44,15 @@ export const useProvideAuth = () => {
         }
     };
 
+    const passwordReset = async (email) => {
+        return await sendPasswordResetEmail(auth, email);
+    };
+
+    const confirmThePasswordReset = async (oobCode, newPassword) => {
+        if (!oobCode || !newPassword) return;
+        return await confirmPasswordReset(auth, oobCode, newPassword);
+    };
+
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
             if (user) {
@@ -67,6 +82,8 @@ export const useProvideAuth = () => {
         handleSignOut,
         error,
         setError,
+        passwordReset,
+        confirmThePasswordReset,
     };
 };
 
@@ -108,6 +125,18 @@ export const useAppView = () => {
             {
                 pattern: '/admin/user-details/:id/edit-credentials',
                 view: 'editUserCredentials',
+            },
+            {
+                pattern: '/login',
+                view: 'login',
+            },
+            {
+                pattern: '/forget-password',
+                view: 'forgetPassword',
+            },
+            {
+                pattern: '/confirm-reset-password',
+                view: 'confirmResetPassword',
             },
         ];
 
