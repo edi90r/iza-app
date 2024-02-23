@@ -18,21 +18,17 @@ import UserRegisterForm from './admin-panel/components/Organism/Forms/UserRegist
 import SummaryForm from './admin-panel/components/Organism/Forms/SummaryForm';
 import EditUserForm from './admin-panel/components/Organism/Forms/EditUserForm';
 import ProtectedRoute from './common-components/ProtectedRoute/ProtectedRoute';
-import Login from './common-components/Login/Login';
+import Login from './common-components/Views/Login';
+import ForgetPassword from './common-components/AuthActions/ForgetPassword';
+import AuthActions from './common-components/AuthActions/AuthActions';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route path='/' element={<LandingPage />} />
             <Route path='/login' element={<Login />} />
-            <Route
-                path='/forgot-password'
-                element={
-                    <div>
-                        Reset hasła: <a href='/'>Powrót do strony głównej</a>
-                    </div>
-                }
-            />
+            <Route path='/forget-password' element={<ForgetPassword />} />
+            <Route path='/auth/action' element={<AuthActions />} />
             <Route element={<ProtectedRoute role='admin' />}>
                 <Route path='admin' element={<AdminPanel />}>
                     <Route element={<Dashboard />} index />
