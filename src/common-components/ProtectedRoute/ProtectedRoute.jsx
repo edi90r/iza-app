@@ -18,7 +18,7 @@ export const ProtectedRoute = ({ role }) => {
             navigate('/login');
             return;
         }
-
+        setIsLoading(false);
         return () => {
             isMounted = false;
         };
