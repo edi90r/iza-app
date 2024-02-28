@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../../auth/useAuth';
-import Logo from '../../admin-panel/components/Atoms/Logo/Logo';
+import Logo from '../../common-components/Logo/Logo';
 import FormInput from '../../admin-panel/components/Molecules/FormInput/FormInput';
 import Button from '../../admin-panel/components/Atoms/Button/Button';
 

@@ -1,7 +1,7 @@
 import propTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import SidebarButtons from '../../Molecules/SidebarButtons/SidebarButtons';
-import Logo from '../../Atoms/Logo/Logo';
+import Logo from '../../../../common-components/Logo/Logo';
 import AdminCard from '../../Molecules/AdminCard/AdminCard';
 
 const Sidebar = ({ handleChange, handleClickMenu }) => {

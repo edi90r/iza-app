@@ -17,6 +17,7 @@ export default {
             amber: '#F5A700',
             jade: '#2E9F40',
             slate: {
+                400: '#718096',
                 700: '#334155',
                 900: '#0f172a',
             },
@@ -84,6 +85,9 @@ export default {
                 7: '1.75rem',
             },
         },
+        backgroundImage: {
+            'hero-pattern': "url('/src/assets/images/hero_pattern.png')",
+        },
     },
 
     plugins: [require('daisyui')],
@@ -106,25 +110,13 @@ export default {
                     success: '#2E9F40',
                 },
             },
-        ], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
-        darkTheme: 'dark', // name of one of the included themes for dark mode
-        base: true, // applies background color and foreground color for root element by default
-        styled: true, // include daisyUI colors and design decisions for all components
-        utils: true, // adds responsive and modifier utility classes
-        prefix: '', // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
-        logs: false, // Shows info about daisyUI version and used config in the console when building your CSS
-        themeRoot: ':root', // The element that receives theme color CSS variables
+        ],
+        darkTheme: 'dark',
+        base: true,
+        styled: true,
+        utils: true,
+        prefix: '',
+        logs: false,
+        themeRoot: ':root',
     },
 };
-/*
- daisyui: {
-        themes: ['light'], // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
-        darkTheme: 'dark', // name of one of the included themes for dark mode
-        base: false, // applies background color and foreground color for root element by default
-        styled: false, // include daisyUI colors and design decisions for all components
-        utils: true, // adds responsive and modifier utility classes
-        prefix: '', // prefix for daisyUI classnames (components, modifiers and responsive class names. Not colors)
-        logs: false, // Shows info about daisyUI version and used config in the console when building your CSS
-        themeRoot: ':root', // The element that receives theme color CSS variables
-    },
-*/
