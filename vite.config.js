@@ -52,22 +52,7 @@ export default defineConfig(({ mode }) => {
                     ],
                     theme_color: '#000000',
                     form_factor: 'tablet',
-                    screenshots: [
-                        {
-                            src: 'screenshot1.png',
-                            type: 'image/png',
-                            sizes: '1024x768',
-                            form_factor: 'wide',
-                            platform: 'web',
-                        },
-                        {
-                            src: 'screenshot2.png',
-                            type: 'image/png',
-                            sizes: '640x480',
-                            form_factor: 'narrow',
-                            platform: 'web',
-                        },
-                    ],
+
                 },
             }),
         ],
