@@ -54,6 +54,7 @@ export default {
                 180: '45rem',
             },
             maxHeight: {
+                80: '20rem',
                 112: '28rem',
             },
             minWidth: {
