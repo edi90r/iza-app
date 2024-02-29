@@ -26,14 +26,12 @@ export default defineConfig(({ mode }) => {
                 registerType: 'autoUpdate',
                 includeAssets: ['logo192.png', 'logo512.png'],
                 manifest: {
-                    id: '/pwa',
                     name: 'IZA-Innowacyjny Zdalny Asystent',
                     short_name: 'IZA',
-                    start_url: '/pwa',
+                    start_url: '/',
                     display: 'standalone',
                     background_color: '#ffffff',
                     lang: 'pl',
-                    scope: '/pwa',
                     icons: [
                         {
                             src: 'logo192.png',

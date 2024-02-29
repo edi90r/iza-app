@@ -1,81 +1,8 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-@import './assets/style/Calendar.css';
 @import 'tailwindcss/utilities';
 
-@layer base {
-    :root {
-        --top-bar-height: 10vh;
-        --content-height: 90vh;
-        --content-top-section-height: 80px;
-        --card-heading-height: 90px;
-    }
-}
-
-/* ===Custom Classes=== */
-
-.top-bar-height {
-    height: var(--top-bar-height);
-}
-.content-height {
-    height: var(--content-height);
-}
-.content-bottom-section-height {
-    height: calc(100% - var(--content-top-section-height));
-}
-.card-content-height {
-    height: calc(100% - var(--card-heading-height));
-}
-
-@media (min-width: 1024px) {
-    .lg\:content-height {
-        height: var(--content-height);
-    }
-}
-
-/* ===Custom toggle element=== */
-.toggle-custom {
-    height: 1.25rem;
-    --handleoffset: 1.7rem;
-}
-
-/* ===Custom collapse element=== */
-input[class^='collapse-radio']:not(:checked):hover ~ li {
-    background: rgba(128, 128, 128, 0.5);
-}
-
-.collapse:not(.collapse-close) > :where(input[type='radio']:checked ~ .collapse-content) {
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-
-.collapse.collapse-arrow > div {
-    border-bottom-left-radius: inherit;
-    border-bottom-right-radius: inherit;
-}
-
 /* ===Custom Scrollbar=== */
-
-/* width */
-::-webkit-scrollbar {
-    width: 5px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: theme(colors[neutral-400]);
-    border-radius: 5px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: theme(colors[darkBlue]);
-}
 
 .pwa::-webkit-scrollbar {
     display: none;
