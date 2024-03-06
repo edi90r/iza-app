@@ -15,7 +15,7 @@ import AuthActions from './authActions/AuthActions';
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
-            <Route element={<ProtectedRoute />}>
+            <Route element={<ProtectedRoute role='user' />}>
                 <Route path='/' element={<PwaApp />} index />
                 <Route path='/login' element={<Login />} />
                 <Route path='/forget-password' element={<ForgetPassword />} />

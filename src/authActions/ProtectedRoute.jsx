@@ -5,16 +5,19 @@ import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Loader from '../components/atoms/loader/Loader';
 
-export const ProtectedRoute = () => {
+export const ProtectedRoute = ({ role }) => {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
-    const { isAuthenticated, userRole } = useAuth();
+    const { isAuthenticated, userRole, setError } = useAuth();
 
     useEffect(() => {
         let isMounted = true;
 
-        if (!isAuthenticated && isMounted) {
+        if ((!isAuthenticated || userRole !== role) && isMounted) {
             setIsLoading(false);
+            setError({
+                message: 'Brak dostępu - Nie możesz zalogować się do aplikacji jako administrator',
+            });
             navigate('/login');
             return;
         }
@@ -23,7 +26,7 @@ export const ProtectedRoute = () => {
         return () => {
             isMounted = false;
         };
-    }, [isAuthenticated, navigate, userRole, isLoading]);
+    }, [isAuthenticated, navigate, userRole, isLoading, role, setError]);
 
     return isLoading ? (
         <div className='fixed inset-0'>
